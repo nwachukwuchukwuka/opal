@@ -7,7 +7,7 @@ import { DifficultyLevel, DifficultySelectorProps } from "../types";
 
 const DifficultySelector = forwardRef<BottomSheetModal, DifficultySelectorProps>(
   ({ selectedDifficulty, onSelect, onClose }, ref) => {
-    const snapPoints = useMemo(() => ["45%"], []);
+    const snapPoints = useMemo(() => ["50%"], []);
 
     const renderBackdrop = useCallback(
       (props: any) => (
@@ -35,6 +35,7 @@ const DifficultySelector = forwardRef<BottomSheetModal, DifficultySelectorProps>
         backdropComponent={renderBackdrop}
         backgroundStyle={{ backgroundColor: "#18181b" }}
         handleIndicatorStyle={{ backgroundColor: "#52525b" }}
+        enableDynamicSizing={false}
       >
         <BottomSheetView className="flex-1 px-5">
           {/* Title */}

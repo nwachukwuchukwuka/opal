@@ -2,9 +2,8 @@ import { router } from "expo-router";
 import React from "react";
 import {
   Pressable,
-  StatusBar,
   Text,
-  View,
+  View
 } from "react-native";
 
 export default function FocusIntroScreen() {
@@ -15,12 +14,10 @@ export default function FocusIntroScreen() {
 
   return (
     <View className="flex-1 bg-black pt-14">
-      <StatusBar barStyle="light-content" />
-
       {/* Content */}
       <View className="flex-1 items-center justify-center px-8">
-        <Text className="text-white text-[28px] font-bold text-center leading-10">
-          Now, let's look at how{"\n"}Opal can help you focus{"\n"}better and find your flow{"\n"}today.
+        <Text className="text-white text-[20px] font-bold text-center leading-10">
+          Now, let's look at how Opal can help you focus better and find your flow today.
         </Text>
       </View>
 

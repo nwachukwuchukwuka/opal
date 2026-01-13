@@ -1,10 +1,16 @@
 import { Ionicons } from "@expo/vector-icons";
 import {
-    BottomSheetBackdrop,
-    BottomSheetModal,
-    BottomSheetView,
+  BottomSheetBackdrop,
+  BottomSheetModal,
+  BottomSheetView,
 } from "@gorhom/bottom-sheet";
-import React, { forwardRef, useCallback, useMemo, useRef, useState } from "react";
+import React, {
+  forwardRef,
+  useCallback,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import { Pressable, Text, TextInput, View } from "react-native";
 import TimeLimitSheet, { TimeLimitSheetRef } from "./Timelimitsheet";
 
@@ -42,18 +48,28 @@ const SettingRow = ({ label, value, onPress }: SettingRowProps) => (
   </Pressable>
 );
 
-const formatTimeLimit = (hours: number, minutes: number, days: number[]): string => {
+const formatTimeLimit = (
+  hours: number,
+  minutes: number,
+  days: number[]
+): string => {
   const timePart = hours > 0 ? `${hours}h` : `${minutes}m`;
   const dayNames = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-  
+
   if (days.length === 7) {
     return `${timePart} • Every day`;
-  } else if (days.length === 5 && [1, 2, 3, 4, 5].every(d => days.includes(d))) {
+  } else if (
+    days.length === 5 &&
+    [1, 2, 3, 4, 5].every((d) => days.includes(d))
+  ) {
     return `${timePart} • Weekdays`;
-  } else if (days.length === 2 && [0, 6].every(d => days.includes(d))) {
+  } else if (days.length === 2 && [0, 6].every((d) => days.includes(d))) {
     return `${timePart} • Weekends`;
   } else {
-    const dayLabels = days.sort().map(d => dayNames[d].charAt(0)).join("");
+    const dayLabels = days
+      .sort()
+      .map((d) => dayNames[d].charAt(0))
+      .join("");
     return `${timePart} • ${dayLabels}`;
   }
 };
@@ -61,13 +77,17 @@ const formatTimeLimit = (hours: number, minutes: number, days: number[]): string
 const AppLimitSheet = forwardRef<AppLimitSheetRef, AppLimitSheetProps>(
   ({ onSave }, ref) => {
     const [name, setName] = useState("My App Limit");
-    const [timeLimit, setTimeLimit] = useState({ hours: 1, minutes: 0, days: [1, 2, 3, 4, 5] });
+    const [timeLimit, setTimeLimit] = useState({
+      hours: 1,
+      minutes: 0,
+      days: [1, 2, 3, 4, 5],
+    });
     const [selectedApps, setSelectedApps] = useState<string[]>([]);
     const [blockUntil, setBlockUntil] = useState("Until tomorrow");
     const [difficulty, setDifficulty] = useState("Normal");
 
     const timeLimitSheetRef = useRef<TimeLimitSheetRef>(null);
-    const snapPoints = useMemo(() => ["60%"], []);
+    const snapPoints = useMemo(() => ["70%"], []);
 
     const renderBackdrop = useCallback(
       (props: any) => (
@@ -81,7 +101,11 @@ const AppLimitSheet = forwardRef<AppLimitSheetRef, AppLimitSheetProps>(
       []
     );
 
-    const handleTimeLimitDone = (hours: number, minutes: number, days: number[]) => {
+    const handleTimeLimitDone = (
+      hours: number,
+      minutes: number,
+      days: number[]
+    ) => {
       setTimeLimit({ hours, minutes, days });
       timeLimitSheetRef.current?.dismiss();
     };
@@ -104,6 +128,7 @@ const AppLimitSheet = forwardRef<AppLimitSheetRef, AppLimitSheetProps>(
           backgroundStyle={{ backgroundColor: "#18181b" }}
           handleIndicatorStyle={{ backgroundColor: "#52525b" }}
           backdropComponent={renderBackdrop}
+          enableDynamicSizing={false}
         >
           <BottomSheetView className="flex-1 px-5">
             {/* Title with Edit Icon */}
@@ -119,7 +144,8 @@ const AppLimitSheet = forwardRef<AppLimitSheetRef, AppLimitSheetProps>(
 
             {/* Description */}
             <Text className="text-zinc-400 text-sm mb-6">
-              Set a daily time limit for an app. After reaching the limit, the app will be blocked.
+              Set a daily time limit for an app. After reaching the limit, the
+              app will be blocked.
             </Text>
 
             {/* When I... Section */}
@@ -127,7 +153,11 @@ const AppLimitSheet = forwardRef<AppLimitSheetRef, AppLimitSheetProps>(
             <View className="bg-zinc-800/50 rounded-xl mb-4">
               <SettingRow
                 label="Reach Time Limit"
-                value={formatTimeLimit(timeLimit.hours, timeLimit.minutes, timeLimit.days)}
+                value={formatTimeLimit(
+                  timeLimit.hours,
+                  timeLimit.minutes,
+                  timeLimit.days
+                )}
                 onPress={() => timeLimitSheetRef.current?.present()}
               />
               <Pressable
@@ -137,7 +167,9 @@ const AppLimitSheet = forwardRef<AppLimitSheetRef, AppLimitSheetProps>(
                 <Text className="text-white text-base">On these apps</Text>
                 <View className="flex-row items-center">
                   <Text className="text-zinc-400 text-base mr-2">
-                    {selectedApps.length > 0 ? `${selectedApps.length} Apps` : "No Apps"}
+                    {selectedApps.length > 0
+                      ? `${selectedApps.length} Apps`
+                      : "No Apps"}
                   </Text>
                   <Ionicons name="chevron-forward" size={16} color="#71717a" />
                 </View>
@@ -158,7 +190,9 @@ const AppLimitSheet = forwardRef<AppLimitSheetRef, AppLimitSheetProps>(
               >
                 <Text className="text-white text-base">Difficulty</Text>
                 <View className="flex-row items-center">
-                  <Text className="text-zinc-400 text-base mr-2">{difficulty}</Text>
+                  <Text className="text-zinc-400 text-base mr-2">
+                    {difficulty}
+                  </Text>
                   <Ionicons name="chevron-forward" size={16} color="#71717a" />
                 </View>
               </Pressable>
@@ -172,12 +206,6 @@ const AppLimitSheet = forwardRef<AppLimitSheetRef, AppLimitSheetProps>(
                 backgroundColor: "#22d3ee",
               }}
             >
-              <View
-                className="absolute right-0 top-0 bottom-0 w-1/3"
-                style={{
-                  backgroundColor: "rgba(163, 230, 53, 0.4)",
-                }}
-              />
               <Text className="text-black font-bold text-base">Save</Text>
             </Pressable>
           </BottomSheetView>

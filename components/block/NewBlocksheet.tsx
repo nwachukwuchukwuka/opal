@@ -1,8 +1,8 @@
 import { Ionicons } from "@expo/vector-icons";
 import {
-    BottomSheetBackdrop,
-    BottomSheetModal,
-    BottomSheetView,
+  BottomSheetBackdrop,
+  BottomSheetModal,
+  BottomSheetView,
 } from "@gorhom/bottom-sheet";
 import React, { forwardRef, useCallback, useMemo } from "react";
 import { Pressable, Text, View } from "react-native";
@@ -44,7 +44,7 @@ interface NewBlockSheetProps {
 
 const NewBlockSheet = forwardRef<NewBlockSheetRef, NewBlockSheetProps>(
   ({ onBlockNow, onRecurringSession, onAppLimit, onLock }, ref) => {
-    const snapPoints = useMemo(() => ["55%"], []);
+    const snapPoints = useMemo(() => ["65%"], []);
 
     const renderBackdrop = useCallback(
       (props: any) => (
@@ -65,6 +65,7 @@ const NewBlockSheet = forwardRef<NewBlockSheetRef, NewBlockSheetProps>(
         backgroundStyle={{ backgroundColor: "#18181b" }}
         handleIndicatorStyle={{ backgroundColor: "#52525b" }}
         backdropComponent={renderBackdrop}
+        enableDynamicSizing={false}
       >
         <BottomSheetView className="flex-1 px-5">
           {/* Title */}

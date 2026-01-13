@@ -590,6 +590,12 @@ export const EMOJI_CATEGORIES = [
       "☹️",
       "😣",
       "😖",
+    ],
+  },
+
+  {
+    name: "Animals & Nature",
+    emojis: [
       "😫",
       "😩",
       "🥺",
@@ -625,21 +631,10 @@ export const EMOJI_CATEGORIES = [
       "😲",
       "🥱",
       "😴",
-      "🤤",
-      "😪",
-      "😵",
-      "🤐",
-      "🥴",
-      "🤢",
-      "🤮",
-      "🤧",
-      "😷",
-      "🤒",
-      "🤕",
-      "🤑",
-      "🤠",
+   
     ],
   },
+
   {
     name: "Food & Drink",
     emojis: [
@@ -680,89 +675,42 @@ export const EMOJI_CATEGORIES = [
       "🥨",
       "🥯",
       "🥞",
-      "🧇",
-      "🧀",
-      "🍖",
-      "🍗",
-      "🥩",
-      "🥓",
-      "🍔",
-      "🍟",
-      "🍕",
-      "🌭",
-      "🥪",
-      "🌮",
-      "🌯",
-      "🥙",
-      "🧆",
-      "🥚",
-      "🍳",
-      "🥘",
-      "🍲",
-      "🥣",
-      "🥗",
-      "🍿",
-      "🧈",
-      "🧂",
-      "🥫",
-      "🍱",
-      "🍘",
-      "🍙",
-      "🍚",
-      "🍛",
-      "🍜",
-      "🍝",
-      "🍠",
-      "🍢",
-      "🍣",
-      "🍤",
-      "🍥",
-      "🥮",
     ],
   },
-  // ... Add 6 more categories to match the 8 dots ...
 ];
-
-
-
 
 export const MOCK_BLOCK_LISTS: BlockList[] = [
   {
-    id: 'bl_1',
-    name: 'Block List',
-    icon: '🚫',
-    type: 'block',
+    id: "bl_1",
+    name: "Block List",
+    icon: "🚫",
+    type: "block",
     selectedCategories: [],
-    selectedApps: ['facetime', 'tiktok', 'bereal'],
+    selectedApps: ["facetime", "tiktok", "bereal"],
     isAdultBlockingEnabled: true,
   },
   {
-    id: 'bl_2',
-    name: 'Bad Apps',
-    icon: '📛',
-    type: 'block',
-    selectedCategories: ['social'],
+    id: "bl_2",
+    name: "Bad Apps",
+    icon: "📛",
+    type: "block",
+    selectedCategories: ["social"],
     selectedApps: [],
     isAdultBlockingEnabled: false,
   },
-    {
-    id: 'bl_3',
-    name: 'Focused Castle',
-    icon: '🏰',
-    type: 'block',
-    selectedCategories: ['social', 'games', 'entertainment'],
+  {
+    id: "bl_3",
+    name: "Focused Castle",
+    icon: "🏰",
+    type: "block",
+    selectedCategories: ["social", "games", "entertainment"],
     selectedApps: [],
     isAdultBlockingEnabled: false,
   },
 ];
 
-
-
 import { SessionConfig } from "../types";
 
-// ==========================================================
-// TYPES
-// ==========================================================
 
 export type BlockStatus = "active" | "upcoming" | "disabled";
 
@@ -872,7 +820,6 @@ export const DEFAULT_SESSION_CONFIG: SessionConfig = {
   appsBlockedId: "list1",
   difficulty: "normal",
 };
-
 
 export const REFERRAL_CODE = ["P", "U", "M", "E", "A"];
 

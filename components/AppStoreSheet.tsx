@@ -1,3 +1,4 @@
+import { Ionicons } from "@expo/vector-icons";
 import {
   BottomSheetBackdrop,
   BottomSheetModal,
@@ -64,9 +65,7 @@ const AppStoreSheet = forwardRef<AppStoreSheetRef, AppStoreSheetProps>(
               <View className="flex-row justify-between items-center mb-4">
                 <Text className="text-white text-lg font-semibold">App Store</Text>
                 <Pressable onPress={handleDismiss}>
-                  <View className="w-8 h-8 rounded-full bg-zinc-700 items-center justify-center">
-                    <Text className="text-white text-lg">×</Text>
-                  </View>
+                  <Ionicons name="close" size={24} color="white" />
                 </Pressable>
               </View>
 

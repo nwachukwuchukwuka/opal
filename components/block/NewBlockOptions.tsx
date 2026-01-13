@@ -9,13 +9,18 @@ interface NewBlockOptionProps {
 }
 
 const NewBlockOption = ({ icon, label, onPress }: NewBlockOptionProps) => (
-  <Pressable
-    onPress={onPress}
-    className="bg-zinc-800 rounded-2xl flex-1 h-24 items-center justify-center gap-2"
-  >
-    <Ionicons name={icon} size={28} color="#a3e635" />
-    <Text className="text-lime-300 font-semibold text-center text-xs">{label}</Text>
-  </Pressable>
+  <View className="flex-1 gap-2">
+    <Pressable
+      onPress={onPress}
+      className="bg-zinc-900 rounded-2xl h-20 items-center justify-center"
+    >
+      <Ionicons name={icon} size={28} color="#a3e635" />
+    </Pressable>
+
+    <Text className="text-zinc-400 font-medium text-xs text-center">
+      {label}
+    </Text>
+  </View>
 );
 
 export const NewBlockOptions = () => (

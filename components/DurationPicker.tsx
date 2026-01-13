@@ -6,13 +6,12 @@ import { DurationPickerProps } from "../types";
 
 const DurationPicker = forwardRef<BottomSheetModal, DurationPickerProps>(
   ({ initialHours, initialMinutes, onConfirm, onAlwaysOn, onClose }, ref) => {
-    // Create a date object representing the duration
     const initialDate = new Date();
     initialDate.setHours(initialHours, initialMinutes, 0, 0);
     
     const [duration, setDuration] = useState(initialDate);
 
-    const snapPoints = useMemo(() => ["55%"], []);
+    const snapPoints = useMemo(() => ["60%"], []);
 
     const renderBackdrop = useCallback(
       (props: any) => (
@@ -58,6 +57,7 @@ const DurationPicker = forwardRef<BottomSheetModal, DurationPickerProps>(
         backdropComponent={renderBackdrop}
         backgroundStyle={{ backgroundColor: "#18181b" }}
         handleIndicatorStyle={{ backgroundColor: "#52525b" }}
+        enableDynamicSizing={false}
       >
         <BottomSheetView className="flex-1 px-5">
           {/* Title */}

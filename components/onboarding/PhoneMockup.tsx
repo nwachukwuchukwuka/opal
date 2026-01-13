@@ -43,7 +43,7 @@ export const PhoneMockup: React.FC<PhoneMockupProps> = ({
   return (
     <View className="items-center">
       {/* Phone frame */}
-      <View className="w-48 h-96 bg-zinc-900 rounded-[2.5rem] p-1 border-2 border-zinc-800">
+      <View className="w-80 h-96 bg-zinc-900 rounded-[2.5rem] p-1 border-2 border-zinc-800">
         {/* Screen */}
         <View className="flex-1 bg-black rounded-[2.25rem] overflow-hidden">
           {/* Status bar */}

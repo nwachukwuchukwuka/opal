@@ -1,12 +1,7 @@
 import { router } from "expo-router";
 import React, { useState } from "react";
-import {
-  Pressable,
-  ScrollView,
-  StatusBar,
-  Text,
-  View,
-} from "react-native";
+import { Pressable, ScrollView, Text, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 // Age Options
 const ageOptions = [
@@ -66,9 +61,7 @@ export default function AgeScreen() {
   const canContinue = selectedOption !== null;
 
   return (
-    <View className="flex-1 bg-black pt-14">
-      <StatusBar barStyle="light-content" />
-
+    <SafeAreaView edges={["top"]} className="flex-1 bg-black">
       {/* Content */}
       <View className="flex-1 pt-6 px-6">
         {/* Skip button */}
@@ -80,7 +73,7 @@ export default function AgeScreen() {
 
         {/* Question */}
         <View className="mb-8">
-          <Text className="text-white text-[28px] font-bold mb-2 leading-tight">
+          <Text className="text-white text-[20px] font-bold mb-2 leading-tight">
             How old are you?
           </Text>
           <Text className="text-zinc-500 text-sm">
@@ -123,7 +116,6 @@ export default function AgeScreen() {
           </Text>
         </Pressable>
       </View>
-    </View>
+    </SafeAreaView>
   );
 }
-

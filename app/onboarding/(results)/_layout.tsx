@@ -1,6 +1,7 @@
 import { Slot, usePathname } from "expo-router";
 import React from "react";
-import { StatusBar, View } from "react-native";
+import { View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import ProgressBar from "../../../components/ProgressBar";
 
 const routes = [
@@ -12,7 +13,7 @@ const routes = [
 
 export default function ResultsLayout() {
   const pathname = usePathname();
-  
+
   // Determine current step based on pathname
   const getCurrentStep = () => {
     if (pathname.includes("news-intro")) return 1;
@@ -23,19 +24,15 @@ export default function ResultsLayout() {
   };
 
   return (
-    <View className="flex-1 bg-black">
-      <StatusBar barStyle="light-content" />
-      
+    <SafeAreaView edges={["top"]} className="flex-1 bg-black">
       {/* Fixed Progress Bar */}
-      <View className="pt-14 pb-4">
+      <View className=" pb-4">
         <ProgressBar currentStep={getCurrentStep()} totalSteps={4} />
       </View>
 
-      {/* Screen Content */}
       <View className="flex-1">
         <Slot />
       </View>
-    </View>
+    </SafeAreaView>
   );
 }
-

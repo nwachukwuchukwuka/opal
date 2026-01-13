@@ -3,11 +3,11 @@ import React, { useState } from "react";
 import {
   Pressable,
   ScrollView,
-  StatusBar,
   Text,
   TextInput,
   View
 } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 // Dummy friends data
 const dummyLeaderboard = [
@@ -29,7 +29,7 @@ const dummyContacts = [
 const Avatar = ({ name, size = 40 }: { name: string; size?: number }) => {
   const colors = ["#8B5CF6", "#EC4899", "#3B82F6", "#10B981", "#F59E0B"];
   const colorIndex = name.charCodeAt(0) % colors.length;
-  
+
   return (
     <View
       style={{
@@ -75,13 +75,10 @@ export default function AddFriendsScreen() {
 
   if (showContacts) {
     return (
-      <View className="flex-1 bg-black pt-14">
-        <StatusBar barStyle="light-content" />
-
-        {/* Header */}
-        <View className="px-6 mb-6">
+      <SafeAreaView edges={["top"]} className="flex-1 bg-black">
+        <View className="px-6 mb-6 pt-6">
           <Text className="text-white text-2xl font-bold text-center mb-2">
-            Add your friends to see their{"\n"}Screen Time
+            Add your friends to see their Screen Time
           </Text>
           <Text className="text-zinc-500 text-sm text-center">
             Connect with friends to get started!
@@ -110,7 +107,9 @@ export default function AddFriendsScreen() {
                 <Avatar name={contact.name} size={40} />
                 <View className="ml-3">
                   <Text className="text-white text-base">{contact.name}</Text>
-                  <Text className="text-zinc-500 text-xs">IN YOUR CONTACTS</Text>
+                  <Text className="text-zinc-500 text-xs">
+                    IN YOUR CONTACTS
+                  </Text>
                 </View>
               </View>
               <Pressable
@@ -134,15 +133,12 @@ export default function AddFriendsScreen() {
             </Text>
           </Pressable>
         </View>
-      </View>
+      </SafeAreaView>
     );
   }
 
   return (
-    <View className="flex-1 bg-black pt-14">
-      <StatusBar barStyle="light-content" />
-
-      {/* Header */}
+    <SafeAreaView edges={["top"]} className="flex-1 bg-black">
       <View className="flex-row justify-end px-6 mb-4">
         <Pressable onPress={handleSkip}>
           <Text className="text-zinc-500 text-base">Skip</Text>
@@ -152,7 +148,7 @@ export default function AddFriendsScreen() {
       {/* Title */}
       <View className="px-6 mb-6">
         <Text className="text-white text-2xl font-bold text-center mb-2">
-          Add your friends to see their{"\n"}Screen Time
+          Add your friends to see their Screen Time
         </Text>
         <Text className="text-zinc-500 text-sm text-center">
           You thought your Screen Time was bad?
@@ -203,7 +199,6 @@ export default function AddFriendsScreen() {
           <Text className="text-white text-lg font-semibold">Add Friends</Text>
         </Pressable>
       </View>
-    </View>
+    </SafeAreaView>
   );
 }
-

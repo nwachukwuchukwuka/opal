@@ -1,12 +1,7 @@
 import { router } from "expo-router";
 import React, { useState } from "react";
-import {
-    Pressable,
-    ScrollView,
-    StatusBar,
-    Text,
-    View,
-} from "react-native";
+import { Pressable, ScrollView, Text, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 // Occupation Options
 const occupationOptions = [
@@ -63,14 +58,12 @@ export default function OccupationScreen() {
   const canContinue = selectedOption !== null;
 
   return (
-    <View className="flex-1 bg-black pt-14">
-      <StatusBar barStyle="light-content" />
-
+    <SafeAreaView edges={["top"]} className="flex-1 bg-black">
       {/* Content */}
       <View className="flex-1 pt-6 px-6">
         {/* Question */}
         <View className="mb-8">
-          <Text className="text-white text-[28px] font-bold mb-2 leading-tight">
+          <Text className="text-white text-[20px] font-bold mb-2 leading-tight">
             What is your occupation?
           </Text>
         </View>
@@ -111,7 +104,6 @@ export default function OccupationScreen() {
           </Text>
         </Pressable>
       </View>
-    </View>
+    </SafeAreaView>
   );
 }
-

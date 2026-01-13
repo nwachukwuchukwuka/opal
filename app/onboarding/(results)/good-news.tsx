@@ -17,11 +17,11 @@ export default function GoodNewsScreen() {
       <View className="flex-1 items-center justify-center px-8">
         {/* Good news text */}
         <Text className="text-zinc-400 text-base text-center mb-6">
-          The good news is that Opal can help you{"\n"}get back
+          The good news is that Opal can help you get back
         </Text>
 
         {/* Big number */}
-        <Text className="text-violet-400 text-7xl font-bold mb-4">
+        <Text className="text-violet-400 text-6xl font-bold mb-4">
           6 years+
         </Text>
 

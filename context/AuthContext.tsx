@@ -28,8 +28,7 @@ interface AuthProviderProps {
 }
 
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
-  // HARDCODED: Set to true to skip onboarding, false to show onboarding
-  const [isAuthenticated, setIsAuthenticated] = useState(true);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
   
   // Hardcoded user data
   const user: User | null = isAuthenticated ? {

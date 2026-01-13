@@ -161,7 +161,7 @@ export const HOME_APP_USAGE_DATA: HomeAppUsageItem[] = [
     barWidth: 24,
     iconBgColor: COLORS.etsy,
     iconColor: COLORS.white,
-    distractionLevelValue: 6,
+    distractionLevelValue: 4,
   },
   {
     id: "settings",

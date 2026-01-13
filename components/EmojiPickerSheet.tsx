@@ -1,8 +1,8 @@
 import { Ionicons } from "@expo/vector-icons";
 import {
-    BottomSheetBackdrop,
-    BottomSheetModal,
-    BottomSheetView,
+  BottomSheetBackdrop,
+  BottomSheetModal,
+  BottomSheetView,
 } from "@gorhom/bottom-sheet";
 import React, { forwardRef, useMemo, useState } from "react";
 import { Dimensions, Pressable, ScrollView, Text, View } from "react-native";
@@ -21,7 +21,7 @@ const EmojiPickerSheet = forwardRef<EmojiPickerSheetRef, EmojiPickerSheetProps>(
   ({ initialEmoji, onEmojiSelect }, ref) => {
     const [selectedEmoji, setSelectedEmoji] = useState(initialEmoji);
     const [currentPage, setCurrentPage] = useState(0);
-    const snapPoints = useMemo(() => ["60%"], []);
+    const snapPoints = useMemo(() => ["75%"], []);
 
     const handleConfirm = () => {
       onEmojiSelect(selectedEmoji);
@@ -50,6 +50,7 @@ const EmojiPickerSheet = forwardRef<EmojiPickerSheetRef, EmojiPickerSheetProps>(
             appearsOnIndex={0}
           />
         )}
+        enableDynamicSizing={false}
       >
         <BottomSheetView className="flex-1">
           <Text className="text-white text-2xl font-bold text-center mt-2">

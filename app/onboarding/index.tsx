@@ -1,19 +1,7 @@
 import { router } from "expo-router";
-import React, { useEffect, useRef, useState } from "react";
-import {
-  Dimensions,
-  NativeScrollEvent,
-  NativeSyntheticEvent,
-  Pressable,
-  ScrollView,
-  StatusBar,
-  Text,
-  View,
-} from "react-native";
+import React, { useEffect, useState } from "react";
+import { Pressable, StatusBar, Text, View } from "react-native";
 
-const { width } = Dimensions.get("window");
-
-// App icons data
 const appIcons = [
   { name: "Instagram", color: "#E4405F", icon: "📷" },
   { name: "TikTok", color: "#000000", icon: "🎵", border: "#fff" },
@@ -29,7 +17,6 @@ const appIcons = [
   { name: "Pinterest", color: "#E60023", icon: "📌" },
 ];
 
-// Opal Logo Component
 const OpalLogo = ({ size = 100 }: { size?: number }) => {
   return (
     <View
@@ -75,11 +62,7 @@ const SplashScreen = ({ onComplete }: { onComplete: () => void }) => {
 };
 
 // App Icon Component for the grid
-const AppIconItem = ({
-  app,
-}: {
-  app: (typeof appIcons)[0];
-}) => {
+const AppIconItem = ({ app }: { app: (typeof appIcons)[0] }) => {
   return (
     <View className="m-1.5">
       <View
@@ -97,17 +80,10 @@ const AppIconItem = ({
 };
 
 // Phone Mockup Content
-const PhoneMockupContent = ({
-  showArrow = false,
-  onArrowPress,
-}: {
-  showArrow?: boolean;
-  onArrowPress?: () => void;
-}) => {
+const PhoneMockupContent = () => {
   return (
     <View className="items-center relative">
-      {/* Phone frame */}
-      <View className="w-52 h-[420px] bg-zinc-900 rounded-[3rem] p-1.5 border-[3px] border-zinc-800">
+      <View className="w-80 h-[450px] bg-zinc-900 rounded-[3rem] p-1.5 border-[3px] border-zinc-800">
         {/* Screen */}
         <View className="flex-1 bg-black rounded-[2.5rem] overflow-hidden">
           {/* Dynamic Island / Notch */}
@@ -163,18 +139,6 @@ const PhoneMockupContent = ({
           </View>
         </View>
       </View>
-
-      {/* Arrow button */}
-      {showArrow && (
-        <View className="absolute right-[-50px] top-1/2 -translate-y-6">
-          <Pressable
-            onPress={onArrowPress}
-            className="w-12 h-12 rounded-full border border-white/20 items-center justify-center bg-white/5 active:bg-white/10"
-          >
-            <Text className="text-white text-xl">→</Text>
-          </Pressable>
-        </View>
-      )}
     </View>
   );
 };
@@ -182,26 +146,17 @@ const PhoneMockupContent = ({
 // Main Onboarding Screen
 export default function OnboardingScreen() {
   const [showSplash, setShowSplash] = useState(true);
-  const [currentSlide, setCurrentSlide] = useState(0);
-  const scrollRef = useRef<ScrollView>(null);
 
   const handleSplashComplete = () => {
     setShowSplash(false);
   };
 
   const handleGetStarted = () => {
-    // Navigate to screen time question
     router.push("/onboarding/screen-time");
   };
 
   const handleSignIn = () => {
-    // Navigate to sign in screen
     console.log("Sign in pressed");
-  };
-
-  const handleScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
-    const slideIndex = Math.round(event.nativeEvent.contentOffset.x / width);
-    setCurrentSlide(slideIndex);
   };
 
   if (showSplash) {
@@ -210,147 +165,38 @@ export default function OnboardingScreen() {
 
   return (
     <View className="flex-1 bg-black">
-      <StatusBar barStyle="light-content" />
 
-      {/* Header with Opal text */}
-      <View className="absolute top-14 right-6 z-10">
-        <Text className="text-white/60 text-sm font-medium tracking-widest">
-          Opal
-        </Text>
-      </View>
+      {/* Single Slide Content */}
+      <View className="flex-1 items-center justify-center px-6 pt-8">
+        <PhoneMockupContent />
 
-      {/* Slides */}
-      <ScrollView
-        ref={scrollRef}
-        horizontal
-        pagingEnabled
-        showsHorizontalScrollIndicator={false}
-        onScroll={handleScroll}
-        scrollEventThrottle={16}
-        className="flex-1"
-      >
-        {/* Slide 1 - Welcome */}
-        <View style={{ width }} className="flex-1">
-          <View className="flex-1 items-center justify-center px-6">
-            <PhoneMockupContent />
-
-            {/* Text content */}
-            <View className="items-center mt-8 mb-6">
-              <Text className="text-white text-[28px] font-bold mb-2 text-center tracking-tight">
-                Welcome to Opal
-              </Text>
-              <Text className="text-zinc-500 text-base text-center leading-6">
-                Starting today, let's focus better and{"\n"}accomplish your
-                dreams.
-              </Text>
-            </View>
-
-            {/* Buttons */}
-            <View className="w-full px-8">
-              <Pressable
-                onPress={handleGetStarted}
-                className="w-full py-4 rounded-full border border-white/20 bg-white/[0.03] mb-4 active:bg-white/10"
-              >
-                <Text className="text-white text-center text-lg font-semibold">
-                  Get Started
-                </Text>
-              </Pressable>
-
-              <Pressable onPress={handleSignIn} className="py-3">
-                <Text className="text-zinc-500 text-center text-base">
-                  Already have an account?
-                </Text>
-              </Pressable>
-            </View>
-          </View>
+        {/* Text content */}
+        <View className="items-center mt-8 mb-6">
+          <Text className="text-white text-[28px] font-bold mb-2 text-center tracking-tight">
+            Welcome to Opal
+          </Text>
+          <Text className="text-zinc-500 text-base text-center leading-6">
+            Starting today, let's focus better and{"\n"}accomplish your dreams.
+          </Text>
         </View>
 
-        {/* Slide 2 - Features */}
-        <View style={{ width }} className="flex-1">
-          <View className="flex-1 items-center justify-center px-6">
-            <PhoneMockupContent />
+        {/* Buttons */}
+        <View className="w-full px-8">
+          <Pressable
+            onPress={handleGetStarted}
+            className="w-full py-4 rounded-full border border-white/20 bg-white/[0.03] mb-4 active:bg-white/10"
+          >
+            <Text className="text-white text-center text-lg font-semibold">
+              Get Started
+            </Text>
+          </Pressable>
 
-            {/* Text content */}
-            <View className="items-center mt-8 mb-6">
-              <Text className="text-white text-[28px] font-bold mb-2 text-center tracking-tight">
-                Welcome to Opal
-              </Text>
-              <Text className="text-zinc-500 text-base text-center leading-6">
-                Starting today, let's focus better and{"\n"}accomplish your
-                dreams.
-              </Text>
-            </View>
-
-            {/* Buttons */}
-            <View className="w-full px-8">
-              <Pressable
-                onPress={handleGetStarted}
-                className="w-full py-4 rounded-full border border-white/20 bg-white/[0.03] mb-4 active:bg-white/10"
-              >
-                <Text className="text-white text-center text-lg font-semibold">
-                  Get Started
-                </Text>
-              </Pressable>
-
-              <Pressable onPress={handleSignIn} className="py-3">
-                <Text className="text-zinc-500 text-center text-base">
-                  Already have an account?
-                </Text>
-              </Pressable>
-            </View>
-          </View>
+          <Pressable onPress={handleSignIn} className="py-3">
+            <Text className="text-zinc-500 text-center text-base">
+              Already have an account?
+            </Text>
+          </Pressable>
         </View>
-
-        {/* Slide 3 - Apps with arrow */}
-        <View style={{ width }} className="flex-1">
-          <View className="flex-1 items-center justify-center px-6">
-            <PhoneMockupContent
-              showArrow={true}
-              onArrowPress={handleGetStarted}
-            />
-
-            {/* Text content */}
-            <View className="items-center mt-8 mb-6">
-              <Text className="text-white text-[28px] font-bold mb-2 text-center tracking-tight">
-                Welcome to Opal
-              </Text>
-              <Text className="text-zinc-500 text-base text-center leading-6">
-                Starting today, let's focus better and{"\n"}accomplish your
-                dreams.
-              </Text>
-            </View>
-
-            {/* Buttons */}
-            <View className="w-full px-8">
-              <Pressable
-                onPress={handleGetStarted}
-                className="w-full py-4 rounded-full border border-white/20 bg-white/[0.03] mb-4 active:bg-white/10"
-              >
-                <Text className="text-white text-center text-lg font-semibold">
-                  Get Started
-                </Text>
-              </Pressable>
-
-              <Pressable onPress={handleSignIn} className="py-3">
-                <Text className="text-zinc-500 text-center text-base">
-                  Already have an account?
-                </Text>
-              </Pressable>
-            </View>
-          </View>
-        </View>
-      </ScrollView>
-
-      {/* Page indicators */}
-      <View className="absolute bottom-36 left-0 right-0 flex-row justify-center gap-2">
-        {[0, 1, 2].map((index) => (
-          <View
-            key={index}
-            className={`w-2 h-2 rounded-full ${
-              currentSlide === index ? "bg-white" : "bg-white/20"
-            }`}
-          />
-        ))}
       </View>
     </View>
   );

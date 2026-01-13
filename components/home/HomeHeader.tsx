@@ -10,15 +10,15 @@ interface HomeHeaderProps {
 
 export const HomeHeader = ({ dateToDisplay, onDatePress }: HomeHeaderProps) => {
   return (
-    <View className="flex-row justify-between items-center px-5 pt-14 pb-4">
+    <View className="flex-row justify-between items-center px-5 pb-4">
       <View className="flex-row items-center">
-        <Text className="text-white text-3xl font-light mr-3">Opal</Text>
+        <Text className="text-white text-3xl font-light mr-5">Opal</Text>
         <Pressable onPress={onDatePress} className="flex-row items-center">
-          <Text className="text-zinc-400 text-base">{dateToDisplay}</Text>
+          <Text className="text-cyan-400 text-sm">{dateToDisplay}</Text>
           <Ionicons
             name="chevron-down"
             size={16}
-            color={COLORS.zinc400}
+            color={COLORS.cyan}
             style={{ marginLeft: 4 }}
           />
         </Pressable>

@@ -10,7 +10,6 @@ export default function Index() {
   const [showSplash, setShowSplash] = useState(true);
 
   useEffect(() => {
-    // Show splash screen for 2 seconds
     const splashTimer = setTimeout(() => {
       setShowSplash(false);
     }, 2000);
@@ -32,7 +31,6 @@ export default function Index() {
   // Splash Screen
   return (
     <View className="flex-1 items-center justify-center bg-black">
-      {/* Opal Logo */}
       <View 
         className="w-24 h-24 rounded-full items-center justify-center mb-4"
         style={{

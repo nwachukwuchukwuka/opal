@@ -75,6 +75,7 @@ const FocusSessionSheet = forwardRef<BottomSheetModal, FocusSessionSheetProps>(
           handleIndicatorStyle={{ backgroundColor: "#52525b" }}
           keyboardBehavior="interactive"
           keyboardBlurBehavior="restore"
+          enableDynamicSizing={false}
         >
           <BottomSheetView className="flex-1 px-5">
             {/* Session Name */}

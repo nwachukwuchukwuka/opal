@@ -1,12 +1,12 @@
 import { router } from "expo-router";
 import React, { useState } from "react";
 import {
-    Pressable,
-    ScrollView,
-    StatusBar,
-    Text,
-    View,
+  Pressable,
+  ScrollView,
+  Text,
+  View
 } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 // Screen Time Options
 const screenTimeOptions = [
@@ -59,14 +59,13 @@ export default function ScreenTimeScreen() {
   const canContinue = selectedOption !== null;
 
   return (
-    <View className="flex-1 bg-black pt-14">
-      <StatusBar barStyle="light-content" />
+    <SafeAreaView edges={["top"]} className="flex-1 bg-black">
 
       {/* Content */}
       <View className="flex-1 pt-6 px-6">
         {/* Question */}
         <View className="mb-8">
-          <Text className="text-white text-[28px] font-bold mb-2 leading-tight">
+          <Text className="text-white text-[20px] font-bold mb-2 leading-tight">
             What is your daily average{"\n"}Screen Time?
           </Text>
           <Text className="text-zinc-500 text-sm">
@@ -109,7 +108,7 @@ export default function ScreenTimeScreen() {
           </Text>
         </Pressable>
       </View>
-    </View>
+    </SafeAreaView>
   );
 }
 

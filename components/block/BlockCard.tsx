@@ -15,7 +15,9 @@ const renderStatus = (item: BlockItem) => {
         <View>
           <View className="flex-row items-center gap-2 mt-2">
             <View className="w-2 h-2 rounded-full bg-teal-400" />
-            <Text className="text-teal-400 font-semibold text-sm">Blocking</Text>
+            <Text className="text-teal-400 font-semibold text-sm">
+              Blocking
+            </Text>
             <Text className="text-zinc-400">•</Text>
             <View className="flex-row items-center">
               <View className="w-5 h-5 rounded bg-orange-400 -ml-1" />
@@ -25,12 +27,7 @@ const renderStatus = (item: BlockItem) => {
               </Text>
             </View>
           </View>
-          <View className="h-1 bg-zinc-700 rounded-full mt-3 overflow-hidden">
-            <View
-              className="h-full bg-teal-400"
-              style={{ width: `${item.progress || 0}%` }}
-            />
-          </View>
+          {/* Progress bar removed from here */}
         </View>
       );
     case "upcoming":
@@ -59,11 +56,11 @@ const renderStatus = (item: BlockItem) => {
 export const BlockCard = ({ item, onPress }: BlockCardProps) => (
   <Pressable
     onPress={() => onPress(item)}
-    className="bg-zinc-800 rounded-2xl p-4"
+    className="bg-zinc-900 rounded-2xl overflow-hidden"
   >
-    <View className="flex-row justify-between items-start">
-      <View className="flex-row gap-4 items-start flex-1">
-        <Text className="text-3xl mt-1">{item.icon}</Text>
+    <View className="p-4 flex-row justify-between items-center">
+      <View className="flex-row gap-4 items-center flex-1">
+        <Text className="text-3xl">{item.icon}</Text>
         <View className="flex-1">
           <Text className="text-white font-semibold text-lg">{item.name}</Text>
           <Text className="text-zinc-400 text-xs">{item.schedule}</Text>
@@ -72,6 +69,15 @@ export const BlockCard = ({ item, onPress }: BlockCardProps) => (
       </View>
       <Ionicons name="chevron-forward" size={20} color="#71717a" />
     </View>
+
+    {item.status === "active" && (
+      <View className="h-1 bg-zinc-800 w-full">
+        <View
+          className="h-full bg-teal-400"
+          style={{ width: `${item.progress || 0}%` }}
+        />
+      </View>
+    )}
   </Pressable>
 );
 

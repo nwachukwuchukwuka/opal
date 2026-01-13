@@ -207,20 +207,20 @@ const DistractionModal = ({
       >
         {/* Modal Content Card */}
         <Pressable
-          className="bg-zinc-800 rounded-3xl p-6 h-[60%] w-[90%]"
+          className="bg-zinc-800 rounded-3xl p-5 h-[60%] w-[90%]"
           // style={{ height: 420 }}
         >
           {/* App Header */}
           <View className="flex-row items-center mb-4">
-            <View className="w-12 h-12 bg-zinc-700 rounded-xl items-center justify-center mr-4">
+            <View className="w-10 h-10 bg-zinc-700 rounded-xl items-center justify-center mr-4">
               <Ionicons name="apps" size={24} color="white" />
             </View>
-            <Text className="text-white text-2xl font-bold">{app.name}</Text>
+            <Text className="text-white text-xl font-bold">{app.name}</Text>
           </View>
 
           {/* Title and Dynamic Description */}
           <View className="h-40">
-            <Text className="text-white text-2xl font-bold mb-2">
+            <Text className="text-white text-xl mb-2">
               How distracting is this app?
             </Text>
             <Text className="text-zinc-400 text-base leading-6">
@@ -240,29 +240,32 @@ const DistractionModal = ({
               </View>
             )}
           </View>
-          {/* Custom Slider */}
-          <DistractionSlider
-            value={currentValue}
-            onValueChange={setCurrentValue}
-            levels={DISTRACTION_LEVELS}
-          />
 
-          {/* Action Buttons */}
-          <View className="gap-3">
-            <Pressable
-              onPress={handleSave}
-              className="bg-white rounded-full py-4 items-center justify-center"
-            >
-              <Text className="text-black text-lg font-bold">Save</Text>
-            </Pressable>
-            <Pressable
-              onPress={onClose}
-              className="bg-zinc-700/50 rounded-full py-4 items-center justify-center"
-            >
-              <Text className="text-white text-lg font-semibold">
-                Learn More
-              </Text>
-            </Pressable>
+          <View className="absolute bottom-0 left-0 right-0 p-5">
+            {/* Custom Slider */}
+            <DistractionSlider
+              value={currentValue}
+              onValueChange={setCurrentValue}
+              levels={DISTRACTION_LEVELS}
+            />
+
+            {/* Action Buttons */}
+            <View className="gap-3 ">
+              <Pressable
+                onPress={handleSave}
+                className="bg-white rounded-full py-4 items-center justify-center"
+              >
+                <Text className="text-black text-lg font-bold">Save</Text>
+              </Pressable>
+              <Pressable
+                onPress={onClose}
+                className="bg-zinc-700/50 rounded-full py-4 items-center justify-center"
+              >
+                <Text className="text-white text-lg font-semibold">
+                  Learn More
+                </Text>
+              </Pressable>
+            </View>
           </View>
         </Pressable>
       </Pressable>

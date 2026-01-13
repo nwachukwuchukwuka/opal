@@ -12,6 +12,7 @@ interface BreathingScreenProps {
   progressAnim: Animated.Value;
   overlayFadeAnim: Animated.Value;
   sessionName?: string;
+  remainingTime?: string; 
   onContinue: () => void;
   onClose: () => void;
 }
@@ -24,18 +25,17 @@ export const BreathingScreen = ({
   progressAnim,
   overlayFadeAnim,
   sessionName = "Work Time",
+  remainingTime = "0:00:00", 
   onContinue,
   onClose,
 }: BreathingScreenProps) => (
-  <View className="flex-1">
-    {/* Background Image (always present, revealed when overlay fades) */}
+  <View className="flex-1 bg-black">
     <Image
       source={{ uri: BREATHING_BG }}
       className="absolute w-full h-full"
       resizeMode="cover"
     />
 
-    {/* Semi-transparent overlay for better readability (appears as dark fades) */}
     <Animated.View
       className="absolute w-full h-full"
       style={{
@@ -48,7 +48,6 @@ export const BreathingScreen = ({
       pointerEvents="none"
     />
 
-    {/* Dark overlay with logo (fades out) */}
     <Animated.View
       className="absolute w-full h-full bg-zinc-900 items-center justify-center"
       style={{ opacity: overlayFadeAnim }}
@@ -58,18 +57,16 @@ export const BreathingScreen = ({
       <Text className="text-zinc-400 text-lg mt-8">Almost there</Text>
     </Animated.View>
 
-    {/* Header */}
-    <View className="absolute top-14 left-5">
+    <View className="absolute top-20 left-5">
       <View className="flex-row items-center">
         <Ionicons name="desktop-outline" size={16} color="white" />
         <Text className="text-white font-semibold ml-2">{sessionName}</Text>
       </View>
       <Text className="text-emerald-400 text-sm">
-        Remaining 0:0{countdown > 0 ? countdown : 0}:00
+        Remaining {remainingTime}
       </Text>
     </View>
 
-    {/* Breathing Circle */}
     <View className="flex-1 items-center justify-center">
       <Animated.View
         className="w-24 h-24 rounded-full border-4 border-white items-center justify-center"

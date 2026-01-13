@@ -4,6 +4,7 @@ import {
   BottomSheetModal,
   BottomSheetView,
 } from "@gorhom/bottom-sheet";
+import { LinearGradient } from "expo-linear-gradient";
 import React, { forwardRef, useEffect, useMemo, useState } from "react";
 import { Pressable, Switch, Text, TextInput, View } from "react-native";
 import { MOCK_BLOCK_LISTS } from "../../constants";
@@ -11,14 +12,7 @@ import { BlockList } from "../../types";
 import { BlockListSection } from "./BlockListSection";
 import { ChooseActivitiesSheet } from "./ChooseActivitiesSheet";
 import { ConfirmationAlert } from "./ConfirmationAlert";
-// import { FeedbackToast } from "./FeedbackToast";
 import { SwitchListMenu } from "./SwitchListMenu";
-// import { FeedbackToast } from "./FeedbackToast";
-// import { BlockListSection } from "./BlockListSection";
-// import { ChooseActivitiesSheet } from "./ChooseActivitiesSheet";
-// import { ConfirmationAlert } from "./ConfirmationAlert";
-// import { FeedbackToast } from "./FeedbackToast";
-// import { SwitchListMenu } from "./SwitchListMenu";
 
 export type BlockListSheetRef = BottomSheetModal;
 
@@ -45,11 +39,10 @@ const BlockListSheet = forwardRef<BlockListSheetRef>((props, ref) => {
   );
 
   useEffect(() => {
-    // When the active list changes, update the draft for editing
     setDraftList(JSON.parse(JSON.stringify(activeList)));
   }, [activeList]);
 
-  const snapPoints = useMemo(() => ["90%"], []);
+  const snapPoints = useMemo(() => ["85%"], []);
 
   const handleSelectList = (listId: string) => {
     setActiveListId(listId);
@@ -59,7 +52,7 @@ const BlockListSheet = forwardRef<BlockListSheetRef>((props, ref) => {
 
   const handleConfirmDelete = () => {
     const fallbackList = allLists.find((l) => l.id !== activeListId);
-    if (!fallbackList) return; // Cannot delete the last list
+    if (!fallbackList) return;
 
     setAllLists((prev) => prev.filter((l) => l.id !== activeListId));
     setActiveListId(fallbackList.id);
@@ -81,7 +74,7 @@ const BlockListSheet = forwardRef<BlockListSheetRef>((props, ref) => {
     if (ref && "current" in ref) ref.current?.dismiss();
   };
 
-  if (!draftList) return null; // Wait for draft to be ready
+  if (!draftList) return null;
 
   return (
     <>
@@ -97,6 +90,7 @@ const BlockListSheet = forwardRef<BlockListSheetRef>((props, ref) => {
             appearsOnIndex={0}
           />
         )}
+        enableDynamicSizing={false}
       >
         <BottomSheetView className="flex-1 px-5 pt-4">
           {/* Header */}
@@ -173,12 +167,28 @@ const BlockListSheet = forwardRef<BlockListSheetRef>((props, ref) => {
           </View>
 
           {/* Footer Actions */}
-          <View className="pb-6 gap-3">
+          <View className="pb-6 gap-3 mt-6">
             <Pressable
               onPress={handleSave}
-              className="w-full py-4 rounded-full bg-gradient-to-r from-green-300 to-cyan-400 items-center"
+              style={{
+                borderRadius: 9999,
+                overflow: "hidden",
+                width: "100%",
+              }}
             >
-              <Text className="text-black text-lg font-bold">Save</Text>
+              <LinearGradient
+                colors={["#86efac", "#22d3ee"]}
+                start={{ x: 0, y: 0 }}
+                end={{ x: 1, y: 0 }}
+                style={{
+                  width: "100%",
+                  paddingVertical: 10,
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <Text className="text-black text-lg font-bold">Save</Text>
+              </LinearGradient>
             </Pressable>
             <Pressable
               onPress={() => setDeleteAlertVisible(true)}
@@ -190,7 +200,6 @@ const BlockListSheet = forwardRef<BlockListSheetRef>((props, ref) => {
         </BottomSheetView>
       </BottomSheetModal>
 
-      {/* Modals & Menus controlled by this sheet */}
       <SwitchListMenu
         visible={isSwitchMenuVisible}
         activeListId={activeListId}
@@ -217,12 +226,6 @@ const BlockListSheet = forwardRef<BlockListSheetRef>((props, ref) => {
         onConfirm={handleConfirmDelete}
         onCancel={() => setDeleteAlertVisible(false)}
       />
-      {/* <FeedbackToast
-        visible={toast.visible}
-        icon={toast.icon}
-        text={toast.text}
-        onHide={() => setToast({ ...toast, visible: false })}
-      /> */}
     </>
   );
 });
