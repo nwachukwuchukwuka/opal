@@ -27,7 +27,6 @@ const renderStatus = (item: BlockItem) => {
               </Text>
             </View>
           </View>
-          {/* Progress bar removed from here */}
         </View>
       );
     case "upcoming":

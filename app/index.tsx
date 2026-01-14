@@ -18,7 +18,6 @@ export default function Index() {
   }, []);
 
   useEffect(() => {
-    // Navigate after splash is done
     if (!showSplash) {
       if (isAuthenticated) {
         router.replace("/(tabs)");
@@ -28,7 +27,6 @@ export default function Index() {
     }
   }, [showSplash, isAuthenticated]);
 
-  // Splash Screen
   return (
     <View className="flex-1 items-center justify-center bg-black">
       <View 

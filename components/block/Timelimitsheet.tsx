@@ -498,19 +498,6 @@ const TimeLimitSheet = forwardRef<TimeLimitSheetRef, TimeLimitSheetProps>(
 
           {/* Done Button */}
           <View className="mt-auto pb-6">
-            {/* <Pressable
-              onPress={handleDone}
-              style={{ borderRadius: 9999, overflow: "hidden", width: "100%" }}
-            >
-              <LinearGradient
-                colors={["#86efac", "#22d3ee"]}
-                start={{ x: 0, y: 0 }}
-                end={{ x: 1, y: 0 }}
-                className="w-full py-4 items-center justify-center"
-              >
-                <Text className="text-black text-lg font-bold">Done</Text>
-              </LinearGradient>
-            </Pressable> */}
             <Pressable
               onPress={handleDone}
               style={{ borderRadius: 9999, overflow: "hidden", width: "100%" }}

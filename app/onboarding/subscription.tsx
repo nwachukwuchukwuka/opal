@@ -56,7 +56,6 @@ export default function SubscriptionScreen() {
   };
 
   const handleRestore = () => {
-    // Show restore purchases - in real app would check App Store
     setShowRestoreSuccess(true);
     setTimeout(() => {
       setShowRestoreSuccess(false);
@@ -67,10 +66,6 @@ export default function SubscriptionScreen() {
     router.push("/onboarding/focus-intro");
   };
 
-  // const handleSubscriptionComplete = () => {
-  //   bottomSheetRef.current?.dismiss();
-  //   router.push("/onboarding/subscription-success");
-  // };
   const handleSubscriptionComplete = () => {
     bottomSheetRef.current?.dismiss();
     setShowSuccessModal(true);

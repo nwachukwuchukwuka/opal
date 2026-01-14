@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import { Pressable, ScrollView, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-// Age Options
 const ageOptions = [
   { id: "under18", label: "Under 18" },
   { id: "18-24", label: "18 - 24" },
@@ -49,12 +48,10 @@ export default function AgeScreen() {
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
 
   const handleContinue = () => {
-    // Navigate to occupation question
     router.push("/onboarding/occupation");
   };
 
   const handleSkip = () => {
-    // Skip and go to occupation
     router.push("/onboarding/occupation");
   };
 

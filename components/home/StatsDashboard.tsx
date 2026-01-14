@@ -22,7 +22,7 @@ export const StatsDashboard = ({
 }: StatsDashboardProps) => {
   return (
     <View className="px-5">
-      <View className="items-center mb-4">
+      <View className="items-center mt-10 mb-10">
         <View
           className="w-40 h-40 rounded-full items-center justify-center"
           style={{
@@ -45,7 +45,7 @@ export const StatsDashboard = ({
 
       {/* Screen Time */}
       <View className="items-center mb-2">
-        <Text className="text-white text-5xl font-bold">
+        <Text className="text-white text-4xl font-bold">
           {showDetailedStats ? "3h 37m" : "9m 45s"}
         </Text>
         <Text className="text-zinc-500 text-xs uppercase tracking-widest mt-1">

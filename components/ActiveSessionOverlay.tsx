@@ -226,9 +226,6 @@ export default function ActiveSessionOverlay({
               {/* Spacer */}
               <View className="flex-1" />
 
-              {/* <Pressable onPress={handleOpenEditSheet} className=" py-1 rounded-3xl bg-white/50  ">
-                <Text className="text-white text-sm mr-2">Edit session</Text>
-              </Pressable> */}
               {!isSnoozing && (
                 <Pressable
                   onPress={handleOpenEditSheet}
@@ -338,44 +335,7 @@ export default function ActiveSessionOverlay({
                     </View>
                   )}
 
-                  {/* Badges Row */}
-                  {/* <View className="flex-row gap-3 mb-4">
-                    <Pressable onPress={handleOpenBlockListSheet}>
-                      <View className="flex-row items-center bg-zinc-800 rounded-lg px-3 py-2">
-                        <View>
-                          <View className="w-2 h-2 rounded-full bg-red-500 mr-2" />
-                          <Text className="text-zinc-200 text-sm mr-2">
-                            Block List
-                          </Text>
-                        </View>
-                        <View className="flex-row items-center">
-                          <Ionicons
-                            name="apps"
-                            size={12}
-                            color={COLORS.zinc400}
-                          />
-                          <Text className="text-zinc-200 text-xs ml-1">3</Text>
-                          <Ionicons
-                            name="folder"
-                            size={12}
-                            color={COLORS.zinc400}
-                            style={{ marginLeft: 8 }}
-                          />
-                          <Text className="text-zinc-200 text-xs ml-1">2</Text>
-                        </View>
-                      </View>
-                    </Pressable>
-                    <View className="flex-row items-center bg-zinc-800 rounded-lg px-3 py-2">
-                      <Text className="text-zinc-500 text-xs mr-2">
-                        DIFFICULTY
-                      </Text>
-                      <Text className="text-zinc-300 text-sm">
-                        {DIFFICULTY_LABELS[difficulty]}
-                      </Text>
-                    </View>
-                  </View> */}
                   <View className="flex-row gap-3 mb-4">
-                    {/* Block List Badge */}
                     <Pressable
                       onPress={handleOpenBlockListSheet}
                       className="w-[50%]"

@@ -16,7 +16,6 @@ export default function ForgotPasswordScreen() {
 
   const handleSendReset = () => {
     if (email) {
-      // Placeholder - will implement actual password reset
       setSent(true);
     }
   };

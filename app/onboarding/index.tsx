@@ -48,7 +48,7 @@ const SplashScreen = ({ onComplete }: { onComplete: () => void }) => {
   useEffect(() => {
     const timer = setTimeout(() => {
       onComplete();
-    }, 2000);
+    }, 200000);
 
     return () => clearTimeout(timer);
   }, [onComplete]);
@@ -156,17 +156,12 @@ export default function OnboardingScreen() {
   };
 
   const handleSignIn = () => {
-    console.log("Sign in pressed");
+    router.push("/login");
   };
-
-  if (showSplash) {
-    return <SplashScreen onComplete={handleSplashComplete} />;
-  }
 
   return (
     <View className="flex-1 bg-black">
 
-      {/* Single Slide Content */}
       <View className="flex-1 items-center justify-center px-6 pt-8">
         <PhoneMockupContent />
 

@@ -10,6 +10,7 @@ import {
   TextInput,
   View,
 } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function LoginScreen() {
   const [email, setEmail] = useState("");
@@ -18,8 +19,7 @@ export default function LoginScreen() {
 
   const handleLogin = () => {
     if (email && password) {
-      // Placeholder - will implement actual login later
-      router.replace("/home");
+      router.replace("/(tabs)");
     } else {
       setError("Please enter your email and password");
     }
@@ -30,13 +30,9 @@ export default function LoginScreen() {
   };
 
   const handleSignInWithApple = () => {
-    // Placeholder - will implement later
-    router.replace("/home");
   };
 
   const handleSignInWithPhone = () => {
-    // Placeholder - will implement later
-    router.replace("/home");
   };
 
   const handleCreateAccount = () => {
@@ -53,7 +49,7 @@ export default function LoginScreen() {
       <StatusBar barStyle="light-content" />
 
       <ScrollView className="flex-1" contentContainerStyle={{ flexGrow: 1 }}>
-        <View className="flex-1 pt-14 px-6">
+        <SafeAreaView edges={["top"]} className="flex-1 px-6">
           {/* Header */}
           <View className="flex-row justify-between items-center mb-8">
             <Text className="text-white text-xl font-bold">Opal</Text>
@@ -170,13 +166,11 @@ export default function LoginScreen() {
           {/* Create account */}
           <Pressable onPress={handleCreateAccount} className="py-2">
             <Text className="text-zinc-500 text-center text-base">
-              Don't have an account?{" "}
-              <Text className="text-white">Sign up</Text>
+              Don't have an account? <Text className="text-white">Sign up</Text>
             </Text>
           </Pressable>
-        </View>
+        </SafeAreaView>
       </ScrollView>
     </KeyboardAvoidingView>
   );
 }
-

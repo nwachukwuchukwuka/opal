@@ -16,7 +16,6 @@ const SessionFeedbackScreen = () => {
       setStep("rating");
     } else {
       router.push("/Home/session-stats-screen");
-      // console.log("Feedback flow complete.");
     }
   };
 
@@ -40,7 +39,7 @@ const SessionFeedbackScreen = () => {
           <MaterialCommunityIcons
             name={index <= currentRating ? "star" : "star-outline"}
             size={40}
-            color={index <= currentRating ? "#38bdf8" : "#71717a"} // sky-400 : zinc-500
+            color={index <= currentRating ? "#38bdf8" : "#71717a"} 
           />
         </Pressable>
       ))}
@@ -49,9 +48,7 @@ const SessionFeedbackScreen = () => {
 
   return (
     <SafeAreaView className="flex-1 bg-zinc-900 justify-center items-center">
-      {/* Content Area */}
       <View className="flex-1 justify-center items-center w-full px-8">
-        {/* <Image source={PartyPopperImage} className="w-24 h-24 mb-4" /> */}
 
         {step === "initial" && (
           <Text className="text-white text-4xl font-bold">Well Done!</Text>
@@ -87,7 +84,6 @@ const SessionFeedbackScreen = () => {
         )}
       </View>
 
-      {/* Floating Action Button */}
       <View className="absolute bottom-10">
         <Pressable
           onPress={handlePrimaryButton}

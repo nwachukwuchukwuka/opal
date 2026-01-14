@@ -26,11 +26,6 @@ const benefits = [
   },
 ];
 
-// Floating emoji component
-const FloatingEmoji = ({ emoji, style }: { emoji: string; style: object }) => (
-  <Text style={[{ position: "absolute", fontSize: 32 }, style]}>{emoji}</Text>
-);
-
 export default function BenefitsScreen() {
   const handleContinue = () => {
     router.push("/onboarding/fist-bump");
@@ -39,16 +34,6 @@ export default function BenefitsScreen() {
   return (
     <SafeAreaView edges={["top"]} className="flex-1 bg-black">
       {/* Floating Emojis Background */}
-      {/* <View className="absolute inset-0 overflow-hidden">
-        <FloatingEmoji emoji="👊" style={{ top: "10%", left: "10%" }} />
-        <FloatingEmoji emoji="🎯" style={{ top: "15%", right: "15%" }} />
-        <FloatingEmoji emoji="👊" style={{ top: "25%", left: "5%" }} />
-        <FloatingEmoji emoji="🎯" style={{ top: "30%", right: "8%" }} />
-        <FloatingEmoji emoji="👊" style={{ top: "45%", right: "20%" }} />
-        <FloatingEmoji emoji="🎯" style={{ top: "55%", left: "12%" }} />
-        <FloatingEmoji emoji="👊" style={{ top: "65%", right: "5%" }} />
-        <FloatingEmoji emoji="🎯" style={{ top: "75%", left: "8%" }} />
-      </View> */}
 
       {/* Content */}
       <View className="flex-1 px-6 pt-8">
@@ -88,7 +73,6 @@ export default function BenefitsScreen() {
           tap to continue
         </Text>
       </Pressable>
-
     </SafeAreaView>
   );
 }

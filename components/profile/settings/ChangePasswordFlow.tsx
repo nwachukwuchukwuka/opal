@@ -14,7 +14,7 @@ import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 interface ChangePasswordFlowProps {
   visible: boolean;
   onClose: () => void;
-  email: string; // Pre-filled email
+  email: string; 
 }
 
 export const ChangePasswordFlow = ({
@@ -27,17 +27,14 @@ export const ChangePasswordFlow = ({
   const [newPassword, setNewPassword] = useState("");
 
   const handleSignIn = () => {
-    // In a real app, verify credentials here
     if (currentPassword.length > 0) {
       setStep("newPassword");
     }
   };
 
   const handleSaveNewPassword = () => {
-    // Save logic here
     console.log("New password saved:", newPassword);
     onClose();
-    // Reset state after close
     setTimeout(() => {
       setStep("verify");
       setCurrentPassword("");
@@ -64,7 +61,7 @@ export const ChangePasswordFlow = ({
                 <Ionicons name="close" size={24} color="white" />
               </Pressable>
             ) : (
-              <View /> // Empty view to keep spacing if needed, or back button
+              <View /> 
             )}
 
             {step === "verify" && (
@@ -79,7 +76,6 @@ export const ChangePasswordFlow = ({
             className="flex-1 justify-between px-6 pb-6"
           >
             {step === "verify" ? (
-              /* --- STEP 1: CONFIRM DETAILS --- */
               <View className="mt-10 items-center w-full">
                 <Text className="text-white text-4xl font-bold mb-4">Opal</Text>
 
@@ -94,7 +90,7 @@ export const ChangePasswordFlow = ({
                 <View className="w-full gap-4">
                   <TextInput
                     value={email}
-                    editable={false} // Email is usually fixed here
+                    editable={false} 
                     className="w-full bg-black text-zinc-500 text-lg px-4 py-4 rounded-xl border border-zinc-700"
                   />
                   <TextInput
@@ -113,7 +109,6 @@ export const ChangePasswordFlow = ({
                 </Pressable>
               </View>
             ) : (
-              /* --- STEP 2: NEW PASSWORD --- */
               <View className="mt-10 items-center w-full">
                 <Text className="text-white text-2xl font-bold text-center mb-2">
                   Change Password
@@ -126,7 +121,7 @@ export const ChangePasswordFlow = ({
                   <Ionicons
                     name="lock-closed"
                     size={16}
-                    color="#f59e0b" // Gold lock icon color
+                    color="#f59e0b" 
                     style={{
                       position: "absolute",
                       left: 16,
@@ -147,7 +142,6 @@ export const ChangePasswordFlow = ({
               </View>
             )}
 
-            {/* Action Button */}
             <Pressable
               onPress={step === "verify" ? handleSignIn : handleSaveNewPassword}
               className={`w-full py-4 rounded-full items-center ${

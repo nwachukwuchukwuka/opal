@@ -1,8 +1,8 @@
 import { Ionicons } from "@expo/vector-icons";
 import {
-    BottomSheetBackdrop,
-    BottomSheetModal,
-    BottomSheetView,
+  BottomSheetBackdrop,
+  BottomSheetModal,
+  BottomSheetView,
 } from "@gorhom/bottom-sheet";
 import { LinearGradient } from "expo-linear-gradient";
 import React, { forwardRef, useCallback, useMemo } from "react";
@@ -42,7 +42,6 @@ const AppLockActionSheet = forwardRef<
     []
   );
 
-  // Calculate progress for the bar (assuming 5 min / 300s total)
   const totalSeconds = 300;
   const progressPercent = (remainingSeconds / totalSeconds) * 100;
 
@@ -89,7 +88,6 @@ const AppLockActionSheet = forwardRef<
                 className="absolute h-full w-1 bg-white"
                 style={{ left: `${progressPercent}%` }}
               />
-              {/* Ticks (Visual flair) */}
               <View className="absolute inset-0 flex-row justify-between items-center px-1">
                 {[...Array(10)].map((_, i) => (
                   <View key={i} className="w-[1px] h-2 bg-zinc-700" />

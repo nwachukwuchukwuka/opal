@@ -35,7 +35,6 @@ export default function ConnectScreenTimeScreen() {
               your permission.
             </Text>
 
-            {/* iOS Permission Dialog Mockup */}
             <View className="bg-zinc-800/90 rounded-2xl p-5 mx-4 border border-zinc-700">
               <Text className="text-white text-base font-semibold text-center mb-3">
                 "Opal" Would Like to Access{"\n"}Screen Time
@@ -57,7 +56,6 @@ export default function ConnectScreenTimeScreen() {
               </View>
             </View>
 
-            {/* Arrow indicator */}
             <View className="items-center mt-4">
               <Text className="text-zinc-500 text-2xl">↑</Text>
             </View>
@@ -75,18 +73,6 @@ export default function ConnectScreenTimeScreen() {
               </Pressable>
             </View>
           </View>
-
-          {/* Give Permissions Button */}
-          {/* <View className="px-6 pb-10">
-            <Pressable
-              onPress={handleGivePermissions}
-              className="w-full py-4 rounded-full bg-violet-600 active:bg-violet-700"
-            >
-              <Text className="text-white text-center text-lg font-semibold">
-                Give Permissions to Opal
-              </Text>
-            </Pressable>
-          </View> */}
         </SafeAreaView>
 
         {/* Privacy Bottom Sheet */}

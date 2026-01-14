@@ -2,7 +2,6 @@ import React from "react";
 import { Text, View } from "react-native";
 import { AppIconProps, PhoneMockupProps } from "../../types";
 
-// App icons data - simulating popular apps
 const appIcons = [
   { name: "Instagram", color: "#E4405F", icon: "📷" },
   { name: "TikTok", color: "#000000", icon: "🎵" },

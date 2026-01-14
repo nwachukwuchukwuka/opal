@@ -176,7 +176,6 @@ const RewardsSheet = forwardRef<RewardsSheetRef>((props, ref) => {
               </View>
             </View>
 
-            {/* Single Referral Item Mock */}
             <View className="flex-row items-center justify-between mb-8 px-1">
               <View className="flex-row items-center">
                 <View className="w-6 h-6 rounded-full bg-zinc-700 border border-zinc-500 mr-2" />
@@ -186,16 +185,13 @@ const RewardsSheet = forwardRef<RewardsSheetRef>((props, ref) => {
             </View>
           </View>
 
-          {/* --- TIMELINE REWARDS SECTION --- */}
           <View className="px-5">
             {rewardsList.map((item, index) => {
               const isLast = index === rewardsList.length - 1;
 
               return (
                 <View key={item.id} className="flex-row">
-                  {/* Left Column: Icon + Line */}
                   <View className="items-center mr-4">
-                    {/* The Reward Icon */}
                     <View className="w-16 h-16 bg-zinc-900 border border-zinc-800 rounded-2xl items-center justify-center z-10">
                       {item.type === "gem" ? (
                         <View
@@ -228,7 +224,6 @@ const RewardsSheet = forwardRef<RewardsSheetRef>((props, ref) => {
                       )}
                     </View>
 
-                    {/* The Connecting Line & Arrow */}
                     {!isLast && (
                       <View className="flex-1 items-center py-1">
                         <View className="w-[1px] h-full bg-zinc-800" />
@@ -242,7 +237,6 @@ const RewardsSheet = forwardRef<RewardsSheetRef>((props, ref) => {
                     )}
                   </View>
 
-                  {/* Right Column: Content Card */}
                   <View className="flex-1 pb-6">
                     <View className="bg-zinc-900 border border-zinc-800 rounded-2xl p-4">
                       <View className="flex-row justify-between mb-1">
@@ -250,7 +244,6 @@ const RewardsSheet = forwardRef<RewardsSheetRef>((props, ref) => {
                           {item.friendsRequired}{" "}
                           {item.friendsRequired === 1 ? "Friend" : "Friends"}
                         </Text>
-                        {/* Progress text for claimable item */}
                         {item.status === "claimable" && (
                           <Text className="text-zinc-500 text-xs">1/3</Text>
                         )}

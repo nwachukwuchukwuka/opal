@@ -13,7 +13,7 @@ export interface DifficultyOption {
 
 export interface FocusSession {
   name: string;
-  duration: number; // in minutes, -1 for always on
+  duration: number;
   difficulty: DifficultyLevel;
   isAlwaysOn: boolean;
 }
@@ -65,12 +65,12 @@ export interface SnoozeSheetProps {
 export interface ShareOption {
   id: string;
   name: string;
-  icon: string; // We will use icon names from a vector icon library
+  icon: string;
   color: string;
 }
 
 export interface SessionStats {
-  distractionFreeTime: number; // in minutes
+  distractionFreeTime: number;
   intentionalUseToday: number; // in sessions
   funFact: string;
 }
@@ -79,13 +79,12 @@ export interface SessionStats {
 // Add this new type
 export interface DistractionLevel {
   id: string;
-  value: number; // A numeric value for the slider
+  value: number;
   label: string;
   description: string;
   color: string;
 }
 
-// Update your existing HomeAppUsageItem type
 export interface HomeAppUsageItem {
   id: string;
   name: string;
@@ -95,8 +94,7 @@ export interface HomeAppUsageItem {
   iconBgColor: string;
   time: string;
   timeColor?: string;
-  distractionLevelValue: number; // Add this property
-  // ... other properties like barWidth, tag, etc.
+  distractionLevelValue: number;
 }
 
 
@@ -124,7 +122,7 @@ export interface SessionConfig {
   activeDays: number[];
   appsBlockedId: string;
   difficulty: 'normal' | 'deep-focus';
-  disabledUntil?: Date | 'indefinitely'; // Add this property
+  disabledUntil?: Date | 'indefinitely';
 }
 
 export interface BlockList {

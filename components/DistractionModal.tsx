@@ -19,7 +19,6 @@ interface DistractionModalProps {
   onClose: () => void;
 }
 
-// Custom Distraction Slider Component
 interface DistractionSliderProps {
   value: number;
   onValueChange: (value: number) => void;
@@ -77,14 +76,12 @@ const DistractionSlider = ({
     }
   };
 
-  // Calculate thumb position - account for thumb size so it stays within bounds
   const getThumbLeft = () => {
     if (sliderWidth === 0) return 0;
     const usableWidth = sliderWidth - THUMB_SIZE;
     return (value / numSteps) * usableWidth;
   };
 
-  // Calculate dot positions to align with thumb center positions
   const getDotLeft = (index: number) => {
     if (sliderWidth === 0) return 0;
     const usableWidth = sliderWidth - THUMB_SIZE;
@@ -102,7 +99,6 @@ const DistractionSlider = ({
         onResponderGrant={handleTouchStart}
         onResponderMove={handleTouchMove}
       >
-        {/* Gradient Track */}
         <View
           className="absolute"
           style={{

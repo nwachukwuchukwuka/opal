@@ -7,7 +7,6 @@ export const PageRecap = () => (
     <Text className="text-zinc-400 text-sm mb-12">Here are some highlights from your report</Text>
 
     <View className="w-full gap-6">
-        {/* Item 1 */}
         <View className="flex-row justify-between items-center py-4 border-b border-zinc-800">
             <View>
                 <Text className="text-white text-3xl font-bold mb-1">5h 15m</Text>
@@ -18,7 +17,6 @@ export const PageRecap = () => (
             </View>
         </View>
 
-        {/* Item 2 */}
         <View className="flex-row justify-between items-center py-4 border-b border-zinc-800">
             <View>
                 <Text className="text-white text-3xl font-bold mb-1">-15m</Text>
@@ -29,7 +27,6 @@ export const PageRecap = () => (
             </View>
         </View>
 
-        {/* Item 3 */}
         <View className="flex-row justify-between items-center py-4">
             <View>
                 <Text className="text-white text-3xl font-bold mb-1">3 YEARS</Text>

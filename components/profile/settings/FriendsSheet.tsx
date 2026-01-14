@@ -1,9 +1,9 @@
 import { HexagonAvatar } from "@/components/profile/HexagonAvatar";
 import { Ionicons } from "@expo/vector-icons";
 import {
-    BottomSheetBackdrop,
-    BottomSheetModal,
-    BottomSheetScrollView,
+  BottomSheetBackdrop,
+  BottomSheetModal,
+  BottomSheetScrollView,
 } from "@gorhom/bottom-sheet";
 import React, { forwardRef, useCallback, useMemo, useState } from "react";
 import { Pressable, Text, View } from "react-native";
@@ -137,7 +137,6 @@ const FriendsSheet = forwardRef<FriendsSheetRef, FriendsSheetProps>(
                   </Pressable>
                 </View>
 
-                {/* Popover Menu for Stop Sharing */}
                 {activeMenuId === friend.id && (
                   <View className="absolute top-16 right-0 bg-zinc-800 rounded-xl p-1 z-50 w-40 shadow-lg border border-zinc-700">
                     <Pressable

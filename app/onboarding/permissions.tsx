@@ -1,22 +1,14 @@
 import { router } from "expo-router";
 import React from "react";
-import {
-  Pressable,
-  StatusBar,
-  Text,
-  View,
-} from "react-native";
+import { Pressable, StatusBar, Text, View } from "react-native";
 
 export default function PermissionsScreen() {
   const handleAllowWithPasscode = () => {
-    // In a real app, this would trigger the iOS Screen Time permission
-    // For now, navigate to success screen
     router.push("/onboarding/success");
   };
 
   const handleDontAllow = () => {
-    // Skip permissions and go to home
-    router.replace("/home");
+    // router.replace("/(tabs)");
   };
 
   return (
@@ -37,11 +29,13 @@ export default function PermissionsScreen() {
 
         {/* Description */}
         <Text className="text-zinc-600 text-base text-center leading-6 mb-4">
-          Providing "Opal" access to Screen Time allows it to see your activity data, restrict content, and limit the usage of apps and websites.
+          Providing "Opal" access to Screen Time allows it to see your activity
+          data, restrict content, and limit the usage of apps and websites.
         </Text>
 
         <Text className="text-zinc-600 text-base text-center leading-6">
-          You can control which apps access your own in Screen Time Options in Settings.
+          You can control which apps access your own in Screen Time Options in
+          Settings.
         </Text>
 
         {/* Learn more link */}
@@ -60,11 +54,8 @@ export default function PermissionsScreen() {
             Allow with Passcode
           </Text>
         </Pressable>
-        
-        <Pressable
-          onPress={handleDontAllow}
-          className="w-full py-3"
-        >
+
+        <Pressable onPress={handleDontAllow} className="w-full py-3">
           <Text className="text-blue-500 text-center text-base">
             Don't Allow
           </Text>
@@ -73,4 +64,3 @@ export default function PermissionsScreen() {
     </View>
   );
 }
-

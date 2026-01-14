@@ -42,7 +42,6 @@ export const AuthModal = ({
   };
 
   const handleSubmit = () => {
-    // In a real app, perform auth logic here
     onLoginSuccess();
   };
 
@@ -57,7 +56,6 @@ export const AuthModal = ({
           {/* Header */}
           <View className="px-4 pt-2 flex-row justify-between items-center">
             <Pressable onPress={onClose}>
-              {/* Back arrow if needed, or empty for layout */}
               <Ionicons
                 name="chevron-back"
                 size={28}
@@ -74,7 +72,6 @@ export const AuthModal = ({
 
           <KeyboardAvoidingView
             behavior={Platform.OS === "ios" ? "padding" : "height"}
-            // className="flex-1 px-6 justify-center"
           >
             {/* Title Section */}
             <View className="mb-8 items-center">

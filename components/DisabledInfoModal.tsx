@@ -29,12 +29,10 @@ export const DisabledInfoModal = ({
       animationType="fade"
       onRequestClose={onDismiss}
     >
-      {/* Backdrop - tapping dismisses */}
       <Pressable
         onPress={onDismiss}
         className="flex-1 justify-center items-center bg-black/70"
       >
-        {/* Modal Card - prevent tap propagation */}
         <Pressable
           onPress={(e) => e.stopPropagation()}
           className="bg-zinc-800 rounded-2xl w-[85%] p-6 items-center"

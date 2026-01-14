@@ -59,7 +59,6 @@ const AppStoreSheet = forwardRef<AppStoreSheetRef, AppStoreSheetProps>(
       >
         <BottomSheetView style={{ flex: 1 }}>
           {!showSignIn ? (
-            // App Store Subscription View
             <View className="flex-1 px-5">
               {/* Header */}
               <View className="flex-row justify-between items-center mb-4">

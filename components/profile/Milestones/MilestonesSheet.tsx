@@ -18,7 +18,6 @@ import {
 
 export type MilestonesSheetRef = BottomSheetModal;
 
-// Mock Data based on screenshots
 const ALL_MILESTONES = [
   {
     id: "1",
@@ -26,7 +25,7 @@ const ALL_MILESTONES = [
     subtitle: "You Installed Opal",
     description: "Reach this MileStone when you complete the Opal onboarding.",
     unlockedOn: "2 Sep 2024",
-    color: "#4ade80", // Greenish
+    color: "#4ade80",
     status: "current",
     imageUri:
       "https://images.unsplash.com/photo-1615529182904-14819c35db37?q=80&w=800&auto=format&fit=crop",
@@ -110,20 +109,15 @@ const MilestonesSheet = forwardRef<MilestonesSheetRef>((props, ref) => {
   return (
     <>
       <BottomSheetModal
-        // ref={ref}
-        // snapPoints={snapPoints}
-        // backgroundStyle={{ backgroundColor: "#18181b" }}
-        // handleIndicatorStyle={{ backgroundColor: "#3f3f46" }}
-        // backdropComponent={renderBackdrop}
         ref={ref}
         snapPoints={snapPoints}
         backgroundStyle={{ backgroundColor: "#18181b" }}
         handleIndicatorStyle={{ backgroundColor: "#3f3f46" }}
         backdropComponent={renderBackdrop}
-        index={0} 
-        enableDynamicSizing={false} 
-        enablePanDownToClose={true} 
-        enableHandlePanningGesture={true} 
+        index={0}
+        enableDynamicSizing={false}
+        enablePanDownToClose={true}
+        enableHandlePanningGesture={true}
         enableContentPanningGesture={false}
       >
         <BottomSheetView className="flex-1 px-5 pt-2">
@@ -176,7 +170,6 @@ const MilestonesSheet = forwardRef<MilestonesSheetRef>((props, ref) => {
         </BottomSheetView>
       </BottomSheetModal>
 
-      {/* DETAIL MODAL (Overlay) */}
       <Modal
         visible={!!selectedMilestone}
         transparent
@@ -200,7 +193,6 @@ const MilestonesSheet = forwardRef<MilestonesSheetRef>((props, ref) => {
                   {selectedMilestone.subtitle}
                 </Text>
 
-                {/* Large Gem Image with Glow */}
                 <View className="relative mb-12 items-center justify-center">
                   <View
                     className="absolute w-48 h-48 rounded-full blur-3xl opacity-40"
@@ -294,7 +286,6 @@ const MilestonesSheet = forwardRef<MilestonesSheetRef>((props, ref) => {
                 )}
               </View>
 
-              {/* Close Area (Invisible Backdrop) to close modal */}
               <TouchableWithoutFeedback
                 onPress={() => setSelectedMilestone(null)}
               >
@@ -303,7 +294,6 @@ const MilestonesSheet = forwardRef<MilestonesSheetRef>((props, ref) => {
             </View>
           )}
 
-          {/* Close Button below card */}
           <TouchableOpacity
             onPress={() => setSelectedMilestone(null)}
             className="mt-6 w-10 h-10 bg-zinc-800 rounded-full items-center justify-center"

@@ -8,7 +8,6 @@ import {
 
 export default function FocusIntroScreen() {
   const handleContinue = () => {
-    // Navigate to sessions intro screens
     router.push("/onboarding/sessions");
   };
 

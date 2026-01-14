@@ -2,12 +2,12 @@ import { Ionicons } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
 import React, { useState } from "react";
 import {
-    Dimensions,
-    Modal,
-    Pressable,
-    Text,
-    TouchableWithoutFeedback,
-    View,
+  Dimensions,
+  Modal,
+  Pressable,
+  Text,
+  TouchableWithoutFeedback,
+  View,
 } from "react-native";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import { PageActionItems } from "./PageActionItems";
@@ -72,7 +72,6 @@ export const FocusReportModal = ({
       presentationStyle="fullScreen"
     >
       <View className="flex-1 bg-black">
-        {/* Background Gradient/Glow Effect */}
         <LinearGradient
           colors={["rgba(6, 182, 212, 0.15)", "transparent"]}
           style={{
@@ -105,7 +104,6 @@ export const FocusReportModal = ({
               </View>
             </View>
 
-            {/* --- TAP NAVIGATION ZONES (Invisible) --- */}
             <View className="absolute inset-0 flex-row z-10 top-24 bottom-24">
               <TouchableWithoutFeedback onPress={handlePrev}>
                 <View className="w-[30%] h-full" />
@@ -115,12 +113,10 @@ export const FocusReportModal = ({
               </TouchableWithoutFeedback>
             </View>
 
-            {/* --- MAIN CONTENT AREA --- */}
             <View className="flex-1 px-6 justify-center pt-6">
               {renderContent()}
             </View>
 
-            {/* --- FOOTER (Fixed) --- */}
             <View className="px-6 pb-6 pt-4 items-center">
               {currentIndex === TOTAL_PAGES - 1 ? (
                 <Pressable

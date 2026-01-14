@@ -9,7 +9,6 @@ import {
 
 export default function SuccessScreen() {
   const handleDone = () => {
-    // Continue to account creation
     router.push("/create-account");
   };
 

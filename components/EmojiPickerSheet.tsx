@@ -6,7 +6,7 @@ import {
 } from "@gorhom/bottom-sheet";
 import React, { forwardRef, useMemo, useState } from "react";
 import { Dimensions, Pressable, ScrollView, Text, View } from "react-native";
-import { EMOJI_CATEGORIES } from "../constants"; // Assuming you added this
+import { EMOJI_CATEGORIES } from "../constants";
 
 export type EmojiPickerSheetRef = BottomSheetModal;
 

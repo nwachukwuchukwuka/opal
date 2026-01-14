@@ -7,7 +7,7 @@ export const PageBarChart = () => {
       day: "Tue",
       height: "h-24",
       color: "bg-gradient-to-t from-red-900 to-red-400",
-    }, // Custom gradient sim via bg color for now
+    }, 
     { day: "Wed", height: "h-24", color: "bg-zinc-700" },
     { day: "Thu", height: "h-24", color: "bg-zinc-700" },
     { day: "Fri", height: "h-20", color: "bg-zinc-700" },
@@ -33,7 +33,6 @@ export const PageBarChart = () => {
               className={`w-8 rounded-t-sm ${i === 5 ? "bg-gradient-to-b from-red-400 to-transparent" : "bg-zinc-800"}`}
               style={{ height: i === 5 ? 120 : 100 }}
             >
-              {/* Simulating Gradient for the Sunday Bar */}
               {i === 5 && (
                 <View className="w-full h-full bg-red-500 opacity-50" />
               )}

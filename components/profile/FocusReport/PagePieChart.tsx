@@ -18,7 +18,6 @@ export const PagePieChart = () => (
       </Text>
     </View>
 
-    {/* Custom CSS Pie Chart Sim */}
     <View className="w-48 h-48 rounded-full border-[16px] border-zinc-800 relative items-center justify-center mb-10">
       <View className="absolute w-48 h-48 rounded-full border-[16px] border-red-500 border-l-transparent border-b-transparent border-r-transparent rotate-45" />
       <Text className="text-white font-bold text-xl">16h</Text>

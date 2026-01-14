@@ -40,7 +40,6 @@ const ReferralCodeSheet = forwardRef<ReferralCodeSheetRef, ReferralCodeSheetProp
     );
 
     const handleSubmitCode = () => {
-      // Mock validation
       if (code.length > 0) {
         Keyboard.dismiss();
         setStep("success");
@@ -48,11 +47,10 @@ const ReferralCodeSheet = forwardRef<ReferralCodeSheetRef, ReferralCodeSheetProp
     };
 
     const handleFinish = () => {
-      onSuccess("Taaffeite5892"); // Mock name based on screenshot
+      onSuccess("Taaffeite5892"); 
       if (ref && 'current' in ref) {
         ref.current?.dismiss();
       }
-      // Reset after closing
       setTimeout(() => {
         setStep("input");
         setCode("");
@@ -74,7 +72,6 @@ const ReferralCodeSheet = forwardRef<ReferralCodeSheetRef, ReferralCodeSheetProp
         <BottomSheetView className="flex-1 px-6 pt-4 pb-10 justify-between">
           
           {step === "input" ? (
-            /* --- INPUT STATE --- */
             <>
               <View>
                 <Text className="text-white text-2xl font-bold text-center mb-2 mt-8">
@@ -112,10 +109,8 @@ const ReferralCodeSheet = forwardRef<ReferralCodeSheetRef, ReferralCodeSheetProp
               </Pressable>
             </>
           ) : (
-            /* --- SUCCESS STATE --- */
             <>
               <View className="items-center mt-8">
-                {/* Seal Logo Placeholder */}
                 <View className="w-32 h-32 rounded-full border-4 border-zinc-800 items-center justify-center mb-8">
                     <Ionicons name="diamond" size={48} color="white" />
                 </View>
@@ -127,7 +122,6 @@ const ReferralCodeSheet = forwardRef<ReferralCodeSheetRef, ReferralCodeSheetProp
                   Focus is better together!
                 </Text>
 
-                {/* Benefits List */}
                 <View className="w-full gap-6 px-2">
                     <View className="flex-row items-center gap-4">
                         <Ionicons name="gift" size={20} color="#86efac" />

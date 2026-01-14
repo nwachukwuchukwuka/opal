@@ -590,7 +590,6 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import AppLimitSheet, {
   AppLimitSheetRef,
 } from "@/components/block/Applimitsheet";
-// 1. IMPORT AppLockSheet
 import AppLockActionSheet, {
   AppLockActionSheetRef,
 } from "@/components/block/AppLockActionSheet";
@@ -631,7 +630,6 @@ const BlocksScreen = () => {
   const editSessionRef = useRef<EditSessionSheetRef>(null);
   const newBlockSheetRef = useRef<NewBlockSheetRef>(null);
   const appLimitSheetRef = useRef<AppLimitSheetRef>(null);
-  // 2. CREATE REF FOR APP LOCK SHEET
   const appLockSheetRef = useRef<AppLockSheetRef>(null);
   const appLockActionRef = useRef<AppLockActionSheetRef>(null);
 
@@ -650,57 +648,46 @@ const BlocksScreen = () => {
   const [appLockStatus, setAppLockStatus] = useState<"locked" | "unlocked">(
     "locked"
   );
-  const [unlockTimeLeft, setUnlockTimeLeft] = useState(0); // in seconds
+  const [unlockTimeLeft, setUnlockTimeLeft] = useState(0);
 
   useEffect(() => {
-    let timer: NodeJS.Timeout;
+    // let timer: NodeJS.Timeout;
+    let timer: any;
     if (appLockStatus === "unlocked" && unlockTimeLeft > 0) {
       timer = setInterval(() => {
         setUnlockTimeLeft((prev) => prev - 1);
-        // Update the block UI text dynamically
         updateAppLockUI(unlockTimeLeft - 1);
       }, 1000);
     } else if (unlockTimeLeft <= 0 && appLockStatus === "unlocked") {
-      // Time is up, relock
       handleRelock();
     }
     return () => clearInterval(timer);
   }, [appLockStatus, unlockTimeLeft]);
 
-  // Helper to update the block item text in the list
   const updateAppLockUI = (seconds: number) => {
     const m = Math.floor(seconds / 60);
     const s = seconds % 60;
     const timeString = `${m}:${s < 10 ? "0" : ""}${s}`;
-
-    // Note: In a real app with proper state management (Redux/Zustand), this would be cleaner.
-    // Here we manually update the local block state.
     const updateBlock = (b: BlockItem) => {
       if (b.name === "App Lock") {
         return {
           ...b,
           schedule: `Locking in ${m}m ${s}s`,
           countdown: `Remaining ${timeString}`,
-          status: "upcoming" as const, // Move to upcoming visually
+          status: "upcoming" as const,
         };
       }
       return b;
     };
 
-    // We check both lists to find where it currently lives
     setActiveBlocks((prev) => prev.map(updateBlock));
   };
 
-  // 3. HANDLERS
   const handleUnlock = () => {
     setAppLockStatus("unlocked");
-    setUnlockTimeLeft(300); // 5 minutes
-
-    // Update the block item to look "Unlocked"
+    setUnlockTimeLeft(300);
     const appLock = activeBlocks.find((b) => b.name === "App Lock");
     if (appLock) {
-      // Logic to potentially move it to "Upcoming" or just change its styling
-      // For this demo, we'll keep it in Active but change styling, or you can move it to upcomingBlocks state.
     }
 
     appLockActionRef.current?.dismiss();
@@ -710,7 +697,6 @@ const BlocksScreen = () => {
     setAppLockStatus("locked");
     setUnlockTimeLeft(0);
 
-    // Reset Block UI
     setActiveBlocks((prev) =>
       prev.map((b) => {
         if (b.name === "App Lock") {
@@ -741,14 +727,8 @@ const BlocksScreen = () => {
     setActiveBlocks((prev) => [...prev, newAppLockBlock]);
 
     appLockSheetRef.current?.dismiss();
-
-    // Optional: If you want to open the Action Sheet IMMEDIATELY after saving:
-    // setTimeout(() => {
-    //   appLockActionRef.current?.present();
-    // }, 300);
   };
 
-  // Handlers
   const handleBlockPress = (item: BlockItem) => {
     if (item.status === "disabled") {
       setSelectedDisabledBlock(item);
@@ -770,13 +750,11 @@ const BlocksScreen = () => {
 
   const handleEnableBlock = () => {
     if (!selectedDisabledBlock) return;
-    // ... (Enable logic) ...
     setIsDisabledModalVisible(false);
     setSelectedDisabledBlock(null);
   };
 
   const handleSaveSession = (newConfig: SessionConfig) => {
-    // ... (Save logic) ...
     editSessionRef.current?.dismiss();
   };
 
@@ -922,7 +900,6 @@ const BlocksScreen = () => {
           }, 300);
         }}
         onLock={() => {
-          // 3. CONNECT THE HANDLER
           newBlockSheetRef.current?.dismiss();
           setTimeout(() => {
             appLockSheetRef.current?.present();
@@ -938,18 +915,6 @@ const BlocksScreen = () => {
         }}
       />
 
-      {/* <AppLockActionSheet
-        ref={appLockActionRef}
-        onUnlock={() => {
-          console.log("Unlock clicked");
-          appLockActionRef.current?.dismiss();
-        }}
-        onEdit={() => {
-          console.log("Edit Lock clicked");
-          appLockActionRef.current?.dismiss();
-        }}
-      /> */}
-
       <AppLockActionSheet
         ref={appLockActionRef}
         isUnlocked={appLockStatus === "unlocked"}
@@ -958,13 +923,12 @@ const BlocksScreen = () => {
         onRelock={handleRelock}
         onEdit={() => {
           appLockActionRef.current?.dismiss();
-          // setTimeout(() => appLockSheetRef.current?.present(), 300);
         }}
       />
 
       <AppLockSheet
         ref={appLockSheetRef}
-        onSave={handleSaveAppLock} // <--- Connected here
+        onSave={handleSaveAppLock}
         onSelectApps={() => console.log("Select Apps")}
         onSelectDuration={() => console.log("Select Duration")}
         onSelectDifficulty={() => console.log("Select Difficulty")}

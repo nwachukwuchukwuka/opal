@@ -33,7 +33,6 @@ const ShareBottomSheet = forwardRef<BottomSheet, {}>((props, ref) => {
       handleIndicatorStyle={{ backgroundColor: "#71717a" }}
     >
       <BottomSheetView className="flex-1 p-6">
-        {/* Preview Section ... */}
         <View className="items-center mb-6">
           <View className="bg-black rounded-3xl p-4 shadow-lg w-72 h-80 items-center justify-center">
             <Text className="text-white text-2xl font-bold mt-2">Opal</Text>
@@ -42,7 +41,6 @@ const ShareBottomSheet = forwardRef<BottomSheet, {}>((props, ref) => {
           <Text className="text-zinc-400 mt-3 font-semibold">Preview</Text>
         </View>
 
-        {/* Share To Section */}
         <Text className="text-zinc-300 text-base font-semibold mb-4">
           Share to:
         </Text>

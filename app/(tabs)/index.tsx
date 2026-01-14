@@ -57,20 +57,23 @@ export default function HomeScreen() {
   const handleLeaveEarly = () => setActiveSession(null);
 
   useEffect(() => {
-    const timer = setTimeout(() => setShowInvite(false), 2000);
+    // const timer = setTimeout(() => setShowInvite(false), 2000);
+    const timer = setTimeout(() => setShowInvite(false), 1000);
     return () => clearTimeout(timer);
   }, []);
 
   useEffect(() => {
     if (!showInvite && !showStats) {
-      const timer = setTimeout(() => setShowMilestone(true), 3000);
+      // const timer = setTimeout(() => setShowMilestone(true), 3000);
+      const timer = setTimeout(() => setShowMilestone(true), 300);
       return () => clearTimeout(timer);
     }
   }, [showInvite, showStats]);
 
   useEffect(() => {
     if (showStats && !showDetailedStats) {
-      const timer = setTimeout(() => setShowDetailedStats(true), 4000);
+      // const timer = setTimeout(() => setShowDetailedStats(true), 4000);
+      const timer = setTimeout(() => setShowDetailedStats(true), 300);
       return () => clearTimeout(timer);
     }
   }, [showStats]);
@@ -93,7 +96,7 @@ export default function HomeScreen() {
 
   const handleCloseDistractionModal = () => {
     setDistractionModalVisible(false);
-    setEditingApp(null); 
+    setEditingApp(null);
   };
 
   const handleAppPress = (app: HomeAppUsageItem) => {
@@ -108,9 +111,7 @@ export default function HomeScreen() {
         onDatePress={handleOpenDatePicker}
       />
       <ScrollView showsVerticalScrollIndicator={false}>
-        {showInvite && 
-        <InviteBanner onClose={() => setShowInvite(false)} />
-        }
+        {showInvite && <InviteBanner onClose={() => setShowInvite(false)} />}
 
         {showStats ? (
           <StatsDashboard
@@ -127,9 +128,7 @@ export default function HomeScreen() {
 
       {/* Conditional Bottom UI Elements */}
       {showDetailedStats && <BlockNowButton onPress={handleBlockNow} />}
-      {/* {showStats && !showDetailedStats &&  */}
-      <SessionInfoCard />
-      {/* } */}
+      {showStats && !showDetailedStats && <SessionInfoCard />}
 
       {/* Modals and Sheets */}
       <DistractionModal

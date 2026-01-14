@@ -43,7 +43,6 @@ const DurationPicker = forwardRef<BottomSheetModal, DurationPickerProps>(
       onClose();
     };
 
-    // Get the timer value in seconds for countdown mode (iOS)
     const getTimerDurationSeconds = () => {
       return initialHours * 3600 + initialMinutes * 60;
     };

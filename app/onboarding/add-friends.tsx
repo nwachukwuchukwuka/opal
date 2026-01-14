@@ -9,7 +9,6 @@ import {
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-// Dummy friends data
 const dummyLeaderboard = [
   { id: 1, name: "Daligaril", time: "1h 32m", rank: 1 },
   { id: 2, name: "Agent1", time: "1h 58m", rank: 2 },
@@ -25,7 +24,6 @@ const dummyContacts = [
   { id: 4, name: "Joshua Smith", inContacts: true },
 ];
 
-// Avatar placeholder component
 const Avatar = ({ name, size = 40 }: { name: string; size?: number }) => {
   const colors = ["#8B5CF6", "#EC4899", "#3B82F6", "#10B981", "#F59E0B"];
   const colorIndex = name.charCodeAt(0) % colors.length;
@@ -65,7 +63,6 @@ export default function AddFriendsScreen() {
   };
 
   const handleInvite = (contactId: number) => {
-    // Placeholder - would send invite
     console.log("Invite contact:", contactId);
   };
 

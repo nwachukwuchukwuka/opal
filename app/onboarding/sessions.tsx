@@ -11,11 +11,11 @@ import {
   Text,
   View,
 } from "react-native";
-import { ONBOARDING_APPS, COLORS } from "../../constants";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { COLORS, ONBOARDING_APPS } from "../../constants";
 
 const { width } = Dimensions.get("window");
 
-// Helper to render icon based on family
 const AppIcon = ({ 
   icon, 
   iconFamily, 
@@ -36,11 +36,10 @@ const AppIcon = ({
   }
 };
 
-// Phone mockup for Sessions screen (Instagram notification)
 const SessionsPhoneMockup = () => {
   return (
     <View className="items-center">
-      <View className="w-56 h-[440px] bg-zinc-900 rounded-[3rem] p-1.5 border-[3px] border-zinc-800">
+      <View className="w-80 h-[440px] bg-zinc-900 rounded-[3rem] p-1.5 border-[3px] border-zinc-800">
         <View className="flex-1 bg-black rounded-[2.5rem] overflow-hidden">
           {/* Dynamic Island */}
           <View className="items-center pt-2">
@@ -103,11 +102,10 @@ const SessionsPhoneMockup = () => {
   );
 };
 
-// Phone mockup for Real-time evolution (Stats screen)
 const StatsPhoneMockup = () => {
   return (
     <View className="items-center">
-      <View className="w-56 h-[440px] bg-zinc-900 rounded-[3rem] p-1.5 border-[3px] border-zinc-800">
+      <View className="w-80 h-[440px] bg-zinc-900 rounded-[3rem] p-1.5 border-[3px] border-zinc-800">
         <View className="flex-1 bg-black rounded-[2.5rem] overflow-hidden">
           {/* Dynamic Island */}
           <View className="items-center pt-2">
@@ -183,7 +181,6 @@ const StatsPhoneMockup = () => {
   );
 };
 
-// Select Apps Slide Content
 const SelectAppsSlide = ({
   selectedApps,
   onToggleApp,
@@ -192,14 +189,14 @@ const SelectAppsSlide = ({
   onToggleApp: (appId: string) => void;
 }) => {
   return (
-    <View className="flex-1 pt-14 px-6">
+    <SafeAreaView className="flex-1 px-6 pt-8">
       {/* Header */}
       <View className="mb-8">
-        <Text className="text-zinc-500 text-sm mb-2">Now, let's start to focus.</Text>
-        <Text className="text-white text-[28px] font-bold mb-3">
+        <Text className="text-zinc-200 text-sm mb-2">Now, let's start to focus.</Text>
+        <Text className="text-white text-[20px] font-bold mb-3">
           Select up to 3{"\n"}distracting apps
         </Text>
-        <Text className="text-zinc-500 text-sm">
+        <Text className="text-zinc-200 text-sm">
           You can always change this later or create a{"\n"}new group of apps to block.
         </Text>
       </View>
@@ -211,7 +208,6 @@ const SelectAppsSlide = ({
           return (
             <Pressable
               key={app.id}
-              onPress={() => onToggleApp(app.id)}
               className="items-center"
             >
               <View className="relative">
@@ -238,7 +234,7 @@ const SelectAppsSlide = ({
           );
         })}
       </View>
-    </View>
+    </SafeAreaView>
   );
 };
 

@@ -16,7 +16,6 @@ export default function CalculatingScreen() {
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {
-    // Animate progress bar
     const progressInterval = setInterval(() => {
       setProgress((prev) => {
         if (prev >= 100) return 100;
@@ -24,7 +23,6 @@ export default function CalculatingScreen() {
       });
     }, 50);
 
-    // Move to next step or navigate away
     const stepTimeout = setTimeout(() => {
       if (currentStep < loadingSteps.length - 1) {
         setCurrentStep(currentStep + 1);

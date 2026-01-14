@@ -14,7 +14,6 @@ const routes = [
 export default function ResultsLayout() {
   const pathname = usePathname();
 
-  // Determine current step based on pathname
   const getCurrentStep = () => {
     if (pathname.includes("news-intro")) return 1;
     if (pathname.includes("bad-news")) return 2;

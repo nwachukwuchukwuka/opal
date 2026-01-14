@@ -96,7 +96,6 @@ export interface SettingOption {
     | "MaterialIcons";
 }
 
-// Home Screen Data
 export const APP_USAGE_DATA: AppUsage[] = [
   {
     id: "offline",
@@ -296,7 +295,6 @@ export const APP_CATEGORIES: AppCategory[] = [
   },
 ];
 
-// Profile Screen Data
 export const USER_DATA = {
   gemName: "Sapphire",
   email: "user@example.com",
@@ -397,7 +395,6 @@ export const SETTINGS_OPTIONS: SettingOption[] = [
   },
 ];
 
-// Onboarding apps data
 export const ONBOARDING_APPS = [
   {
     id: "safari",
@@ -466,7 +463,6 @@ export const ONBOARDING_APPS = [
   },
 ];
 
-// Referral options
 export const REFERRAL_OPTIONS = [
   { id: "search", label: "Search engine" },
   { id: "friend", label: "Through a Friend" },
@@ -520,20 +516,15 @@ export const SHARE_OPTIONS: ShareOption[] = [
   },
 ];
 
-// Background images from Unsplash
 export const BREATHING_BG =
   "https://images.unsplash.com/photo-1490750967868-88aa4486c946?w=800&q=80";
 
-// Mock session data
 export const MOCK_SESSION = {
   name: "Work Time",
-  duration: 60, // minutes
+  duration: 60, 
   difficulty: "normal" as const,
 };
 
-// In constants/appData.ts
-
-// For the Day of Week selector
 export const DAYS_OF_WEEK = [
   { id: 1, label: "M" },
   { id: 2, label: "T" },
@@ -541,10 +532,9 @@ export const DAYS_OF_WEEK = [
   { id: 4, label: "T" },
   { id: 5, label: "F" },
   { id: 6, label: "S" },
-  { id: 0, label: "S" }, // Sunday is 0 in JS Date object
+  { id: 0, label: "S" }, 
 ];
 
-// For the Emoji Picker
 export const EMOJI_CATEGORIES = [
   {
     name: "Smileys & People",
@@ -734,9 +724,6 @@ export interface BlockIdea {
   isLive?: boolean;
 }
 
-// ==========================================================
-// MOCK DATA
-// ==========================================================
 
 export const INITIAL_ACTIVE_BLOCKS: BlockItem[] = [
   {
@@ -869,5 +856,141 @@ export const REWARDS: RewardItem[] = [
     type: "mystery",
     status: "locked",
     color: "#a1a1aa",
+  },
+];
+
+
+
+
+export interface App {
+  id: string;
+  name: string;
+  icon: string;
+  color: string;
+  category: string;
+}
+
+export interface Category {
+  id: string;
+  name: string;
+  icon: string;
+  color: string;
+  apps: App[];
+}
+
+export const categories: Category[] = [
+  {
+    id: "social",
+    name: "Social",
+    icon: "👥",
+    color: "#FF6B6B",
+    apps: [
+      { id: "bereal", name: "BeReal", icon: "👁️", color: "#000000", category: "Social" },
+      { id: "facetime", name: "FaceTime", icon: "📹", color: "#34C759", category: "Social" },
+      { id: "id", name: "ID", icon: "🪪", color: "#007AFF", category: "Social" },
+      { id: "instagram", name: "Instagram", icon: "📷", color: "#E4405F", category: "Social" },
+      { id: "meet", name: "Meet", icon: "📞", color: "#00897B", category: "Social" },
+      { id: "messages", name: "Messages", icon: "💬", color: "#34C759", category: "Social" },
+      { id: "numero", name: "Numero", icon: "📱", color: "#FF9500", category: "Social" },
+      { id: "telegram", name: "Telegram", icon: "✈️", color: "#0088CC", category: "Social" },
+      { id: "threads", name: "Threads", icon: "🧵", color: "#000000", category: "Social" },
+      { id: "tiktok", name: "TikTok", icon: "🎵", color: "#000000", category: "Social" },
+      { id: "x", name: "X", icon: "𝕏", color: "#000000", category: "Social" },
+    ],
+  },
+  {
+    id: "games",
+    name: "Games",
+    icon: "🎮",
+    color: "#FF4757",
+    apps: [
+      { id: "game1", name: "Game Center", icon: "🎯", color: "#FF4757", category: "Games" },
+      { id: "game2", name: "Arcade", icon: "👾", color: "#5352ED", category: "Games" },
+    ],
+  },
+  {
+    id: "entertainment",
+    name: "Entertainment",
+    icon: "🎬",
+    color: "#A55EEA",
+    apps: [
+      { id: "netflix", name: "Netflix", icon: "🎬", color: "#E50914", category: "Entertainment" },
+      { id: "youtube", name: "YouTube", icon: "▶️", color: "#FF0000", category: "Entertainment" },
+      { id: "spotify", name: "Spotify", icon: "🎧", color: "#1DB954", category: "Entertainment" },
+      { id: "hulu", name: "Hulu", icon: "📺", color: "#1CE783", category: "Entertainment" },
+    ],
+  },
+  {
+    id: "creativity",
+    name: "Creativity",
+    icon: "🎨",
+    color: "#FF9F43",
+    apps: [
+      { id: "camera", name: "Camera", icon: "📸", color: "#3f3f46", category: "Creativity" },
+      { id: "clips", name: "Clips", icon: "🎞️", color: "#FF2D55", category: "Creativity" },
+      { id: "epoccam", name: "EpocCam", icon: "📷", color: "#007AFF", category: "Creativity" },
+      { id: "freeform", name: "Freeform", icon: "✏️", color: "#FF9500", category: "Creativity" },
+      { id: "garageband", name: "GarageBand", icon: "🎸", color: "#FF9500", category: "Creativity" },
+      { id: "photos", name: "Photos", icon: "🖼️", color: "#FF9500", category: "Creativity" },
+      { id: "imovie", name: "iMovie", icon: "🎬", color: "#5856D6", category: "Creativity" },
+    ],
+  },
+  {
+    id: "education",
+    name: "Education",
+    icon: "📚",
+    color: "#2ED573",
+    apps: [
+      { id: "speak", name: "Speak", icon: "🗣️", color: "#FF6B6B", category: "Education" },
+    ],
+  },
+  {
+    id: "health",
+    name: "Health & Fitness",
+    icon: "❤️",
+    color: "#FF6B81",
+    apps: [],
+  },
+  {
+    id: "information",
+    name: "Information & Reading",
+    icon: "📖",
+    color: "#5352ED",
+    apps: [],
+  },
+  {
+    id: "productivity",
+    name: "Productivity & Finance",
+    icon: "💼",
+    color: "#1E90FF",
+    apps: [],
+  },
+  {
+    id: "shopping",
+    name: "Shopping & Food",
+    icon: "🛒",
+    color: "#FF4757",
+    apps: [],
+  },
+  {
+    id: "travel",
+    name: "Travel",
+    icon: "✈️",
+    color: "#00D2D3",
+    apps: [],
+  },
+  {
+    id: "utilities",
+    name: "Utilities",
+    icon: "🔧",
+    color: "#747D8C",
+    apps: [],
+  },
+  {
+    id: "other",
+    name: "Other",
+    icon: "•••",
+    color: "#57606F",
+    apps: [],
   },
 ];

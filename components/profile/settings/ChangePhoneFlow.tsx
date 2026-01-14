@@ -1,14 +1,14 @@
 import { Ionicons } from "@expo/vector-icons";
 import React, { useEffect, useState } from "react";
 import {
-    ActivityIndicator,
-    KeyboardAvoidingView,
-    Modal,
-    Platform,
-    Pressable,
-    Text,
-    TextInput,
-    View,
+  ActivityIndicator,
+  KeyboardAvoidingView,
+  Modal,
+  Platform,
+  Pressable,
+  Text,
+  TextInput,
+  View,
 } from "react-native";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 
@@ -42,7 +42,7 @@ export const ChangePhoneFlow = ({
 
   // Timer logic
   useEffect(() => {
-    let interval: NodeJS.Timeout;
+    let interval: any;
     if (step === "otp" && timer > 0) {
       interval = setInterval(() => setTimer((prev) => prev - 1), 1000);
     }
@@ -60,7 +60,7 @@ export const ChangePhoneFlow = ({
     // Simulate API call
     setTimeout(() => {
       setIsLoading(false);
-      onSave(`+1${phoneNumber}`); // Assuming +1 for this demo
+      onSave(`+1${phoneNumber}`);
       onClose();
     }, 1500);
   };
@@ -141,7 +141,6 @@ export const ChangePhoneFlow = ({
                       </View>
                     ))}
                   </View>
-                  {/* The actual input handling the typing */}
                   <TextInput
                     value={otp}
                     onChangeText={(t) => t.length <= 6 && setOtp(t)}
@@ -152,7 +151,6 @@ export const ChangePhoneFlow = ({
                   />
                 </View>
 
-                {/* Resend Timer Button */}
                 {timer > 0 ? (
                   <View className="bg-zinc-800 px-4 py-2 rounded-full">
                     <Text className="text-zinc-500 font-medium">
@@ -170,7 +168,6 @@ export const ChangePhoneFlow = ({
               </View>
             )}
 
-            {/* Bottom Action Button */}
             <Pressable
               onPress={step === "phone" ? handlePhoneNext : handleVerify}
               disabled={

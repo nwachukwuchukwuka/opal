@@ -1,12 +1,6 @@
 import { Ionicons } from "@expo/vector-icons";
 import React, { useState } from "react";
-import {
-  Modal,
-  Pressable,
-  ScrollView,
-  Text,
-  View,
-} from "react-native";
+import { Modal, Pressable, ScrollView, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { APP_CATEGORIES } from "../../constants";
 import { FeedbackToast } from "./FeedbackToast";
@@ -38,7 +32,7 @@ export const ChooseActivitiesSheet = ({
     setTimeout(() => {
       onSave(selected);
       setShowSavedToast(false);
-    }, 1000); // Show toast for 1 sec then save and close
+    }, 1000);
   };
 
   return (
@@ -56,7 +50,6 @@ export const ChooseActivitiesSheet = ({
           </Pressable>
         </View>
 
-        {/* Search Bar Placeholder */}
         <View className="p-4">
           <View className="bg-zinc-800 rounded-lg h-10" />
         </View>
@@ -82,17 +75,22 @@ export const ChooseActivitiesSheet = ({
                     )}
                   </Pressable>
                   <Ionicons
+                    name={category.icon as keyof typeof Ionicons.glyphMap}
+                    size={24}
+                    color={category.color}
+                  />
+                  {/* <Ionicons
                     name={category.icon}
                     size={24}
                     color={category.iconColor}
-                  />
+                  /> */}
                   <Text className="text-white text-base">{category.name}</Text>
                 </View>
                 <Ionicons name="chevron-forward" size={20} color="gray" />
               </View>
             );
           })}
-        </ScrollView> 
+        </ScrollView>
         <FeedbackToast
           visible={showSavedToast}
           icon="checkmark-circle-outline"

@@ -9,7 +9,6 @@ export const PageActionItems = ({ onClose }: { onClose: () => void }) => (
     </Text>
 
     <View className="w-full gap-4">
-      {/* Option 1 */}
       <Pressable className="bg-zinc-800 rounded-2xl p-5 flex-row items-center">
         <View className="bg-zinc-700 w-10 h-10 rounded-lg items-center justify-center mr-4">
           <Ionicons name="calendar" size={20} color="white" />
@@ -25,7 +24,6 @@ export const PageActionItems = ({ onClose }: { onClose: () => void }) => (
         <Ionicons name="chevron-forward" size={20} color="#71717a" />
       </Pressable>
 
-      {/* Option 2 */}
       <Pressable className="bg-zinc-800 rounded-2xl p-5 flex-row items-center">
         <View className="bg-zinc-700 w-10 h-10 rounded-lg items-center justify-center mr-4">
           <Ionicons name="hourglass" size={20} color="white" />

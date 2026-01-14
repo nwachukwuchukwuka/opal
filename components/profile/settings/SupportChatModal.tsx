@@ -65,7 +65,6 @@ export const SupportChatModal = ({
     setInputText("");
     setIsTyping(true);
 
-    // Simulate Bot Response
     setTimeout(() => {
       const botMsg: Message = {
         id: (Date.now() + 1).toString(),
@@ -192,6 +191,3 @@ export const SupportChatModal = ({
     </Modal>
   );
 };
-
-
-

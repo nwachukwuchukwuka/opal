@@ -16,7 +16,12 @@ interface BlockOptionProps {
   onPress?: () => void;
 }
 
-const BlockOption = ({ icon, title, description, onPress }: BlockOptionProps) => (
+const BlockOption = ({
+  icon,
+  title,
+  description,
+  onPress,
+}: BlockOptionProps) => (
   <Pressable
     onPress={onPress}
     className="flex-row items-center py-4 border-b border-zinc-800"
