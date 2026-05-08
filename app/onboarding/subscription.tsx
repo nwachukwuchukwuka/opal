@@ -108,13 +108,12 @@ export default function SubscriptionScreen() {
                   {/* Timeline line */}
                   <View className="items-center mr-4">
                     <View
-                      className={`w-10 h-10 rounded-full items-center justify-center ${
-                        step.completed
+                      className={`w-10 h-10 rounded-full items-center justify-center ${step.completed
                           ? "bg-emerald-500/20"
                           : step.active
                             ? "bg-orange-500/20"
                             : "bg-zinc-800"
-                      }`}
+                        }`}
                     >
                       <Text className="text-lg">{step.icon}</Text>
                     </View>
@@ -126,11 +125,10 @@ export default function SubscriptionScreen() {
                   {/* Content */}
                   <View className="flex-1 pt-1">
                     <Text
-                      className={`text-base font-semibold mb-1 ${
-                        step.completed || step.active
+                      className={`text-base font-semibold mb-1 ${step.completed || step.active
                           ? "text-white"
                           : "text-zinc-400"
-                      }`}
+                        }`}
                     >
                       {step.title}
                     </Text>

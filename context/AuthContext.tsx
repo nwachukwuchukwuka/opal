@@ -28,8 +28,8 @@ interface AuthProviderProps {
 }
 
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  
+  const [isAuthenticated, setIsAuthenticated] = useState(true);
+
   const user: User | null = isAuthenticated ? {
     id: "1",
     email: "user@example.com",

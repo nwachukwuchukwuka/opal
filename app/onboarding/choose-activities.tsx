@@ -145,9 +145,8 @@ export default function ChooseActivitiesScreen() {
           className="flex-row items-center px-4 py-3 border-b border-zinc-800"
         >
           <View
-            className={`w-6 h-6 rounded-full border-2 items-center justify-center mr-3 ${
-              allSelected ? "bg-blue-500 border-blue-500" : "border-zinc-600"
-            }`}
+            className={`w-6 h-6 rounded-full border-2 items-center justify-center mr-3 ${allSelected ? "bg-blue-500 border-blue-500" : "border-zinc-600"
+              }`}
           >
             {allSelected && (
               <Ionicons name="checkmark" size={14} color="white" />
@@ -174,11 +173,10 @@ export default function ChooseActivitiesScreen() {
                   className="flex-row items-center flex-1 px-4 py-3"
                 >
                   <View
-                    className={`w-6 h-6 rounded-full border-2 items-center justify-center mr-3 ${
-                      isSelected
-                        ? "bg-blue-500 border-blue-500"
-                        : "border-zinc-600"
-                    }`}
+                    className={`w-6 h-6 rounded-full border-2 items-center justify-center mr-3 ${isSelected
+                      ? "bg-blue-500 border-blue-500"
+                      : "border-zinc-600"
+                      }`}
                   >
                     {isSelected && (
                       <Ionicons name="checkmark" size={14} color="white" />
@@ -234,11 +232,10 @@ export default function ChooseActivitiesScreen() {
                       className="flex-row items-center px-4 py-2.5 pl-14 border-b border-zinc-800/50"
                     >
                       <View
-                        className={`w-6 h-6 rounded-full border-2 items-center justify-center mr-3 ${
-                          isAppSelected
-                            ? "bg-blue-500 border-blue-500"
-                            : "border-zinc-600"
-                        }`}
+                        className={`w-6 h-6 rounded-full border-2 items-center justify-center mr-3 ${isAppSelected
+                          ? "bg-blue-500 border-blue-500"
+                          : "border-zinc-600"
+                          }`}
                       >
                         {isAppSelected && (
                           <Text className="text-white text-xs">✓</Text>

@@ -18,7 +18,6 @@ import FocusSessionSheet from "../../components/FocusSessionSheet";
 import { DifficultyLevel, HomeAppUsageItem } from "../../types";
 
 export default function HomeScreen() {
-  // --- STATE MANAGEMENT ---
   const [showMilestone, setShowMilestone] = useState(false);
   const [showInvite, setShowInvite] = useState(true);
   const [showStats, setShowStats] = useState(false);
@@ -154,9 +153,9 @@ export default function HomeScreen() {
           sessionName={activeSession.name}
           duration={activeSession.duration}
           difficulty={activeSession.difficulty}
-          onSnooze={() => {}}
+          onSnooze={() => { }}
           onLeaveEarly={handleLeaveEarly}
-          onEdit={() => {}}
+          onEdit={() => { }}
           onClose={() => setActiveSession(null)}
         />
       )}
