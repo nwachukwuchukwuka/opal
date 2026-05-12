@@ -1,7 +1,7 @@
 import { Ionicons } from "@expo/vector-icons";
 import React, { useState } from "react";
 import { Modal, Pressable, ScrollView, Text, View } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import { APP_CATEGORIES } from "../../constants";
 import { FeedbackToast } from "./FeedbackToast";
 
@@ -28,76 +28,112 @@ export const ChooseActivitiesSheet = ({
   };
 
   const handleSave = () => {
-    setShowSavedToast(true);
-    setTimeout(() => {
-      onSave(selected);
-      setShowSavedToast(false);
-    }, 1000);
+    onSave(selected);
   };
 
   return (
-    <Modal visible={visible} animationType="slide">
-      <SafeAreaView className="flex-1 bg-black">
-        <View className="flex-row justify-between items-center p-4 border-b border-zinc-800">
-          <Pressable onPress={onCancel}>
-            <Text className="text-blue-500 text-base">Cancel</Text>
-          </Pressable>
-          <Text className="text-white font-bold text-lg">
-            Choose Activities
-          </Text>
-          <Pressable onPress={handleSave}>
-            <Text className="text-blue-500 text-base font-bold">Save</Text>
-          </Pressable>
-        </View>
+    <Modal visible={visible} animationType="slide" transparent={false}>
+      <SafeAreaProvider>
+        <SafeAreaView edges={["top"]} className="flex-1 bg-slate-50 relative">
+          <View className="px-6 pt-6 pb-4">
+            <Text className="text-slate-900 text-3xl font-extrabold mb-1.5">
+              Choose Activities
+            </Text>
+            <Text className="text-slate-500 text-sm font-medium">
+              Select the categories you want to restrict.
+            </Text>
+          </View>
 
-        <View className="p-4">
-          <View className="bg-zinc-800 rounded-lg h-10" />
-        </View>
+          {/* Redesigned Search Placeholder */}
+          <View className="px-6 mb-6">
+            <View className="bg-white border-2 border-slate-100 h-14 rounded-[20px] flex-row items-center px-4">
+              <Ionicons name="search" size={20} color="#94a3b8" />
+              <Text className="text-slate-400 ml-3 font-bold text-sm">
+                Search categories...
+              </Text>
+            </View>
+          </View>
 
-        <ScrollView className="px-4">
-          <Text className="text-zinc-500 uppercase text-xs mb-2">
-            Select up to 49 Apps
-          </Text>
-          {APP_CATEGORIES.map((category) => {
-            const isSelected = selected.includes(category.id);
-            return (
-              <View
-                key={category.id}
-                className="flex-row items-center justify-between py-3"
-              >
-                <View className="flex-row items-center gap-4">
-                  <Pressable
-                    onPress={() => toggleSelection(category.id)}
-                    className={`w-6 h-6 rounded-full border-2 items-center justify-center ${isSelected ? "bg-blue-500 border-blue-500" : "border-zinc-600"}`}
+          {/* Scrollable Content Area */}
+          <ScrollView
+            contentContainerStyle={{ paddingHorizontal: 24, paddingBottom: 120, gap: 12 }}
+            showsVerticalScrollIndicator={false}
+          >
+            <Text className="text-slate-400 font-bold text-xs mb-2 ml-2">
+              Select up to 49 apps
+            </Text>
+
+            {APP_CATEGORIES.map((category) => {
+              const isSelected = selected.includes(category.id);
+              return (
+                <Pressable
+                  key={category.id}
+                  onPress={() => toggleSelection(category.id)}
+                  className={`flex-row items-center justify-between p-4 rounded-[24px] border-2 ${isSelected
+                    ? "bg-emerald-50 border-emerald-500"
+                    : "bg-white border-slate-100"
+                    }`}
+                >
+                  {/* Left Side: Icon & Title */}
+                  <View className="flex-row items-center gap-4">
+                    <View
+                      className={`w-12 h-12 rounded-[16px] items-center justify-center border ${isSelected ? "bg-emerald-100 border-emerald-200" : "bg-slate-50 border-slate-100"
+                        }`}
+                    >
+                      <Ionicons
+                        name={category.icon as keyof typeof Ionicons.glyphMap}
+                        size={24}
+                        color={isSelected ? "#059669" : category.color}
+                      />
+                    </View>
+                    <Text
+                      className={`text-lg font-bold ${isSelected ? "text-emerald-950" : "text-slate-900"
+                        }`}
+                    >
+                      {category.name}
+                    </Text>
+                  </View>
+
+                  <View
+                    className={`w-7 h-7 rounded-full items-center justify-center border-2 ${isSelected
+                      ? "bg-emerald-500 border-emerald-500"
+                      : "bg-slate-50 border-slate-200"
+                      }`}
                   >
                     {isSelected && (
-                      <Ionicons name="checkmark" size={16} color="white" />
+                      <Ionicons name="checkmark" size={16} color="#ffffff" />
                     )}
-                  </Pressable>
-                  <Ionicons
-                    name={category.icon as keyof typeof Ionicons.glyphMap}
-                    size={24}
-                    color={category.color}
-                  />
-                  {/* <Ionicons
-                    name={category.icon}
-                    size={24}
-                    color={category.iconColor}
-                  /> */}
-                  <Text className="text-white text-base">{category.name}</Text>
-                </View>
-                <Ionicons name="chevron-forward" size={20} color="gray" />
-              </View>
-            );
-          })}
-        </ScrollView>
-        <FeedbackToast
-          visible={showSavedToast}
-          icon="checkmark-circle-outline"
-          text="Saved!"
-          onHide={() => {}}
-        />
-      </SafeAreaView>
+                  </View>
+                </Pressable>
+              );
+            })}
+          </ScrollView>
+
+          <View className="absolute bottom-0 w-full bg-white border-t border-slate-100 p-6 flex-row gap-4 pb-10">
+            <Pressable
+              onPress={onCancel}
+              className="flex-1 bg-slate-50 border border-slate-200 py-4 rounded-[24px] items-center justify-center"
+            >
+              <Text className="text-slate-600 font-bold text-base">Cancel</Text>
+            </Pressable>
+
+            <Pressable
+              onPress={handleSave}
+              className="flex-1 bg-emerald-600 border border-emerald-500 py-4 rounded-[24px] items-center justify-center"
+            >
+              <Text className="text-white font-bold text-base">Save Selection</Text>
+            </Pressable>
+          </View>
+
+          <FeedbackToast
+            visible={showSavedToast}
+            icon="checkmark-circle"
+            text="Selection saved successfully"
+            onHide={() => { }}
+          />
+        </SafeAreaView>
+      </SafeAreaProvider>
+
     </Modal>
   );
 };

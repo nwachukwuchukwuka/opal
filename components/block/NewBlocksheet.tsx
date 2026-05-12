@@ -14,6 +14,8 @@ interface BlockOptionProps {
   title: string;
   description: string;
   onPress?: () => void;
+  bgColor: string;
+  iconColor: string;
 }
 
 const BlockOption = ({
@@ -21,22 +23,23 @@ const BlockOption = ({
   title,
   description,
   onPress,
+  bgColor,
+  iconColor,
 }: BlockOptionProps) => (
   <Pressable
     onPress={onPress}
-    className="flex-row items-center py-4 border-b border-zinc-800"
-    style={({ pressed }) => ({ opacity: pressed ? 0.7 : 1 })}
+    className="w-[48%] aspect-[0.85] p-5 rounded-[32px] items-center justify-center border border-slate-200"
+    style={{ backgroundColor: bgColor }}
   >
-    <View className="w-10 h-10 bg-zinc-800 rounded-lg items-center justify-center mr-4">
-      <Ionicons name={icon} size={20} color="#a1a1aa" />
+    <View className="w-14 h-14 bg-white rounded-2xl items-center justify-center mb-4 border border-slate-100">
+      <Ionicons name={icon} size={28} color={iconColor} />
     </View>
-    <View className="flex-1">
-      <Text className="text-white font-semibold text-base">{title}</Text>
-      <Text className="text-zinc-500 text-sm" numberOfLines={2}>
-        {description}
-      </Text>
-    </View>
-    <Ionicons name="chevron-forward" size={20} color="#71717a" />
+    <Text className="text-slate-900 font-bold text-base text-center mb-1 leading-tight">
+      {title}
+    </Text>
+    <Text className="text-slate-500 text-[10px] text-center leading-3 px-1" numberOfLines={3}>
+      {description}
+    </Text>
   </Pressable>
 );
 
@@ -49,7 +52,7 @@ interface NewBlockSheetProps {
 
 const NewBlockSheet = forwardRef<NewBlockSheetRef, NewBlockSheetProps>(
   ({ onBlockNow, onRecurringSession, onAppLimit, onLock }, ref) => {
-    const snapPoints = useMemo(() => ["65%"], []);
+    const snapPoints = useMemo(() => ["70%"], []);
 
     const renderBackdrop = useCallback(
       (props: any) => (
@@ -57,7 +60,7 @@ const NewBlockSheet = forwardRef<NewBlockSheetRef, NewBlockSheetProps>(
           {...props}
           disappearsOnIndex={-1}
           appearsOnIndex={0}
-          opacity={0.7}
+          opacity={0.5}
         />
       ),
       []
@@ -67,41 +70,53 @@ const NewBlockSheet = forwardRef<NewBlockSheetRef, NewBlockSheetProps>(
       <BottomSheetModal
         ref={ref}
         snapPoints={snapPoints}
-        backgroundStyle={{ backgroundColor: "#18181b" }}
-        handleIndicatorStyle={{ backgroundColor: "#52525b" }}
+        backgroundStyle={{ backgroundColor: "#f8fafc" }}
+        handleIndicatorStyle={{ backgroundColor: "#cbd5e1" }}
         backdropComponent={renderBackdrop}
         enableDynamicSizing={false}
       >
-        <BottomSheetView className="flex-1 px-5">
-          {/* Title */}
-          <Text className="text-white text-2xl font-bold mb-6">
-            How do you want to Block?
-          </Text>
+        <BottomSheetView className="flex-1 px-6 pt-4">
+          <View className="items-center mb-8">
+            <View className="w-12 h-1 bg-slate-200 rounded-full mb-6 opacity-0" />
+            <Text className="text-slate-900 text-2xl font-extrabold text-center mb-1">
+              How do you want to block?
+            </Text>
+            <Text className="text-slate-500 text-sm font-medium text-center">
+              Select your preferred focus method
+            </Text>
+          </View>
 
-          {/* Options */}
-          <View>
+          <View className="flex-row flex-wrap justify-between gap-4">
             <BlockOption
               icon="play"
               title="Block Now"
-              description="You can't start a session while you have another active session."
+              description="Immediate focus session to stop distractions."
+              bgColor="#ffffff"
+              iconColor="#059669"
               onPress={onBlockNow}
             />
             <BlockOption
               icon="repeat"
-              title="Recurring Session"
-              description="Block on the times and days you select."
+              title="Recurring"
+              description="Schedule blocks for specific times and days."
+              bgColor="#ffffff"
+              iconColor="#10b981"
               onPress={onRecurringSession}
             />
             <BlockOption
               icon="hourglass-outline"
               title="App Limit"
-              description="Set a daily time limit for an app. After reaching the limit, the app will be blocked."
+              description="Set a daily allowance for specific apps."
+              bgColor="#ffffff"
+              iconColor="#059669"
               onPress={onAppLimit}
             />
             <BlockOption
               icon="lock-closed-outline"
-              title="Lock"
-              description="Set a limit on how many times you can open an app each day. The app starts locked, and you can unlock it with a tap."
+              title="Lock Apps"
+              description="Keep apps locked until you truly need them."
+              bgColor="#ffffff"
+              iconColor="#10b981"
               onPress={onLock}
             />
           </View>

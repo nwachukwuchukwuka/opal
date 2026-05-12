@@ -96,9 +96,8 @@ export const FocusReportModal = ({
                 {Array.from({ length: TOTAL_PAGES }).map((_, index) => (
                   <View
                     key={index}
-                    className={`h-1 flex-1 rounded-full ${
-                      index <= currentIndex ? "bg-white" : "bg-white/30"
-                    }`}
+                    className={`h-1 flex-1 rounded-full ${index <= currentIndex ? "bg-white" : "bg-white/30"
+                      }`}
                   />
                 ))}
               </View>

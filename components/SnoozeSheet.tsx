@@ -1,3 +1,4 @@
+import { Ionicons } from "@expo/vector-icons";
 import BottomSheet, {
   BottomSheetBackdrop,
   BottomSheetView,
@@ -20,8 +21,8 @@ import {
 import { SNOOZE_MINUTES } from "../constants";
 import { SnoozeSheetProps } from "../types";
 
-const ITEM_HEIGHT = 48;
-const PICKER_HEIGHT = 192;
+const ITEM_HEIGHT = 64;
+const PICKER_HEIGHT = 200;
 
 const SnoozeSheet = forwardRef<BottomSheet, SnoozeSheetProps>(
   ({ onSnooze, onClose }, ref) => {
@@ -30,7 +31,7 @@ const SnoozeSheet = forwardRef<BottomSheet, SnoozeSheetProps>(
     );
     const scrollViewRef = useRef<ScrollView>(null);
 
-    const snapPoints = useMemo(() => ["55%"], []);
+    const snapPoints = useMemo(() => ["60%"], []);
 
     const renderBackdrop = useCallback(
       (props: any) => (
@@ -38,7 +39,7 @@ const SnoozeSheet = forwardRef<BottomSheet, SnoozeSheetProps>(
           {...props}
           disappearsOnIndex={-1}
           appearsOnIndex={0}
-          opacity={0.7}
+          opacity={0.5}
         />
       ),
       []
@@ -89,35 +90,29 @@ const SnoozeSheet = forwardRef<BottomSheet, SnoozeSheetProps>(
         snapPoints={snapPoints}
         enablePanDownToClose={true}
         backdropComponent={renderBackdrop}
-        backgroundStyle={{ backgroundColor: "#18181b" }}
-        handleIndicatorStyle={{ backgroundColor: "#52525b" }}
+        backgroundStyle={{ backgroundColor: "#f8fafc" }}
+        handleIndicatorStyle={{ backgroundColor: "#cbd5e1" }}
       >
-        <BottomSheetView className="flex-1 px-5">
-          <Text className="text-white text-2xl font-bold mb-2">Snooze</Text>
-          <Text className="text-zinc-400 text-base mb-6">
-            Each time you snooze, it takes longer for a{"\n"}snooze to become
-            available
-          </Text>
+        <BottomSheetView className="flex-1 px-8 pt-4">
+          <View className="items-center mb-8">
+            <View className="w-16 h-16 bg-amber-50 rounded-[24px] items-center justify-center border border-slate-200 mb-6">
+              <Ionicons name="cafe" size={32} color="#d97706" />
+            </View>
+            <Text className="text-slate-900 text-3xl font-extrabold mb-2">Take a break</Text>
+            <Text className="text-slate-500 text-sm font-medium text-center leading-5 px-4">
+              Each snooze makes the next one harder to get. Use your time wisely.
+            </Text>
+          </View>
 
-          {/* Picker */}
-          <View className="items-center py-4 mb-4">
-            <View className="w-full relative" style={{ height: PICKER_HEIGHT }}>
-              {/* Highlight Bar */}
-              <View
-                className="absolute left-0 right-0 bg-zinc-800 rounded-xl"
-                style={{
-                  height: ITEM_HEIGHT,
-                  top: (PICKER_HEIGHT - ITEM_HEIGHT) / 2,
-                }}
-              />
-
+          <View className="items-center mb-8">
+            <View className="w-full bg-white border border-slate-200 rounded-[40px] overflow-hidden relative shadow-sm" style={{ height: PICKER_HEIGHT }}>
               <ScrollView
                 ref={scrollViewRef}
                 showsVerticalScrollIndicator={false}
                 snapToInterval={ITEM_HEIGHT}
                 decelerationRate="fast"
                 onScroll={handleScroll}
-                scrollEventThrottle={16} 
+                scrollEventThrottle={16}
                 onMomentumScrollEnd={handleScrollEnd}
                 contentContainerStyle={{ paddingVertical: paddingVertical }}
               >
@@ -130,19 +125,17 @@ const SnoozeSheet = forwardRef<BottomSheet, SnoozeSheetProps>(
                       style={{ height: ITEM_HEIGHT }}
                       className="items-center justify-center"
                     >
-                      <View className="flex-row items-baseline justify-center">
+                      <View className="flex-row items-center justify-center">
                         <Text
-                          className={`text-xl font-semibold ${
-                            isSelected ? "text-white" : "text-zinc-600"
-                          }`}
+                          className={`text-3xl font-extrabold tracking-tighter ${isSelected ? "text-emerald-900" : "text-slate-300"
+                            }`}
                         >
                           {minutes}
                         </Text>
-                        {isSelected && (
-                          <Text className="text-white text-lg font-medium ml-2">
-                            minutes
-                          </Text>
-                        )}
+                        <Text className={`text-sm font-bold ml-2 uppercase tracking-widest ${isSelected ? "text-slate-600" : "text-slate-300"
+                          }`}>
+                          min
+                        </Text>
                       </View>
                     </Pressable>
                   );
@@ -151,14 +144,12 @@ const SnoozeSheet = forwardRef<BottomSheet, SnoozeSheetProps>(
             </View>
           </View>
 
-          {/* Button */}
-          <View className="mt-auto pb-6">
+          <View className="mt-auto pb-10">
             <Pressable
               onPress={handleSnooze}
-              className="w-full py-4 rounded-full items-center justify-center overflow-hidden"
-              style={{ backgroundColor: "#06b6d4" }}
+              className="w-full py-5 bg-emerald-600 border border-emerald-500 rounded-[28px] items-center justify-center shadow-2xl shadow-emerald-900/20"
             >
-              <Text className="text-white text-lg font-semibold">Snooze</Text>
+              <Text className="text-white text-xl font-bold">Start Break</Text>
             </Pressable>
           </View>
         </BottomSheetView>

@@ -2,9 +2,10 @@ import {
   BottomSheetModal,
   BottomSheetModalProvider,
 } from "@gorhom/bottom-sheet";
+import { Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
 import React, { useRef } from "react";
-import { Pressable, Text, View } from "react-native";
+import { Pressable, StatusBar, Text, View } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { SafeAreaView } from "react-native-safe-area-context";
 import PrivacyBottomSheet from "../../components/PrivacyBottomSheet";
@@ -23,52 +24,50 @@ export default function ConnectScreenTimeScreen() {
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <BottomSheetModalProvider>
-        <SafeAreaView className="flex-1 bg-black">
+        <SafeAreaView className="flex-1 bg-slate-50">
           {/* Content */}
-          <View className="flex-1 px-6 pt-8">
+          <View className="flex-1 px-8 pt-12">
             {/* Title */}
-            <Text className="text-white text-2xl font-bold text-center mb-2">
-              Connect Opal to Screen Time, Securely.
+            <Text className="text-slate-900 text-3xl font-bold text-center mb-4 leading-tight">
+              Connect to screen time securely.
             </Text>
-            <Text className="text-zinc-500 text-sm text-center mb-8">
-              To analyse your Screen Time on this iPhone,{"\n"}Opal will need
-              your permission.
+            <Text className="text-slate-500 text-base font-medium text-center mb-12 leading-7">
+              To analyze your screen time on this iPhone, Zenith will need your permission.
             </Text>
 
-            <View className="bg-zinc-800/90 rounded-2xl p-5 mx-4 border border-zinc-700">
-              <Text className="text-white text-base font-semibold text-center mb-3">
-                "Opal" Would Like to Access{"\n"}Screen Time
+            <View className="bg-white rounded-[32px] p-8 border border-slate-100 items-center">
+              <View className="w-16 h-16 bg-emerald-50 rounded-2xl items-center justify-center mb-6">
+                <Ionicons name="shield-checkmark" size={32} color="#059669" />
+              </View>
+              
+              <Text className="text-slate-900 text-xl font-bold text-center mb-3">
+                Zenith would like to access screen time.
               </Text>
-              <Text className="text-zinc-400 text-xs text-center mb-4 leading-5">
-                Providing "Opal" access to Screen Time may allow it to see your
-                activity data, restrict content, and limit the usage of apps and
-                websites.
+              <Text className="text-slate-500 text-sm text-center mb-8 leading-6">
+                Providing access allows Zenith to see your activity data and help you manage focus sessions.
               </Text>
-              <View className="border-t border-zinc-700 pt-3 flex-row justify-center gap-8">
-                <Pressable className="py-2 px-4">
-                  <Text className="text-blue-500 text-base"> Continue</Text>
+              
+              <View className="w-full gap-3">
+                <Pressable 
+                  onPress={handleGivePermissions}
+                  className="w-full py-4 bg-emerald-600 rounded-2xl items-center justify-center"
+                >
+                  <Text className="text-white text-lg font-bold">Allow Access</Text>
                 </Pressable>
-                <Pressable className="py-2 px-4">
-                  <Text className="text-blue-500 text-base font-semibold">
-                    Don't Allow
-                  </Text>
+                <Pressable className="w-full py-4 bg-slate-50 rounded-2xl items-center justify-center">
+                  <Text className="text-slate-400 text-lg font-bold">Not Now</Text>
                 </Pressable>
               </View>
             </View>
 
-            <View className="items-center mt-4">
-              <Text className="text-zinc-500 text-2xl">↑</Text>
-            </View>
-
             {/* Info text */}
-            <View className="mt-auto mb-4">
-              <Text className="text-zinc-500 text-sm text-center">
-                Your information is protected by Apple and will{"\n"}stay 100%
-                on your phone.
+            <View className="mt-auto mb-8">
+              <Text className="text-slate-400 text-sm text-center leading-6 font-medium">
+                Your information is protected by Apple and stays 100% on your phone.
               </Text>
-              <Pressable onPress={handleLearnMore} className="mt-2">
-                <Text className="text-zinc-400 text-sm text-center underline">
-                  Learn More
+              <Pressable onPress={handleLearnMore} className="mt-4 py-2">
+                <Text className="text-emerald-600 text-sm text-center font-bold">
+                  Learn more about privacy
                 </Text>
               </Pressable>
             </View>

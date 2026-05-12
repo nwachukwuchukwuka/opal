@@ -14,7 +14,7 @@ import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 interface ChangePasswordFlowProps {
   visible: boolean;
   onClose: () => void;
-  email: string; 
+  email: string;
 }
 
 export const ChangePasswordFlow = ({
@@ -33,7 +33,6 @@ export const ChangePasswordFlow = ({
   };
 
   const handleSaveNewPassword = () => {
-    console.log("New password saved:", newPassword);
     onClose();
     setTimeout(() => {
       setStep("verify");
@@ -50,109 +49,96 @@ export const ChangePasswordFlow = ({
       onRequestClose={onClose}
     >
       <SafeAreaProvider>
-        <SafeAreaView className="flex-1 bg-black">
-          {/* Header */}
-          <View className="px-4 pt-2 flex-row justify-between items-center">
-            {step === "newPassword" ? (
+        <SafeAreaView className="flex-1 bg-white">
+          <View className="flex-1 px-8">
+            {/* Minimalist Top Nav */}
+            <View className="flex-row justify-between items-center pt-4 mb-10">
               <Pressable
                 onPress={onClose}
-                className="w-10 h-10 bg-zinc-900 rounded-full items-center justify-center"
+                className="w-11 h-11 bg-slate-50 rounded-full items-center justify-center border border-slate-100"
               >
-                <Ionicons name="close" size={24} color="white" />
+                <Ionicons name="close" size={24} color="#059669" />
               </Pressable>
-            ) : (
-              <View /> 
-            )}
-
-            {step === "verify" && (
-              <Pressable onPress={onClose}>
-                <Text className="text-zinc-400 text-base">Cancel</Text>
-              </Pressable>
-            )}
-          </View>
-
-          <KeyboardAvoidingView
-            behavior={Platform.OS === "ios" ? "padding" : "height"}
-            className="flex-1 justify-between px-6 pb-6"
-          >
-            {step === "verify" ? (
-              <View className="mt-10 items-center w-full">
-                <Text className="text-white text-4xl font-bold mb-4">Opal</Text>
-
-                <Text className="text-white text-2xl font-bold text-center mb-2">
-                  Confirm your details to{"\n"}change your Password
-                </Text>
-
-                <Text className="text-zinc-400 text-center mb-8">
-                  You need to confirm who you are to perform{"\n"}this action
-                </Text>
-
-                <View className="w-full gap-4">
-                  <TextInput
-                    value={email}
-                    editable={false} 
-                    className="w-full bg-black text-zinc-500 text-lg px-4 py-4 rounded-xl border border-zinc-700"
-                  />
-                  <TextInput
-                    value={currentPassword}
-                    onChangeText={setCurrentPassword}
-                    placeholder="Your Password"
-                    placeholderTextColor="#52525b"
-                    secureTextEntry
-                    autoFocus
-                    className="w-full bg-black text-white text-lg px-4 py-4 rounded-xl border border-zinc-700"
-                  />
-                </View>
-
-                <Pressable className="mt-6">
-                  <Text className="text-zinc-500">Forgot password?</Text>
+              {step === "verify" && (
+                <Pressable onPress={onClose}>
+                  <Text className="text-slate-400 font-semibold text-sm">Cancel</Text>
                 </Pressable>
-              </View>
-            ) : (
-              <View className="mt-10 items-center w-full">
-                <Text className="text-white text-2xl font-bold text-center mb-2">
-                  Change Password
-                </Text>
-                <Text className="text-zinc-500 text-center mb-10">
-                  Enter a new password
-                </Text>
+              )}
+            </View>
 
-                <View className="w-full relative">
-                  <Ionicons
-                    name="lock-closed"
-                    size={16}
-                    color="#f59e0b" 
-                    style={{
-                      position: "absolute",
-                      left: 16,
-                      top: 18,
-                      zIndex: 10,
-                    }}
-                  />
-                  <TextInput
-                    value={newPassword}
-                    onChangeText={setNewPassword}
-                    placeholder="Password"
-                    placeholderTextColor="#52525b"
-                    secureTextEntry
-                    autoFocus
-                    className="w-full bg-zinc-900 text-white text-lg pl-12 pr-4 py-4 rounded-xl border border-zinc-800"
-                  />
-                </View>
-              </View>
-            )}
-
-            <Pressable
-              onPress={step === "verify" ? handleSignIn : handleSaveNewPassword}
-              className={`w-full py-4 rounded-full items-center ${
-                step === "newPassword" ? "bg-[#bbf7d0]" : "bg-white"
-              }`}
+            <KeyboardAvoidingView
+              behavior={Platform.OS === "ios" ? "padding" : "height"}
+              className="flex-1  pb-20"
             >
-              <Text className={`${step === 'verify' ? 'text-black' : 'text-white'} font-bold text-lg`}>
-                {step === "verify" ? "Sign in" : "Continue"}
-              </Text>
-            </Pressable>
-          </KeyboardAvoidingView>
+              {step === "verify" ? (
+                <>
+                  <View className="mb-12">
+                    <Text className="text-slate-900 text-4xl font-bold mb-3 tracking-tight">
+                      Security Check
+                    </Text>
+                    <Text className="text-slate-400 text-lg leading-6 font-medium">
+                      Confirm your identity to proceed with updating your password.
+                    </Text>
+                  </View>
+
+                  <View className="gap-4 mb-12">
+                    <View className="bg-slate-50 rounded-3xl border border-slate-100 px-6 py-4 opacity-60">
+                      <Text className="text-slate-400 text-[10px] font-bold uppercase tracking-widest mb-1">Email</Text>
+                      <Text className="text-slate-600 text-base font-semibold">{email}</Text>
+                    </View>
+                    <View className="bg-slate-50 rounded-3xl border border-slate-100 px-6 py-5">
+                      <Text className="text-slate-400 text-[10px] font-bold uppercase tracking-widest mb-1">Current Password</Text>
+                      <TextInput
+                        value={currentPassword}
+                        onChangeText={setCurrentPassword}
+                        placeholder="••••••••"
+                        placeholderTextColor="#cbd5e1"
+                        secureTextEntry
+                        autoFocus
+                        className="text-slate-900 text-xl font-semibold"
+                      />
+                    </View>
+                    <Pressable className="self-end px-2">
+                      <Text className="text-emerald-600 font-bold text-sm">Forgot password?</Text>
+                    </Pressable>
+                  </View>
+                </>
+              ) : (
+                <>
+                  <View className="mb-12">
+                    <Text className="text-slate-900 text-4xl font-bold mb-3 tracking-tight">
+                      New Password
+                    </Text>
+                    <Text className="text-slate-400 text-lg leading-6 font-medium">
+                      Ensure your account remains secure by choosing a strong, unique password.
+                    </Text>
+                  </View>
+
+                  <View className="bg-slate-50 rounded-3xl border border-slate-100 px-6 py-6 mb-12">
+                    <Text className="text-slate-400 text-[10px] font-bold uppercase tracking-widest mb-2">Secure Password</Text>
+                    <TextInput
+                      value={newPassword}
+                      onChangeText={setNewPassword}
+                      placeholder="Min. 8 characters"
+                      placeholderTextColor="#cbd5e1"
+                      secureTextEntry
+                      autoFocus
+                      className="text-slate-900 text-2xl font-semibold"
+                    />
+                  </View>
+                </>
+              )}
+
+              <Pressable
+                onPress={step === "verify" ? handleSignIn : handleSaveNewPassword}
+                className="w-full bg-emerald-600 py-6 rounded-full items-center"
+              >
+                <Text className="text-white font-bold text-lg">
+                  {step === "verify" ? "Continue" : "Update Password"}
+                </Text>
+              </Pressable>
+            </KeyboardAvoidingView>
+          </View>
         </SafeAreaView>
       </SafeAreaProvider>
     </Modal>

@@ -1,4 +1,4 @@
-import { Feather } from "@expo/vector-icons";
+import { Ionicons } from "@expo/vector-icons";
 import {
   BottomSheetBackdrop,
   BottomSheetModal,
@@ -15,7 +15,6 @@ import {
   startOfMonth,
   subMonths,
 } from "date-fns";
-import { LinearGradient } from "expo-linear-gradient";
 import React, {
   forwardRef,
   useCallback,
@@ -39,8 +38,8 @@ interface DatePickerModalProps {
   onDateSelect: (date: Date) => void;
 }
 
-const ITEM_HEIGHT = 40;
-const PICKER_HEIGHT = 200;
+const ITEM_HEIGHT = 48;
+const PICKER_HEIGHT = 160;
 
 const WheelPicker = ({
   items,
@@ -104,20 +103,16 @@ const WheelPicker = ({
             <View
               key={item}
               style={{ height: ITEM_HEIGHT }}
-              className={`justify-center ${
-                align === "left"
-                  ? "items-start pl-4"
-                  : align === "right"
-                    ? "items-end pr-4"
-                    : "items-center"
-              }`}
+              className={`justify-center ${align === "left"
+                ? "items-start pl-4"
+                : align === "right"
+                  ? "items-end pr-4"
+                  : "items-center"
+                }`}
             >
               <Text
-                className={`text-xl ${
-                  isSelected
-                    ? "text-white font-medium"
-                    : "text-zinc-600 font-normal"
-                }`}
+                className={`text-lg font-bold ${isSelected ? "text-emerald-950" : "text-slate-300"
+                  }`}
               >
                 {item}
               </Text>
@@ -137,7 +132,7 @@ const DatePickerModal = forwardRef<DatePickerModalRef, DatePickerModalProps>(
     const [displayDate, setDisplayDate] = useState(initialDate);
     const [tempSelectedDate, setTempSelectedDate] = useState(initialDate);
 
-    const snapPoints = useMemo(() => ["70%"], []);
+    const snapPoints = useMemo(() => ["80%"], []);
 
     const daysOfWeek = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
     const firstDayOfMonth = startOfMonth(displayDate);
@@ -166,7 +161,7 @@ const DatePickerModal = forwardRef<DatePickerModalRef, DatePickerModalProps>(
           {...props}
           disappearsOnIndex={-1}
           appearsOnIndex={0}
-          opacity={0.7}
+          opacity={0.5}
         />
       ),
       []
@@ -174,9 +169,9 @@ const DatePickerModal = forwardRef<DatePickerModalRef, DatePickerModalProps>(
 
     const years = useMemo(
       () =>
-        Array.from({ length: 10 }, (_, i) =>
-          (new Date().getFullYear() - i).toString()
-        ).reverse(), 
+        Array.from({ length: 20 }, (_, i) =>
+          (new Date().getFullYear() - 10 + i).toString()
+        ),
       []
     );
     const months = useMemo(
@@ -191,64 +186,67 @@ const DatePickerModal = forwardRef<DatePickerModalRef, DatePickerModalProps>(
         index={0}
         snapPoints={snapPoints}
         enablePanDownToClose={true}
-        backgroundStyle={{ backgroundColor: "#18181b" }}
-        handleIndicatorStyle={{ backgroundColor: "#52525b" }}
+        backgroundStyle={{ backgroundColor: "#f8fafc" }}
+        handleIndicatorStyle={{ backgroundColor: "#cbd5e1" }}
         backdropComponent={renderBackdrop}
         enableDynamicSizing={false}
       >
-        <BottomSheetView className="flex-1 px-5">
-          <Text className="text-white text-2xl font-bold mb-1">
-            Select Date
-          </Text>
-          <Text className="text-zinc-400 text-sm mb-6">
-            Go back in time to view your screen time that day
-          </Text>
+        <BottomSheetView className="flex-1 px-6 pt-2">
 
-          <View className="bg-[#27272a] rounded-2xl p-4 min-h-[320px]">
-            <View className="flex-row justify-between items-center mb-4">
+          <View className="bg-white border border-slate-200 rounded-[36px] p-6 mb-6 flex-row items-center justify-between">
+            <View>
+              <Text className="text-slate-400 text-xs font-bold uppercase tracking-widest mb-1">
+                Selected Date
+              </Text>
+              <Text className="text-slate-900 text-2xl font-extrabold">
+                {format(tempSelectedDate, "EEEE, MMM d")}
+              </Text>
+            </View>
+            <View className="w-14 h-14 bg-emerald-50 rounded-[20px] items-center justify-center border border-emerald-100">
+              <Ionicons name="calendar-clear" size={28} color="#059669" />
+            </View>
+          </View>
+
+          {/* Navigation & Controls Card */}
+          <View className="bg-white border border-slate-200 rounded-[40px] p-2 mb-6">
+            <View className="flex-row items-center justify-between p-2">
               <Pressable
-                onPress={() =>
-                  setPickerMode(
-                    pickerMode === "calendar" ? "monthYear" : "calendar"
-                  )
-                }
-                className="flex-row items-center"
+                onPress={() => handleMonthChange("prev")}
+                className="w-12 h-12 bg-slate-50 rounded-2xl items-center justify-center border border-slate-100"
               >
-                <Text className="text-[#86efac] text-lg font-bold mr-2">
-                  {format(displayDate, "MMMM yyyy")}
-                </Text>
-                <Feather name="chevron-down" size={20} color="#86efac" />
+                <Ionicons name="arrow-back" size={20} color="#64748b" />
               </Pressable>
 
-              {pickerMode === "calendar" && (
-                <View className="flex-row items-center gap-2">
-                  <Pressable
-                    onPress={() => handleMonthChange("prev")}
-                    className="p-1"
-                  >
-                    <Feather name="chevron-left" size={24} color="#86efac" />
-                  </Pressable>
-                  <Pressable
-                    onPress={() => handleMonthChange("next")}
-                    className="p-1"
-                  >
-                    <Feather name="chevron-right" size={24} color="#86efac" />
-                  </Pressable>
-                </View>
-              )}
+              <Pressable
+                onPress={() => setPickerMode(pickerMode === "calendar" ? "monthYear" : "calendar")}
+                className="flex-1 mx-4 h-12 bg-slate-900 rounded-2xl items-center justify-center flex-row"
+              >
+                <Text className="text-white font-bold text-base mr-2">
+                  {format(displayDate, "MMMM yyyy")}
+                </Text>
+                <Ionicons
+                  name={pickerMode === "calendar" ? "chevron-down-circle" : "checkmark-circle"}
+                  size={18}
+                  color="#ffffff"
+                />
+              </Pressable>
+
+              <Pressable
+                onPress={() => handleMonthChange("next")}
+                className="w-12 h-12 bg-slate-50 rounded-2xl items-center justify-center border border-slate-100"
+              >
+                <Ionicons name="arrow-forward" size={20} color="#64748b" />
+              </Pressable>
             </View>
 
-            <View className="flex-1 justify-center">
+            {/* Sub-view Area */}
+            <View className="p-4">
               {pickerMode === "calendar" ? (
                 <View>
-                  <View className="flex-row justify-between mb-3">
-                    {daysOfWeek.map((day) => (
-                      <View
-                        key={day}
-                        style={{ width: "14.28%" }}
-                        className="items-center"
-                      >
-                        <Text className="text-zinc-500 text-xs font-semibold">
+                  <View className="flex-row justify-between mb-4 border-b border-slate-50 pb-2">
+                    {daysOfWeek.map((day, idx) => (
+                      <View key={`dow-${idx}`} style={{ width: "14.28%" }} className="items-center">
+                        <Text className="text-slate-300 text-[10px] font-black uppercase">
                           {day}
                         </Text>
                       </View>
@@ -256,39 +254,30 @@ const DatePickerModal = forwardRef<DatePickerModalRef, DatePickerModalProps>(
                   </View>
 
                   <View className="flex-row flex-wrap">
-                    {Array.from({ length: startingDayIndex }).map(
-                      (_, index) => (
-                        <View
-                          key={`empty-${index}`}
-                          style={{ width: "14.28%" }}
-                          className="h-10"
-                        />
-                      )
-                    )}
+                    {Array.from({ length: startingDayIndex }).map((_, index) => (
+                      <View key={`empty-${index}`} style={{ width: "14.28%" }} className="h-10" />
+                    ))}
 
                     {daysInMonth.map((day) => {
                       const isSelected = isSameDay(day, tempSelectedDate);
-                      const isCurrentDay = isToday(day);
+                      const isCurr = isToday(day);
                       return (
                         <View
                           key={day.toString()}
                           style={{ width: "14.28%" }}
-                          className="items-center justify-center mb-2"
+                          className="items-center justify-center mb-1"
                         >
                           <Pressable
                             onPress={() => setTempSelectedDate(day)}
-                            className={`w-9 h-9 rounded-full items-center justify-center 
-                                ${isSelected ? "bg-green-400" : ""}`}
-                          >
-                            <Text
-                              className={`text-sm ${
-                                isSelected
-                                  ? "text-black font-bold"
-                                  : isCurrentDay
-                                    ? "text-white font-bold"
-                                    : "text-zinc-300"
+                            className={`w-10 h-10 rounded-xl items-center justify-center ${isSelected
+                              ? "bg-emerald-600 shadow-md shadow-emerald-900/20"
+                              : isCurr
+                                ? "bg-emerald-50"
+                                : ""
                               }`}
-                            >
+                          >
+                            <Text className={`text-sm font-bold ${isSelected ? "text-white" : isCurr ? "text-emerald-600" : "text-slate-600"
+                              }`}>
                               {format(day, "d")}
                             </Text>
                           </Pressable>
@@ -298,45 +287,28 @@ const DatePickerModal = forwardRef<DatePickerModalRef, DatePickerModalProps>(
                   </View>
                 </View>
               ) : (
-                <View
-                  className="relative flex-row items-center justify-center"
-                  style={{ height: PICKER_HEIGHT }}
-                >
-                  <View
-                    className="absolute w-full bg-zinc-600/30 rounded-lg pointer-events-none"
-                    style={{
-                      height: ITEM_HEIGHT,
-                      top: (PICKER_HEIGHT - ITEM_HEIGHT) / 2,
-                    }}
-                  />
-
-                  {/* Month Picker */}
+                <View className="flex-row items-center justify-center" style={{ height: PICKER_HEIGHT }}>
+                  <View className="absolute left-0 right-0 h-12 bg-slate-50 rounded-2xl border border-slate-100" />
                   <View className="flex-1">
                     <WheelPicker
                       items={months}
                       selectedValue={format(displayDate, "MMMM")}
                       onValueChange={(month) => {
-                        const newDate = new Date(displayDate);
-                        newDate.setMonth(months.indexOf(month));
-                        setDisplayDate(newDate);
-                        setTempSelectedDate(newDate);
+                        const d = new Date(displayDate);
+                        d.setMonth(months.indexOf(month));
+                        setDisplayDate(d);
                       }}
-                      align="center"
                     />
                   </View>
-
-                  {/* Year Picker */}
                   <View className="flex-1">
                     <WheelPicker
                       items={years}
                       selectedValue={format(displayDate, "yyyy")}
                       onValueChange={(year) => {
-                        const newDate = new Date(displayDate);
-                        newDate.setFullYear(parseInt(year, 10));
-                        setDisplayDate(newDate);
-                        setTempSelectedDate(newDate);
+                        const d = new Date(displayDate);
+                        d.setFullYear(parseInt(year, 10));
+                        setDisplayDate(d);
                       }}
-                      align="center"
                     />
                   </View>
                 </View>
@@ -344,29 +316,16 @@ const DatePickerModal = forwardRef<DatePickerModalRef, DatePickerModalProps>(
             </View>
           </View>
 
-          {/* Done Button */}
-          <View className="pb-6 mt-4">
+          {/* Large Floating Action Button */}
+          <View className="mt-auto pb-10">
             <Pressable
               onPress={handleDone}
-              style={{ borderRadius: 9999, overflow: "hidden", width: "100%" }}
+              className="w-full py-5 bg-emerald-600 rounded-[32px] items-center justify-center border border-emerald-500"
             >
-              <LinearGradient
-                colors={["#86efac", "#22d3ee"]}
-                start={{ x: 0, y: 0 }}
-                end={{ x: 1, y: 0 }}
-                style={{
-                  width: "100%",
-                  paddingVertical: 16,
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-              >
-                <Text
-                  style={{ color: "black", fontSize: 18, fontWeight: "bold" }}
-                >
-                  Done
-                </Text>
-              </LinearGradient>
+              <View className="flex-row items-center">
+                <Ionicons name="checkmark-sharp" size={24} color="white" />
+                <Text className="text-white text-xl font-bold ml-2">Apply Selection</Text>
+              </View>
             </Pressable>
           </View>
         </BottomSheetView>
@@ -374,5 +333,7 @@ const DatePickerModal = forwardRef<DatePickerModalRef, DatePickerModalProps>(
     );
   }
 );
+
+DatePickerModal.displayName = "DatePickerModal";
 
 export default DatePickerModal;

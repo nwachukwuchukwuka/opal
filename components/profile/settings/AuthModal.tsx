@@ -28,7 +28,6 @@ export const AuthModal = ({
   const [mode, setMode] = useState<AuthMode>("login");
   const [method, setMethod] = useState<InputMethod>("email");
 
-  // Form State
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [phone, setPhone] = useState("");
@@ -52,148 +51,138 @@ export const AuthModal = ({
       presentationStyle="fullScreen"
     >
       <SafeAreaProvider>
-        <SafeAreaView className="flex-1 bg-black justify-between">
-          {/* Header */}
-          <View className="px-4 pt-2 flex-row justify-between items-center">
-            <Pressable onPress={onClose}>
-              <Ionicons
-                name="chevron-back"
-                size={28}
-                color={mode === "signup" ? "transparent" : "white"}
-              />
-            </Pressable>
-            <Text className="text-white text-3xl font-bold tracking-tight">
-              Opal
-            </Text>
-            <Pressable onPress={onClose}>
-              <Text className="text-zinc-500 font-bold">Skip</Text>
-            </Pressable>
-          </View>
-
-          <KeyboardAvoidingView
-            behavior={Platform.OS === "ios" ? "padding" : "height"}
-          >
-            {/* Title Section */}
-            <View className="mb-8 items-center">
-              <Text className="text-white text-2xl font-bold mb-2">
-                {mode === "login"
-                  ? "Welcome back"
-                  : "Let's create your account"}
-              </Text>
-              <Text className="text-zinc-400 text-center">
-                {mode === "login"
-                  ? "Let's get you in to Opal"
-                  : "Link your phone number to Opal account to connect with your friends who use Opal"}
-              </Text>
-            </View>
-
-            {/* Inputs */}
-            <View className="gap-4 mb-6">
-              {method === "phone" ? (
-                <View className="flex-row items-center bg-zinc-900 rounded-xl border border-zinc-800 px-4 py-4">
-                  <Text className="text-xl mr-3">🇸🇬</Text>
-                  <Text className="text-zinc-400 text-lg mr-1">+65</Text>
-                  <TextInput
-                    value={phone}
-                    onChangeText={setPhone}
-                    placeholder="8123 4567"
-                    placeholderTextColor="#52525b"
-                    keyboardType="phone-pad"
-                    className="flex-1 text-white text-lg h-full"
-                    autoFocus
-                  />
-                </View>
-              ) : (
-                <>
-                  <TextInput
-                    value={email}
-                    onChangeText={setEmail}
-                    placeholder="Your Email"
-                    placeholderTextColor="#52525b"
-                    keyboardType="email-address"
-                    autoCapitalize="none"
-                    className="w-full bg-zinc-900 text-white text-lg px-4 py-4 rounded-xl border border-zinc-800"
-                  />
-                  <TextInput
-                    value={password}
-                    onChangeText={setPassword}
-                    placeholder="Your Password"
-                    placeholderTextColor="#52525b"
-                    secureTextEntry
-                    className="w-full bg-zinc-900 text-white text-lg px-4 py-4 rounded-xl border border-zinc-800"
-                  />
-                  {mode === "login" && (
-                    <Pressable className="self-center mt-2">
-                      <Text className="text-zinc-500">Forgot password?</Text>
-                    </Pressable>
-                  )}
-                </>
-              )}
-            </View>
-
-            {/* Main Action Button */}
-            <Pressable
-              onPress={handleSubmit}
-              className="w-full bg-white py-4 rounded-full items-center mb-8"
-            >
-              <Text className="text-black font-bold text-lg">
-                {mode === "login" ? "Sign in" : "Next"}
-              </Text>
-            </Pressable>
-
-            {/* Divider */}
-            <View className="flex-row items-center mb-8">
-              <View className="flex-1 h-[1px] bg-zinc-800" />
-              <Text className="text-zinc-500 mx-4">or</Text>
-              <View className="flex-1 h-[1px] bg-zinc-800" />
-            </View>
-
-            {/* Social Logins */}
-            <View className="gap-3 mb-8">
-              <Pressable className="w-full bg-zinc-900 py-4 rounded-full items-center flex-row justify-center border border-zinc-800">
-                <Ionicons name="logo-apple" size={20} color="white" />
-                <Text className="text-white font-bold text-lg ml-2">
-                  {mode === "login"
-                    ? "Sign In With Apple"
-                    : "Sign Up With Apple"}
-                </Text>
-              </Pressable>
-
-              <Pressable
-                onPress={handleToggleMethod}
-                className="w-full bg-zinc-900 py-4 rounded-full items-center flex-row justify-center border border-zinc-800"
+        <SafeAreaView className="flex-1 bg-white">
+          <View className="flex-1 px-8">
+            {/* Minimalist Top Nav */}
+            <View className="flex-row justify-between items-center pt-4 mb-10">
+              <Pressable 
+                onPress={onClose}
+                className="w-11 h-11 bg-slate-50 rounded-full items-center justify-center border border-slate-100"
               >
-                <Ionicons
-                  name={method === "email" ? "call" : "mail"}
-                  size={20}
-                  color="white"
-                />
-                <Text className="text-white font-bold text-lg ml-2">
-                  {method === "email"
-                    ? mode === "login"
-                      ? "Sign In With Phone"
-                      : "Sign Up With Phone"
-                    : mode === "login"
-                      ? "Sign In With Email"
-                      : "Sign Up With Email"}
-                </Text>
+                <Ionicons name="close" size={24} color="#059669" />
+              </Pressable>
+              <Text className="text-slate-900 text-2xl font-bold tracking-tighter">Opal</Text>
+              <Pressable onPress={onClose}>
+                <Text className="text-slate-400 font-semibold text-sm">Skip</Text>
               </Pressable>
             </View>
 
-            {/* Toggle Login/Signup */}
-            <View className="flex-row justify-center">
-              <Text className="text-zinc-500">
-                {mode === "login"
-                  ? "Don't have an account? "
-                  : "Already have an account? "}
-              </Text>
-              <Pressable onPress={handleToggleMode}>
-                <Text className="text-white font-bold">
-                  {mode === "login" ? "Sign up" : "Log in"}
+            <KeyboardAvoidingView
+              behavior={Platform.OS === "ios" ? "padding" : "height"}
+              className="flex-1"
+            >
+              {/* Identity Header */}
+              <View className="mb-12">
+                <Text className="text-slate-900 text-4xl font-bold mb-3 tracking-tight">
+                  {mode === "login" ? "Welcome back" : "Create account"}
+                </Text>
+                <Text className="text-slate-400 text-lg leading-6 font-medium">
+                  {mode === "login"
+                    ? "Sign in to continue your focus journey with Opal."
+                    : "Join thousands of gems improving their digital well-being."}
+                </Text>
+              </View>
+
+              {/* Form Input Group */}
+              <View className="gap-4 mb-8">
+                {method === "phone" ? (
+                  <View className="flex-row items-center bg-slate-50 rounded-3xl border border-slate-100 px-5 py-5">
+                    <Text className="text-xl mr-3">🇸🇬</Text>
+                    <Text className="text-slate-400 text-lg mr-2 font-semibold">+65</Text>
+                    <TextInput
+                      value={phone}
+                      onChangeText={setPhone}
+                      placeholder="8123 4567"
+                      placeholderTextColor="#94a3b8"
+                      keyboardType="phone-pad"
+                      className="flex-1 text-slate-900 text-lg"
+                      autoFocus
+                    />
+                  </View>
+                ) : (
+                  <>
+                    <View className="bg-slate-50 rounded-3xl border border-slate-100 px-5 py-5">
+                      <TextInput
+                        value={email}
+                        onChangeText={setEmail}
+                        placeholder="Email address"
+                        placeholderTextColor="#94a3b8"
+                        keyboardType="email-address"
+                        autoCapitalize="none"
+                        className="text-slate-900 text-lg"
+                      />
+                    </View>
+                    <View className="bg-slate-50 rounded-3xl border border-slate-100 px-5 py-5">
+                      <TextInput
+                        value={password}
+                        onChangeText={setPassword}
+                        placeholder="Password"
+                        placeholderTextColor="#94a3b8"
+                        secureTextEntry
+                        className="text-slate-900 text-lg"
+                      />
+                    </View>
+                    {mode === "login" && (
+                      <Pressable className="self-end mt-1">
+                        <Text className="text-emerald-600 font-bold text-sm">Forgot password?</Text>
+                      </Pressable>
+                    )}
+                  </>
+                )}
+              </View>
+
+              {/* Primary Action */}
+              <Pressable
+                onPress={handleSubmit}
+                className="w-full bg-emerald-600 py-6 rounded-full items-center mb-8"
+              >
+                <Text className="text-white font-bold text-lg">
+                  {mode === "login" ? "Sign In" : "Get Started"}
                 </Text>
               </Pressable>
-            </View>
-          </KeyboardAvoidingView>
+
+              {/* Aesthetic Divider */}
+              <View className="flex-row items-center mb-10 px-4">
+                <View className="flex-1 h-[1px] bg-slate-100" />
+                <Text className="text-slate-300 text-[10px] font-bold uppercase tracking-widest mx-4">Secure Sign In</Text>
+                <View className="flex-1 h-[1px] bg-slate-100" />
+              </View>
+
+              {/* Secondary Actions Grid */}
+              <View className="gap-4 mb-10">
+                <Pressable className="w-full bg-white py-5 rounded-full items-center flex-row justify-center border border-slate-100">
+                  <Ionicons name="logo-apple" size={20} color="#020617" />
+                  <Text className="text-slate-900 font-bold text-base ml-2">Continue with Apple</Text>
+                </Pressable>
+
+                <Pressable
+                  onPress={handleToggleMethod}
+                  className="w-full bg-white py-5 rounded-full items-center flex-row justify-center border border-slate-100"
+                >
+                  <Ionicons
+                    name={method === "email" ? "call" : "mail"}
+                    size={20}
+                    color="#059669"
+                  />
+                  <Text className="text-emerald-700 font-bold text-base ml-2">
+                    {method === "email" ? "Sign in with phone" : "Sign in with email"}
+                  </Text>
+                </Pressable>
+              </View>
+
+              {/* Footer Toggle */}
+              <View className="flex-row justify-center pb-8">
+                <Text className="text-slate-400 font-medium">
+                  {mode === "login" ? "Don't have an account? " : "Already have an account? "}
+                </Text>
+                <Pressable onPress={handleToggleMode}>
+                  <Text className="text-emerald-600 font-bold">
+                    {mode === "login" ? "Sign up" : "Log in"}
+                  </Text>
+                </Pressable>
+              </View>
+            </KeyboardAvoidingView>
+          </View>
         </SafeAreaView>
       </SafeAreaProvider>
     </Modal>

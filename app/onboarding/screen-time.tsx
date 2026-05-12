@@ -32,16 +32,14 @@ const OptionButton: React.FC<OptionButtonProps> = ({
   return (
     <Pressable
       onPress={onPress}
-      className={`w-full py-4 px-6 rounded-xl mb-3 border ${
-        isSelected
-          ? "border-white bg-white/10"
-          : "border-zinc-800 bg-zinc-900/50"
-      } active:bg-white/5`}
+      className={`w-full py-6 px-8 rounded-[28px] mb-4 border-2 ${isSelected
+        ? "border-emerald-500 bg-emerald-50/50"
+        : "border-slate-100 bg-white"
+        } active:scale-[0.98] transition-transform`}
     >
       <Text
-        className={`text-center text-base ${
-          isSelected ? "text-white font-semibold" : "text-zinc-300"
-        }`}
+        className={`text-center text-lg ${isSelected ? "text-emerald-600 font-bold" : "text-slate-500 font-bold"
+          }`}
       >
         {label}
       </Text>
@@ -59,25 +57,23 @@ export default function ScreenTimeScreen() {
   const canContinue = selectedOption !== null;
 
   return (
-    <SafeAreaView edges={["top"]} className="flex-1 bg-black">
-
-      {/* Content */}
-      <View className="flex-1 pt-6 px-6">
-        {/* Question */}
-        <View className="mb-8">
-          <Text className="text-white text-[20px] font-bold mb-2 leading-tight">
-            What is your daily average{"\n"}Screen Time?
+    <SafeAreaView edges={["top"]} className="flex-1 bg-slate-50">
+      <View className="flex-1 px-8 pt-12">
+        {/* Question Header */}
+        <View className="mb-12">
+          <Text className="text-slate-900 text-3xl font-bold mb-3 leading-tight">
+            What is your daily average screen time?
           </Text>
-          <Text className="text-zinc-500 text-sm">
-            On your phone only. Your best guess is ok.
+          <Text className="text-slate-500 text-base font-medium leading-6">
+            On your phone only. Your best guess is perfectly fine.
           </Text>
         </View>
 
-        {/* Options */}
+        {/* Options Grid */}
         <ScrollView
           className="flex-1"
           showsVerticalScrollIndicator={false}
-          contentContainerStyle={{ paddingBottom: 20 }}
+          contentContainerStyle={{ paddingBottom: 40 }}
         >
           {screenTimeOptions.map((option) => (
             <OptionButton
@@ -90,19 +86,17 @@ export default function ScreenTimeScreen() {
         </ScrollView>
       </View>
 
-      {/* Continue Button */}
-      <View className="px-6 pb-10">
+      {/* Continue Action Zone */}
+      <View className="px-8 pb-12 pt-6">
         <Pressable
           onPress={handleContinue}
           disabled={!canContinue}
-          className={`w-full py-4 rounded-full ${
-            canContinue ? "bg-white" : "bg-zinc-800"
-          } active:opacity-90`}
+          className={`w-full py-6 rounded-[32px] ${canContinue ? "bg-emerald-600" : "bg-slate-200"
+            }`}
         >
           <Text
-            className={`text-center text-lg font-semibold ${
-              canContinue ? "text-black" : "text-zinc-600"
-            }`}
+            className={`text-center text-xl font-bold ${canContinue ? "text-white" : "text-slate-400"
+              }`}
           >
             Continue
           </Text>

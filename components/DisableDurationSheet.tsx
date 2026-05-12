@@ -84,17 +84,17 @@ const DisableDurationSheet = forwardRef<
     <BottomSheetModal
       ref={ref}
       snapPoints={snapPoints}
-      backgroundStyle={{ backgroundColor: "#18181b" }}
-      handleIndicatorStyle={{ backgroundColor: "#52525b" }}
+      backgroundStyle={{ backgroundColor: "#f8fafc" }}
+      handleIndicatorStyle={{ backgroundColor: "#cbd5e1" }}
       backdropComponent={renderBackdrop}
       enableDynamicSizing={false}
     >
-      <BottomSheetView className="flex-1 px-5">
-        <Text className="text-white text-2xl font-bold mb-2">
-          Set disable duration
+      <BottomSheetView className="flex-1 px-8 pt-4">
+        <Text className="text-slate-900 text-3xl font-bold mb-2">
+          Disable duration
         </Text>
-        <Text className="text-zinc-400 text-base mb-6">
-          Opal will automatically enable this session when you come back, or you
+        <Text className="text-slate-500 font-medium text-base mb-8 leading-6">
+          Zenith will automatically enable this session when you come back, or you
           can manually turn it back on.
         </Text>
 
@@ -103,7 +103,7 @@ const DisableDurationSheet = forwardRef<
           <View className="w-full relative" style={{ height: PICKER_HEIGHT }}>
             {/* Highlight Bar */}
             <View
-              className="absolute left-0 right-0 bg-zinc-800 rounded-xl"
+              className="absolute left-0 right-0 bg-slate-50 border border-slate-100 rounded-3xl"
               style={{
                 height: ITEM_HEIGHT,
                 top: (PICKER_HEIGHT - ITEM_HEIGHT) / 2,
@@ -133,14 +133,13 @@ const DisableDurationSheet = forwardRef<
                   >
                     <View className="flex-row items-baseline justify-center">
                       <Text
-                        className={`text-xl font-semibold ${
-                          isSelected ? "text-white" : "text-zinc-600"
-                        }`}
+                        className={`text-2xl font-bold ${isSelected ? "text-slate-900" : "text-slate-300"
+                          }`}
                       >
                         {day}
                       </Text>
                       {isSelected && (
-                        <Text className="text-white text-lg ml-2 font-medium">
+                        <Text className="text-slate-900 text-lg ml-2 font-bold">
                           {day > 1 ? "days" : "day"}
                         </Text>
                       )}
@@ -153,20 +152,20 @@ const DisableDurationSheet = forwardRef<
         </View>
 
         {/* Action Buttons */}
-        <View className="mt-auto pb-6 gap-3">
+        <View className="mt-auto pb-10 gap-4">
           <Pressable
             onPress={() => onDisableForDays(selectedDays)}
-            className="w-full py-4 rounded-full bg-white items-center justify-center"
+            className="w-full py-5 rounded-[28px] bg-emerald-600 border border-emerald-500 items-center justify-center shadow-lg shadow-emerald-900/10"
           >
-            <Text className="text-black text-lg font-bold">
+            <Text className="text-white text-xl font-bold">
               Disable for {selectedDays} {selectedDays > 1 ? "days" : "day"}
             </Text>
           </Pressable>
           <Pressable
             onPress={onDisableIndefinitely}
-            className="w-full py-4 rounded-full bg-zinc-800 items-center justify-center"
+            className="w-full py-5 rounded-[28px] bg-white border border-slate-100 items-center justify-center"
           >
-            <Text className="text-white text-lg font-semibold">
+            <Text className="text-slate-400 text-lg font-bold">
               Disable indefinitely
             </Text>
           </Pressable>

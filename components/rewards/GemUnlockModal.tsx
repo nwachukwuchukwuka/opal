@@ -20,13 +20,13 @@ export const GemUnlockModal = ({
     <Modal
       visible={visible}
       animationType="fade"
-      transparent={true} 
+      transparent={true}
       onRequestClose={onClose}
     >
       <View className="flex-1 bg-black/80 justify-center items-center px-6">
-        
+
         <View className="bg-[#121214] w-full rounded-[32px] border border-zinc-800 overflow-hidden relative py-10">
-          
+
           <View className="flex-row justify-between items-center px-6 absolute top-4 left-0 right-0 z-10">
             <TouchableOpacity
               onPress={onClose}
@@ -34,7 +34,7 @@ export const GemUnlockModal = ({
             >
               <Ionicons name="close" size={20} color="white" />
             </TouchableOpacity>
-            
+
             <TouchableOpacity onPress={onClose}>
               <Text className="text-zinc-500 font-bold text-[10px] tracking-widest">
                 SKIP
@@ -49,7 +49,7 @@ export const GemUnlockModal = ({
 
             <View className="items-center justify-center mb-8 relative">
               <View className="absolute w-48 h-48 bg-white/10 rounded-full blur-2xl" />
-              
+
               <Image
                 source={{
                   uri: "https://images.unsplash.com/photo-1615529182904-14819c35db37?q=80&w=800&auto=format&fit=crop",
@@ -57,7 +57,7 @@ export const GemUnlockModal = ({
                 className="w-48 h-48 rounded-2xl z-10"
                 style={{ resizeMode: "contain" }}
               />
-              
+
               <View className="w-32 h-4 bg-black/50 blur-xl mt-2 rounded-[100%]" />
             </View>
 

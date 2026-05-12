@@ -2,7 +2,7 @@ import { Ionicons } from "@expo/vector-icons";
 import {
   BottomSheetBackdrop,
   BottomSheetModal,
-  BottomSheetView,
+  BottomSheetScrollView
 } from "@gorhom/bottom-sheet";
 import React, {
   forwardRef,
@@ -28,43 +28,23 @@ export interface AppLimitConfig {
   difficulty: string;
 }
 
-interface SettingRowProps {
-  label: string;
-  value: string;
-  onPress?: () => void;
-}
-
-const SettingRow = ({ label, value, onPress }: SettingRowProps) => (
-  <Pressable
-    onPress={onPress}
-    className="flex-row items-center justify-between py-4 border-b border-zinc-800"
-    style={({ pressed }) => ({ opacity: pressed ? 0.7 : 1 })}
-  >
-    <Text className="text-white text-base">{label}</Text>
-    <View className="flex-row items-center">
-      <Text className="text-zinc-400 text-base mr-2">{value}</Text>
-      <Ionicons name="chevron-forward" size={16} color="#71717a" />
-    </View>
-  </Pressable>
-);
-
 const formatTimeLimit = (
   hours: number,
   minutes: number,
   days: number[]
 ): string => {
   const timePart = hours > 0 ? `${hours}h` : `${minutes}m`;
-  const dayNames = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+  const dayNames = ["sun", "mon", "tue", "wed", "thu", "fri", "sat"];
 
   if (days.length === 7) {
-    return `${timePart} • Every day`;
+    return `${timePart} • every day`;
   } else if (
     days.length === 5 &&
     [1, 2, 3, 4, 5].every((d) => days.includes(d))
   ) {
-    return `${timePart} • Weekdays`;
+    return `${timePart} • weekdays`;
   } else if (days.length === 2 && [0, 6].every((d) => days.includes(d))) {
-    return `${timePart} • Weekends`;
+    return `${timePart} • weekends`;
   } else {
     const dayLabels = days
       .sort()
@@ -76,18 +56,18 @@ const formatTimeLimit = (
 
 const AppLimitSheet = forwardRef<AppLimitSheetRef, AppLimitSheetProps>(
   ({ onSave }, ref) => {
-    const [name, setName] = useState("My App Limit");
+    const [name, setName] = useState("my app limit");
     const [timeLimit, setTimeLimit] = useState({
       hours: 1,
       minutes: 0,
       days: [1, 2, 3, 4, 5],
     });
     const [selectedApps, setSelectedApps] = useState<string[]>([]);
-    const [blockUntil, setBlockUntil] = useState("Until tomorrow");
-    const [difficulty, setDifficulty] = useState("Normal");
+    const [blockUntil, setBlockUntil] = useState("until tomorrow");
+    const [difficulty, setDifficulty] = useState("normal");
 
     const timeLimitSheetRef = useRef<TimeLimitSheetRef>(null);
-    const snapPoints = useMemo(() => ["70%"], []);
+    const snapPoints = useMemo(() => ["80%"], []);
 
     const renderBackdrop = useCallback(
       (props: any) => (
@@ -95,7 +75,7 @@ const AppLimitSheet = forwardRef<AppLimitSheetRef, AppLimitSheetProps>(
           {...props}
           disappearsOnIndex={-1}
           appearsOnIndex={0}
-          opacity={0.7}
+          opacity={0.5}
         />
       ),
       []
@@ -120,39 +100,58 @@ const AppLimitSheet = forwardRef<AppLimitSheetRef, AppLimitSheetProps>(
       });
     };
 
+    const SettingCard = ({ icon, label, value, onPress, bgColor = "#ffffff" }: any) => (
+      <Pressable
+        onPress={onPress}
+        className="w-[48%] aspect-square p-4 rounded-[32px] items-center justify-center border border-slate-200 mb-4"
+        style={{ backgroundColor: bgColor }}
+      >
+        <View className="w-10 h-10 bg-emerald-50 rounded-2xl items-center justify-center mb-3 border border-emerald-100">
+          <Ionicons name={icon} size={20} color="#059669" />
+        </View>
+        <Text className="text-slate-500 text-[10px] text-center font-bold uppercase tracking-wider mb-1">{label}</Text>
+        <Text className="text-slate-900 text-xs font-bold text-center" numberOfLines={2}>
+          {value}
+        </Text>
+      </Pressable>
+    );
+
     return (
       <>
         <BottomSheetModal
           ref={ref}
           snapPoints={snapPoints}
-          backgroundStyle={{ backgroundColor: "#18181b" }}
-          handleIndicatorStyle={{ backgroundColor: "#52525b" }}
+          backgroundStyle={{ backgroundColor: "#f8fafc" }}
+          handleIndicatorStyle={{ backgroundColor: "#cbd5e1" }}
           backdropComponent={renderBackdrop}
           enableDynamicSizing={false}
+          stackBehavior={"push"}
         >
-          <BottomSheetView className="flex-1 px-5">
-            {/* Title with Edit Icon */}
-            <View className="flex-row items-center mb-2">
-              <TextInput
-                value={name}
-                onChangeText={setName}
-                className="text-white text-2xl font-bold flex-1"
-                placeholderTextColor="#71717a"
-              />
-              <Ionicons name="pencil" size={16} color="#71717a" />
+          <BottomSheetScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{ paddingBottom: 60 }} className="px-6 pt-6">
+
+            <View className="bg-white rounded-[32px] p-6 mb-6 border border-slate-200">
+              <View className="flex-row items-center mb-4">
+                <View className="w-12 h-12 bg-emerald-50 rounded-xl items-center justify-center mr-4 border border-emerald-100">
+                  <Ionicons name="hourglass-outline" size={24} color="#059669" />
+                </View>
+                <TextInput
+                  value={name}
+                  onChangeText={setName}
+                  className="text-slate-900 text-2xl font-extrabold flex-1 p-0"
+                  placeholderTextColor="#94a3b8"
+                />
+                <Ionicons name="pencil" size={14} color="#94a3b8" />
+              </View>
+              <Text className="text-slate-500 text-xs font-medium leading-4">
+                Set a daily time limit for an app. After reaching the limit, the app will be blocked.
+              </Text>
             </View>
 
-            {/* Description */}
-            <Text className="text-zinc-400 text-sm mb-6">
-              Set a daily time limit for an app. After reaching the limit, the
-              app will be blocked.
-            </Text>
-
-            {/* When I... Section */}
-            <Text className="text-zinc-500 text-sm mb-2">When I...</Text>
-            <View className="bg-zinc-800/50 rounded-xl mb-4">
-              <SettingRow
-                label="Reach Time Limit"
+            {/* Bento Grid Settings */}
+            <View className="flex-row flex-wrap justify-between">
+              <SettingCard
+                icon="time-outline"
+                label="time limit"
                 value={formatTimeLimit(
                   timeLimit.hours,
                   timeLimit.minutes,
@@ -160,58 +159,60 @@ const AppLimitSheet = forwardRef<AppLimitSheetRef, AppLimitSheetProps>(
                 )}
                 onPress={() => timeLimitSheetRef.current?.present()}
               />
-              <Pressable
-                className="flex-row items-center justify-between py-4 px-0"
-                style={({ pressed }) => ({ opacity: pressed ? 0.7 : 1 })}
-              >
-                <Text className="text-white text-base">On these apps</Text>
-                <View className="flex-row items-center">
-                  <Text className="text-zinc-400 text-base mr-2">
-                    {selectedApps.length > 0
-                      ? `${selectedApps.length} Apps`
-                      : "No Apps"}
-                  </Text>
-                  <Ionicons name="chevron-forward" size={16} color="#71717a" />
-                </View>
-              </Pressable>
-            </View>
-
-            {/* Then... Section */}
-            <Text className="text-zinc-500 text-sm mb-2">Then...</Text>
-            <View className="bg-zinc-800/50 rounded-xl mb-6">
-              <SettingRow
-                label="Block Apps"
-                value={blockUntil}
-                onPress={() => {}}
+              <SettingCard
+                icon="apps-outline"
+                label="selected apps"
+                value={selectedApps.length > 0 ? `${selectedApps.length} apps` : "no apps"}
+                onPress={() => { }}
               />
-              <Pressable
-                className="flex-row items-center justify-between py-4"
-                style={({ pressed }) => ({ opacity: pressed ? 0.7 : 1 })}
-              >
-                <Text className="text-white text-base">Difficulty</Text>
-                <View className="flex-row items-center">
-                  <Text className="text-zinc-400 text-base mr-2">
-                    {difficulty}
-                  </Text>
-                  <Ionicons name="chevron-forward" size={16} color="#71717a" />
-                </View>
-              </Pressable>
+              <SettingCard
+                icon="calendar-outline"
+                label="block until"
+                value={blockUntil}
+                onPress={() => { }}
+              />
+              <SettingCard
+                icon="flash-outline"
+                label="difficulty"
+                value={difficulty}
+                onPress={() => { }}
+              />
             </View>
 
-            {/* Save Button */}
-            <Pressable
-              onPress={handleSave}
-              className="rounded-full py-4 items-center justify-center overflow-hidden"
-              style={{
-                backgroundColor: "#22d3ee",
-              }}
-            >
-              <Text className="text-black font-bold text-base">Save</Text>
-            </Pressable>
-          </BottomSheetView>
+            <View className="bg-white rounded-3xl p-4 mb-8 border border-slate-200">
+              <Text className="text-slate-500 text-[10px] text-center font-medium italic">
+                Once you reach your limit, apps stay blocked until the reset time.
+              </Text>
+            </View>
+
+            {/* Actions */}
+            <View className="pb-10 gap-4">
+              <Pressable
+                onPress={handleSave}
+                className="bg-emerald-600 rounded-[28px] border border-emerald-500"
+                style={{
+                  paddingVertical: 18,
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <Text className="text-white text-lg font-bold">Save Changes</Text>
+              </Pressable>
+
+              <Pressable
+                onPress={() => {
+                  if (ref && 'current' in ref) {
+                    ref.current?.dismiss();
+                  }
+                }}
+                className="items-center py-2"
+              >
+                <Text className="text-slate-400 text-base font-bold">Cancel</Text>
+              </Pressable>
+            </View>
+          </BottomSheetScrollView>
         </BottomSheetModal>
 
-        {/* Nested Time Limit Sheet */}
         <TimeLimitSheet
           ref={timeLimitSheetRef}
           initialHours={timeLimit.hours}

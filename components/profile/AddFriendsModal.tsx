@@ -21,8 +21,8 @@ const FOUND_FRIENDS = [
   {
     id: "1",
     name: "Taaffeite5892",
-    username: "Taaffeite5892",
-    avatarColor: "#10b981",
+    username: "taaffeite5892",
+    avatarColor: "#10b981", // Updated to Emerald
     isFriend: true,
   },
 ];
@@ -58,94 +58,131 @@ export const AddFriendsModal = ({ visible, onClose }: AddFriendsModalProps) => {
       animationType="slide"
       presentationStyle="fullScreen"
     >
-      <SafeAreaView className="flex-1 bg-black">
-        {/* Header Content */}
-        <View className="px-6 pt-6 pb-4">
-          <Text className="text-white text-3xl font-bold text-center mb-2 leading-tight">
-            Add your friends to see their{"\n"}Screen Time
-          </Text>
-          <Text className="text-zinc-400 text-base text-center mb-8">
-            Connect with friends to get started!
-          </Text>
+      <SafeAreaView className="flex-1 bg-slate-50">
 
-          {/* Search Bar */}
-          <View className="bg-zinc-900 rounded-xl px-4 py-3 mb-6">
+        {/* Redesigned Header Area */}
+        <View className="px-6 pt-6 pb-4">
+          <View className="flex-row justify-between items-start mb-8">
+            <View className="flex-1 mr-4">
+              <Text className="text-slate-900 text-4xl font-bold leading-[44px] mb-2">
+                Add Friends
+              </Text>
+              <Text className="text-slate-500 text-base font-medium">
+                Connect with friends to see their screen time and stay accountable.
+              </Text>
+            </View>
+            <Pressable
+              onPress={onClose}
+              className="w-12 h-12 bg-white rounded-[20px] items-center justify-center border border-slate-200"
+            >
+              <Ionicons name="close" size={24} color="#64748b" />
+            </Pressable>
+          </View>
+
+          {/* Redesigned Search Bar */}
+          <View className="bg-white rounded-[24px] px-5 py-4 flex-row items-center border border-slate-200">
+            <Ionicons name="search" size={20} color="#94a3b8" />
             <TextInput
-              placeholder="Search"
-              placeholderTextColor="#52525b"
+              placeholder="Search by name or username"
+              placeholderTextColor="#94a3b8"
               value={searchQuery}
               onChangeText={setSearchQuery}
-              className="text-white text-base"
+              className="text-slate-900 text-base font-bold flex-1 ml-3"
             />
           </View>
         </View>
 
+        {/* Scrollable Content */}
         <ScrollView
-          className="flex-1 px-4"
+          className="flex-1 px-6 pt-2"
           showsVerticalScrollIndicator={false}
+          contentContainerStyle={{ paddingBottom: 140 }}
         >
-          <View className="gap-3 pb-24">
-            {FOUND_FRIENDS.map((friend) => (
-              <View
-                key={friend.id}
-                className="bg-zinc-900 p-4 rounded-2xl flex-row items-center justify-between"
-              >
-                <View className="flex-row items-center gap-3">
-                  <HexagonAvatar color={friend.avatarColor} size={40} />
-                  <View>
-                    <Text className="text-white font-semibold text-base">
-                      {friend.name}
-                    </Text>
-                    <Text className="text-zinc-500 text-xs">
-                      {friend.username}
-                    </Text>
-                  </View>
-                </View>
-                <View className="bg-zinc-800/50 px-4 py-2 rounded-full border border-zinc-700/50 flex-row items-center gap-1">
-                  <Ionicons name="checkmark" size={14} color="#38bdf8" />
-                  <Text className="text-sky-400 font-bold text-sm">
-                    Friends
-                  </Text>
-                </View>
-              </View>
-            ))}
+          <View className="gap-8">
 
-            {filteredContacts.map((contact) => (
-              <View
-                key={contact.id}
-                className="bg-zinc-900 p-4 rounded-2xl flex-row items-center justify-between"
-              >
-                <View className="flex-row items-center gap-3">
-                  <Image
-                    source={{ uri: contact.avatarUrl }}
-                    className="w-10 h-10 rounded-full"
-                  />
-                  <View>
-                    <Text className="text-white font-semibold text-base">
-                      {contact.name}
-                    </Text>
-                    <Text className="text-zinc-500 text-xs uppercase tracking-wider">
-                      IN YOUR CONTACTS
-                    </Text>
+            {/* Friends Section */}
+            {FOUND_FRIENDS.length > 0 && (
+              <View>
+                <Text className="text-slate-400 text-xs font-bold mb-3 ml-2">
+                  Already friends
+                </Text>
+                {FOUND_FRIENDS.map((friend) => (
+                  <View
+                    key={friend.id}
+                    className="bg-white p-4 rounded-[32px] flex-row items-center justify-between border border-slate-100 mb-3"
+                  >
+                    <View className="flex-row items-center gap-4">
+                      <View className="p-1 bg-slate-50 rounded-[24px] border border-slate-100">
+                        <HexagonAvatar color={friend.avatarColor} size={48} />
+                      </View>
+                      <View>
+                        <Text className="text-slate-900 font-bold text-lg">
+                          {friend.name}
+                        </Text>
+                        <Text className="text-slate-500 text-xs font-medium mt-0.5">
+                          @{friend.username}
+                        </Text>
+                      </View>
+                    </View>
+
+                    {/* Badge */}
+                    <View className="bg-emerald-50 px-3 py-2 rounded-[16px] border border-emerald-100 flex-row items-center gap-1.5">
+                      <Ionicons name="checkmark-circle" size={16} color="#059669" />
+                      <Text className="text-emerald-700 font-bold text-xs">
+                        Friends
+                      </Text>
+                    </View>
                   </View>
-                </View>
-                <Pressable className="bg-zinc-800 px-4 py-2 rounded-full">
-                  <Text className="text-white font-bold text-sm">+ Invite</Text>
-                </Pressable>
+                ))}
               </View>
-            ))}
+            )}
+
+            {/* Contacts Section */}
+            <View>
+              <Text className="text-slate-400 text-xs font-bold mb-3 ml-2">
+                From your contacts
+              </Text>
+              {filteredContacts.map((contact) => (
+                <View
+                  key={contact.id}
+                  className="bg-white p-4 rounded-[32px] flex-row items-center justify-between border border-slate-100 mb-3"
+                >
+                  <View className="flex-row items-center gap-4">
+                    <Image
+                      source={{ uri: contact.avatarUrl }}
+                      className="w-16 h-16 rounded-[24px] border border-slate-100"
+                    />
+                    <View>
+                      <Text className="text-slate-900 font-bold text-lg">
+                        {contact.name}
+                      </Text>
+                      <Text className="text-slate-400 text-xs font-medium mt-0.5">
+                        In contacts
+                      </Text>
+                    </View>
+                  </View>
+
+                  <Pressable className="bg-slate-50 border border-slate-200 px-5 py-3.5 rounded-[20px]">
+                    <Text className="text-slate-700 font-bold text-sm">
+                      Invite
+                    </Text>
+                  </Pressable>
+                </View>
+              ))}
+            </View>
           </View>
         </ScrollView>
 
-        {/* Bottom Button */}
-        <View className="absolute bottom-10 left-0 right-0 px-6">
+        {/* Structured Bottom Dock */}
+        <View className="absolute bottom-0 left-0 right-0 p-6 bg-white border-t border-slate-100">
           <Pressable
             onPress={onClose}
-            className="bg-white w-full py-4 rounded-full items-center justify-center"
+            className="bg-emerald-600 w-full py-5 rounded-[28px] items-center justify-center"
           >
-            <Text className="text-black text-lg font-bold">Done</Text>
+            <Text className="text-white text-lg font-bold">Finish Setup</Text>
           </Pressable>
         </View>
+
       </SafeAreaView>
     </Modal>
   );

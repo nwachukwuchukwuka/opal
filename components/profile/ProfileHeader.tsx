@@ -1,92 +1,3 @@
-// import { Ionicons } from "@expo/vector-icons";
-// import React from "react";
-// import { Image, Pressable, Text, View } from "react-native";
-// import { HexagonAvatar } from "./HexagonAvatar";
-
-// interface ProfileHeaderProps {
-//   onSettingsPress?: () => void;
-//   profileImage?: string | null;
-//   gemName: string;
-//   isGuest?: boolean;
-//   onLoginPress?: () => void;
-// }
-
-// export const ProfileHeader = ({
-//   onSettingsPress,
-//   profileImage,
-//   gemName,
-//   isGuest = false,
-//   onLoginPress,
-// }: ProfileHeaderProps) => (
-//   <View className="mb-6">
-//     <View className="flex-row justify-between pt-2 pb-4 mb-2">
-//       <Ionicons name="close" size={28} color="white" />
-//       <View className="flex-row gap-4">
-//         <Ionicons name="share-outline" size={24} color="white" />
-//         <Pressable onPress={onSettingsPress}>
-//           <Ionicons name="settings-sharp" size={24} color="white" />
-//         </Pressable>
-//       </View>
-//     </View>
-
-//     <View className="flex-row justify-between items-start">
-//       <View>
-//         <View className="mb-4">
-//           {profileImage && !isGuest ? (
-//             <Image
-//               source={{ uri: profileImage }}
-//               className="w-20 h-20 rounded-full border-2 border-white"
-//             />
-//           ) : (
-//             // Guest / Default Avatar
-//             <HexagonAvatar color={isGuest ? "#52525b" : "#fff"} size={80} />
-//           )}
-//         </View>
-
-//         <View className="flex-row items-center gap-2 mb-1">
-//           <Text className="text-white text-2xl font-bold">
-//             {isGuest ? "Guest" : gemName}
-//           </Text>
-//           <View
-//             className={`px-1.5 py-0.5 rounded border ${isGuest ? "bg-zinc-800 border-zinc-600" : "bg-teal-900/50 border-teal-700"}`}
-//           >
-//             <Text
-//               className={`${isGuest ? "text-zinc-400" : "text-teal-400"} text-[10px] font-bold`}
-//             >
-//               {isGuest ? "Free" : "PRO"}
-//             </Text>
-//           </View>
-//         </View>
-
-//         <Text className="text-zinc-400 text-base">
-//           {isGuest
-//             ? "Software Development, 25 - 34"
-//             : "Software Development, 25 - 34"}
-//         </Text>
-
-//         <View
-//           className={`mt-3 self-start border rounded-full px-3 py-1 ${isGuest ? "border-zinc-700" : "border-teal-500/50"}`}
-//         >
-//           <Text
-//             className={`${isGuest ? "text-zinc-400" : "text-teal-400"} text-xs font-bold`}
-//           >
-//             {isGuest ? "Top 0%" : "Top 77%"}
-//           </Text>
-//         </View>
-//       </View>
-
-//       {isGuest && (
-//         <Pressable
-//           onPress={onLoginPress}
-//           className="bg-zinc-800 px-4 py-1 rounded-full border border-zinc-700 mt-4 mr-8"
-//         >
-//           <Text className="text-white text-sm">Sign Up / Log In</Text>
-//         </Pressable>
-//       )}
-//     </View>
-//   </View>
-// );
-
 import { Ionicons } from "@expo/vector-icons";
 import React from "react";
 import { Image, Pressable, Text, View } from "react-native";
@@ -107,86 +18,76 @@ export const ProfileHeader = ({
   isGuest = false,
   onLoginPress,
 }: ProfileHeaderProps) => (
-  <View className="mb-6">
-    {/* Top Navigation Bar */}
-    <View className="flex-row justify-between pt-2 pb-4 mb-2">
-      <Ionicons name="close" size={28} color="white" />
-      <View className="flex-row gap-4">
-        <Ionicons name="share-outline" size={24} color="white" />
-        <Pressable onPress={onSettingsPress}>
-          <Ionicons name="settings-sharp" size={24} color="white" />
+  <View className="mb-6 relative z-10">
+    {/* Minimalist Top Navigation */}
+    <View className="flex-row justify-end items-center pt-2 pb-8 px-2">
+      <View className="flex-row gap-3">
+        <Pressable className="w-11 h-11 bg-white rounded-full items-center justify-center border border-slate-200">
+          <Ionicons name="share-outline" size={22} color="#059669" />
+        </Pressable>
+        <Pressable
+          onPress={onSettingsPress}
+          className="w-11 h-11 bg-white rounded-full items-center justify-center border border-slate-200"
+        >
+          <Ionicons name="settings-outline" size={22} color="#059669" />
         </Pressable>
       </View>
     </View>
 
-    {/* Profile Content Row */}
-    <View className="flex-row justify-between items-center">
-      {/* Left Side: Info */}
-      <View className="flex-1 mr-2">
-        <View className="mb-4">
+    {/* Modern Centered Hero Card */}
+    <View className="bg-white border border-slate-200 rounded-[48px] p-8 items-center">
+      {/* Centered Avatar Stack */}
+      <View className="relative mb-6">
+        <View className="w-28 h-28 rounded-[36px] bg-slate-50 items-center justify-center border-4 border-white overflow-hidden">
           {profileImage && !isGuest ? (
             <Image
               source={{ uri: profileImage }}
-              className="w-20 h-20 rounded-full border-2 border-white"
+              className="w-full h-full"
+              resizeMode="cover"
             />
           ) : (
-            <HexagonAvatar color={isGuest ? "#52525b" : "#fff"} size={80} />
+            <HexagonAvatar color={isGuest ? "#94a3b8" : "#059669"} size={90} />
           )}
         </View>
-
-        <View className="flex-row items-center gap-2 mb-1">
-          <Text
-            className="text-white text-2xl font-bold"
-            numberOfLines={1}
-            adjustsFontSizeToFit
-          >
-            {isGuest ? "Guest" : gemName}
-          </Text>
-          <View
-            className={`px-1.5 py-0.5 rounded border ${
-              isGuest
-                ? "bg-zinc-800 border-zinc-600"
-                : "bg-teal-900/50 border-teal-700"
-            }`}
-          >
-            <Text
-              className={`${
-                isGuest ? "text-zinc-400" : "text-teal-400"
-              } text-[10px] font-bold`}
-            >
-              {isGuest ? "Free" : "PRO"}
-            </Text>
-          </View>
-        </View>
-
-        <Text className="text-zinc-400 text-base" numberOfLines={1}>
-          {isGuest
-            ? "Software Development, 25 - 34"
-            : "Software Development, 25 - 34"}
-        </Text>
-
-        <View
-          className={`mt-3 self-start border rounded-full px-3 py-1 ${
-            isGuest ? "border-zinc-700" : "border-teal-500/50"
-          }`}
-        >
-          <Text
-            className={`${
-              isGuest ? "text-zinc-400" : "text-teal-400"
-            } text-xs font-bold`}
-          >
-            {isGuest ? "Top 0%" : "Top 77%"}
+        <View className={`absolute -bottom-1 -right-1 px-3 py-1.5 rounded-2xl border-2 border-white ${isGuest ? "bg-slate-200" : "bg-emerald-600"
+          }`}>
+          <Text className="text-white text-[10px] font-bold">
+            {isGuest ? "Free" : "Pro"}
           </Text>
         </View>
       </View>
 
-      {/* Right Side: Sign Up Button (Vertically Centered) */}
+      {/* Identity Section */}
+      <View className="items-center mb-6">
+        <Text className="text-slate-900 text-3xl font-semibold mb-1">
+          {isGuest ? "Guest" : gemName}
+        </Text>
+        <Text className="text-slate-400 text-sm font-medium">
+          Software Development, 25 - 34
+        </Text>
+      </View>
+
+      {/* Floating Badge Stats */}
+      <View className="flex-row gap-3 mb-8">
+        <View className="bg-emerald-50 px-4 py-2 rounded-2xl border border-emerald-100">
+          <Text className="text-emerald-700 text-xs font-bold">
+            {isGuest ? "Top 0%" : "Top 77%"}
+          </Text>
+        </View>
+        <View className="bg-slate-50 px-4 py-2 rounded-2xl border border-slate-200">
+          <Text className="text-slate-500 text-xs font-bold">
+            2.4k Focused
+          </Text>
+        </View>
+      </View>
+
+      {/* Full-Width Login Action for Guests */}
       {isGuest && (
         <Pressable
           onPress={onLoginPress}
-          className="bg-zinc-800 px-4 py-1 rounded-full border border-zinc-700"
+          className="bg-emerald-600 w-full py-5 rounded-[28px] items-center justify-center"
         >
-          <Text className="text-white text-sm font-semibold">
+          <Text className="text-white text-base font-semibold">
             Sign Up / Log In
           </Text>
         </Pressable>

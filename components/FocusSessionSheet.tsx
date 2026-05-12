@@ -2,7 +2,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { BottomSheetBackdrop, BottomSheetModal, BottomSheetView } from "@gorhom/bottom-sheet";
 import React, { forwardRef, useCallback, useMemo, useRef, useState } from "react";
 import { Pressable, Text, View } from "react-native";
-import { COLORS, DIFFICULTY_LABELS, DIFFICULTY_WARNINGS } from "../constants";
+import { DIFFICULTY_LABELS, DIFFICULTY_WARNINGS } from "../constants";
 import { DifficultyLevel, FocusSessionSheetProps } from "../types";
 import DifficultySelector from "./DifficultySelector";
 import DurationPicker from "./DurationPicker";
@@ -19,7 +19,8 @@ const FocusSessionSheet = forwardRef<BottomSheetModal, FocusSessionSheetProps>(
     const difficultyRef = useRef<BottomSheetModal>(null);
     const durationRef = useRef<BottomSheetModal>(null);
 
-    const snapPoints = useMemo(() => ["65%"], []);
+    // Slightly increased to 75% to beautifully accommodate the new chunky grid layout
+    const snapPoints = useMemo(() => ["75%"], []);
 
     const renderBackdrop = useCallback(
       (props: any) => (
@@ -29,8 +30,7 @@ const FocusSessionSheet = forwardRef<BottomSheetModal, FocusSessionSheetProps>(
           appearsOnIndex={0}
           opacity={0.5}
         />
-      ),
-      []
+      ), []
     );
 
     const formatDuration = () => {
@@ -71,112 +71,124 @@ const FocusSessionSheet = forwardRef<BottomSheetModal, FocusSessionSheetProps>(
           snapPoints={snapPoints}
           enablePanDownToClose={true}
           backdropComponent={renderBackdrop}
-          backgroundStyle={{ backgroundColor: "#18181b" }}
-          handleIndicatorStyle={{ backgroundColor: "#52525b" }}
+          backgroundStyle={{ backgroundColor: "#f8fafc" }} // Slate 50
+          handleIndicatorStyle={{ backgroundColor: "#cbd5e1" }} // Slate 300
           keyboardBehavior="interactive"
           keyboardBlurBehavior="restore"
           enableDynamicSizing={false}
         >
-          <BottomSheetView className="flex-1 px-5">
-            {/* Session Name */}
+          <BottomSheetView className="flex-1 px-5 pt-2">
+
+            {/* Redesigned Header: Prominent Editable Title Card */}
             <Pressable
               onPress={() => sessionNameRef.current?.present()}
-              className="flex-row items-center mb-6"
+              className="bg-white border-2 border-emerald-100 rounded-[36px] p-6 mb-4 flex-row justify-between items-center"
             >
-              <Text className="text-white text-xl font-semibold mr-2">
-                {sessionName}
-              </Text>
-              <Ionicons name="checkmark" size={20} color={COLORS.zinc500} />
-            </Pressable>
-
-            {/* Duration Row */}
-            <Pressable
-              onPress={() => durationRef.current?.present()}
-              className="flex-row items-center justify-between py-4 border-b border-zinc-800"
-            >
-              <View className="flex-row items-center">
-                <Ionicons name="time-outline" size={20} color={COLORS.zinc400} style={{ marginRight: 12 }} />
-                <Text className="text-white text-base">Duration</Text>
+              <View className="flex-1 pr-4">
+                <Text className="text-emerald-700 text-sm font-bold mb-1">
+                  Session Name
+                </Text>
+                <Text className="text-slate-900 text-2xl font-extrabold" numberOfLines={1}>
+                  {sessionName}
+                </Text>
               </View>
-              <View className="flex-row items-center">
-                <Text className="text-zinc-400 text-base mr-2">{formatDuration()}</Text>
-                <Ionicons name="chevron-forward" size={18} color={COLORS.zinc600} />
+              <View className="w-12 h-12 bg-emerald-50 rounded-full items-center justify-center border border-emerald-100">
+                <Ionicons name="pencil" size={20} color="#059669" />
               </View>
             </Pressable>
 
-            {/* Apps Blocked Row */}
-            <Pressable className="flex-row items-center justify-between py-4 border-b border-zinc-800">
-              <View className="flex-row items-center">
-                <View className="w-5 h-5 rounded-full border-2 border-zinc-400 items-center justify-center mr-3">
-                  <View className="w-2 h-2 rounded-full bg-zinc-400" />
+            {/* Bento Grid: Duration & Difficulty side-by-side */}
+            <View className="flex-row gap-3 mb-3">
+              {/* Duration Card */}
+              <Pressable
+                onPress={() => durationRef.current?.present()}
+                className="flex-1 bg-white border border-slate-200 rounded-[32px] p-5"
+              >
+                <View className="w-10 h-10 bg-slate-50 rounded-2xl items-center justify-center border border-slate-100 mb-4">
+                  <Ionicons name="time" size={20} color="#059669" />
                 </View>
-                <Text className="text-white text-base">Apps Blocked</Text>
-              </View>
-              <View className="flex-row items-center">
-                <View className="flex-row items-center bg-zinc-800 rounded-full px-3 py-1">
-                  <View className="w-2 h-2 rounded-full bg-red-500 mr-2" />
-                  <Text className="text-zinc-300 text-sm">Block List</Text>
+                <Text className="text-slate-400 text-xs font-bold mb-1">Duration</Text>
+                <Text className="text-slate-900 text-lg font-bold">{formatDuration()}</Text>
+              </Pressable>
+
+              {/* Difficulty Card */}
+              <Pressable
+                onPress={() => difficultyRef.current?.present()}
+                className="flex-1 bg-white border border-slate-200 rounded-[32px] p-5"
+              >
+                <View className="w-10 h-10 bg-slate-50 rounded-2xl items-center justify-center border border-slate-100 mb-4">
+                  <Ionicons name="flame" size={20} color="#059669" />
                 </View>
-                <Ionicons name="chevron-forward" size={18} color={COLORS.zinc600} style={{ marginLeft: 8 }} />
+                <Text className="text-slate-400 text-xs font-bold mb-1">Difficulty</Text>
+                <Text className="text-slate-900 text-lg font-bold">{DIFFICULTY_LABELS[difficulty]}</Text>
+              </Pressable>
+            </View>
+
+            {/* Apps Blocked Row Container */}
+            <Pressable className="bg-white border border-slate-200 rounded-[28px] p-5 mb-3 flex-row items-center justify-between">
+              <View className="flex-row items-center">
+                <View className="w-10 h-10 bg-emerald-50 rounded-2xl items-center justify-center border border-emerald-100 mr-4">
+                  <Ionicons name="shield-checkmark" size={20} color="#059669" />
+                </View>
+                <Text className="text-slate-900 text-base font-bold">Apps Blocked</Text>
+              </View>
+              <View className="flex-row items-center">
+                <View className="flex-row items-center bg-slate-50 border border-slate-200 rounded-xl px-3 py-1.5 mr-2">
+                  <View className="w-2 h-2 rounded-full bg-rose-500 mr-2" />
+                  <Text className="text-slate-600 text-xs font-bold">Block list</Text>
+                </View>
+                <Ionicons name="chevron-forward" size={18} color="#94a3b8" />
               </View>
             </Pressable>
 
-            {/* Difficulty Row */}
-            <Pressable
-              onPress={() => difficultyRef.current?.present()}
-              className="flex-row items-center justify-between py-4 border-b border-zinc-800"
-            >
+            {/* Schedule Row Container */}
+            <Pressable className="bg-white border border-slate-200 rounded-[28px] p-5 mb-3 flex-row items-center justify-between">
               <View className="flex-row items-center">
-                <Ionicons name="speedometer-outline" size={20} color={COLORS.zinc400} style={{ marginRight: 12 }} />
-                <Text className="text-white text-base">Difficulty</Text>
+                <View className="w-10 h-10 bg-slate-50 rounded-2xl items-center justify-center border border-slate-100 mr-4">
+                  <Ionicons name="calendar" size={20} color="#64748b" />
+                </View>
+                <Text className="text-slate-900 text-base font-bold">Schedule for later</Text>
               </View>
-              <View className="flex-row items-center">
-                <Text className="text-zinc-400 text-base mr-2">{DIFFICULTY_LABELS[difficulty]}</Text>
-                <Ionicons name="chevron-forward" size={18} color={COLORS.zinc600} />
-              </View>
+              <Ionicons name="chevron-forward" size={18} color="#94a3b8" />
             </Pressable>
 
-            {/* Warning Text */}
+            {/* Dynamic Warning Text Box */}
             {warningText && (
-              <View className="flex-row items-start py-4">
-                <Ionicons 
-                  name="alert-circle-outline" 
-                  size={18} 
-                  color={difficulty === "timeout" ? "#f97316" : "#22c55e"} 
-                  style={{ marginRight: 8, marginTop: 2 }} 
+              <View
+                className={`p-4 rounded-2xl flex-row items-start mb-2 border ${difficulty === "timeout"
+                  ? "bg-amber-50 border-amber-200"
+                  : "bg-emerald-50 border-emerald-200"
+                  }`}
+              >
+                <Ionicons
+                  name="information-circle"
+                  size={20}
+                  color={difficulty === "timeout" ? "#d97706" : "#059669"}
+                  style={{ marginRight: 10, marginTop: 2 }}
                 />
-                <Text 
-                  className="text-sm flex-1 leading-5"
-                  style={{ color: difficulty === "timeout" ? "#f97316" : "#22c55e" }}
+                <Text
+                  className={`text-sm flex-1 font-medium leading-5 ${difficulty === "timeout" ? "text-amber-800" : "text-emerald-800"
+                    }`}
                 >
                   {warningText}
                 </Text>
               </View>
             )}
 
-            {/* Schedule for Later */}
-            <Pressable className="flex-row items-center justify-between py-4 border-b border-zinc-800">
-              <View className="flex-row items-center">
-                <Ionicons name="calendar-outline" size={20} color={COLORS.zinc400} style={{ marginRight: 12 }} />
-                <Text className="text-white text-base">Schedule for later</Text>
-              </View>
-              <Ionicons name="chevron-forward" size={18} color={COLORS.zinc600} />
-            </Pressable>
+            <View className="flex-1" />
 
             {/* Start Session Button */}
-            <View className="mt-6 pb-4">
+            <View className="pb-8 pt-4">
               <Pressable
                 onPress={handleStartSession}
-                className="w-full py-4 rounded-full items-center justify-center"
-                style={{ backgroundColor: "#06b6d4" }}
+                className="w-full bg-emerald-600 py-4 rounded-[24px] items-center justify-center border border-emerald-500"
               >
-                <Text className="text-black text-lg font-semibold">Start Session</Text>
+                <Text className="text-white text-lg font-bold">Start Session</Text>
               </Pressable>
             </View>
           </BottomSheetView>
         </BottomSheetModal>
 
-        {/* Duration Picker */}
         <DurationPicker
           ref={durationRef}
           initialHours={duration.hours}
@@ -186,7 +198,6 @@ const FocusSessionSheet = forwardRef<BottomSheetModal, FocusSessionSheetProps>(
           onClose={() => durationRef.current?.dismiss()}
         />
 
-        {/* Difficulty Selector */}
         <DifficultySelector
           ref={difficultyRef}
           selectedDifficulty={difficulty}
@@ -194,7 +205,6 @@ const FocusSessionSheet = forwardRef<BottomSheetModal, FocusSessionSheetProps>(
           onClose={() => difficultyRef.current?.dismiss()}
         />
 
-        {/* Session Name Sheet */}
         <SessionNameSheet
           ref={sessionNameRef}
           initialName={sessionName}
@@ -209,4 +219,3 @@ const FocusSessionSheet = forwardRef<BottomSheetModal, FocusSessionSheetProps>(
 FocusSessionSheet.displayName = "FocusSessionSheet";
 
 export default FocusSessionSheet;
-

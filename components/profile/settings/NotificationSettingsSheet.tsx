@@ -20,16 +20,16 @@ const NotificationRow = ({
   value: boolean;
   onValueChange: (val: boolean) => void;
 }) => (
-  <View className="bg-zinc-900 rounded-xl p-4 mb-3 flex-row justify-between items-center">
+  <View className="bg-white rounded-3xl p-5 mb-4 flex-row justify-between items-center border border-slate-50">
     <View className="flex-1 mr-4">
-      <Text className="text-white font-bold text-base mb-1">{title}</Text>
-      <Text className="text-zinc-500 text-xs leading-4">{description}</Text>
+      <Text className="text-slate-900 font-bold text-base mb-1">{title}</Text>
+      <Text className="text-slate-400 text-xs leading-4 font-medium">{description}</Text>
     </View>
     <Switch
       value={value}
       onValueChange={onValueChange}
-      trackColor={{ false: "#3f3f46", true: "#3b82f6" }}
-      thumbColor={"#f4f4f5"}
+      trackColor={{ false: "#e2e8f0", true: "#10b981" }}
+      thumbColor="white"
     />
   </View>
 );
@@ -58,7 +58,7 @@ const NotificationSettingsSheet = forwardRef<NotificationSettingsSheetRef>(
           {...props}
           disappearsOnIndex={-1}
           appearsOnIndex={0}
-          opacity={0.8}
+          opacity={0.5}
         />
       ),
       []
@@ -71,77 +71,72 @@ const NotificationSettingsSheet = forwardRef<NotificationSettingsSheetRef>(
         index={0}
         enableDynamicSizing={false}
         enablePanDownToClose={true}
-        backgroundStyle={{ backgroundColor: "#121214" }}
-        handleIndicatorStyle={{ backgroundColor: "#3f3f46" }}
+        backgroundStyle={{ backgroundColor: "#f8fafc" }}
+        handleIndicatorStyle={{ backgroundColor: "#cbd5e1" }}
         backdropComponent={renderBackdrop}
       >
         <BottomSheetScrollView
-          contentContainerStyle={{ padding: 20, paddingBottom: 40 }}
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={{ paddingBottom: 60 }}
         >
-          {/* Header */}
-          <View className="items-center mb-6">
-            <Ionicons
-              name="notifications"
-              size={24}
-              color="#3b82f6"
-              style={{ marginBottom: 8 }}
-            />
-            <Text className="text-white text-xl font-bold mb-2">
-              Notifications
-            </Text>
-            <Text className="text-zinc-400 text-center text-sm px-4">
-              Set your preferences for which notifications to receive here.
+          {/* Header Hero */}
+          <View className="px-8 pt-6 mb-10 items-center">
+            <View className="w-20 h-20 bg-emerald-50 rounded-[32px] items-center justify-center mb-6">
+              <Ionicons name="notifications" size={40} color="#059669" />
+            </View>
+            <Text className="text-slate-900 text-3xl font-bold mb-3">Notifications</Text>
+            <Text className="text-slate-400 text-center text-base leading-6 font-medium px-4">
+              Control how and when Opal reaches out to help you stay focused.
             </Text>
           </View>
 
-          <NotificationRow
-            title="Reminders"
-            description="Get notified to turn on Opal when we haven't seen you in a while."
-            value={settings.reminders}
-            onValueChange={() => toggle("reminders")}
-          />
-          <NotificationRow
-            title="Service"
-            description="Get notified when your schedule starts or focus session is over."
-            value={settings.service}
-            onValueChange={() => toggle("service")}
-          />
-          <NotificationRow
-            title="App Limit"
-            description="Get notified when you're close to reaching your App Limit."
-            value={settings.appLimit}
-            onValueChange={() => toggle("appLimit")}
-          />
-          <NotificationRow
-            title="Snooze Reminders"
-            description="Be notified that your snooze will end soon."
-            value={settings.snooze}
-            onValueChange={() => toggle("snooze")}
-          />
-          <NotificationRow
-            title="MileStones"
-            description="Get notified when you unlock a new MileStone."
-            value={settings.milestones}
-            onValueChange={() => toggle("milestones")}
-          />
-          <NotificationRow
-            title="Friends"
-            description="Get notified about your friends in Opal."
-            value={settings.friends}
-            onValueChange={() => toggle("friends")}
-          />
-          <NotificationRow
-            title="Marketing"
-            description="Get notified about promotional offers and discounts."
-            value={settings.marketing}
-            onValueChange={() => toggle("marketing")}
-          />
+          <View className="px-6">
+            <Text className="text-slate-400 text-[10px] font-bold tracking-widest uppercase mb-4 px-2">Core experience</Text>
+            <NotificationRow
+              title="Reminders"
+              description="Nudges to turn on Opal when you're active."
+              value={settings.reminders}
+              onValueChange={() => toggle("reminders")}
+            />
+            <NotificationRow
+              title="Service"
+              description="Alerts for session starts and completions."
+              value={settings.service}
+              onValueChange={() => toggle("service")}
+            />
+            <NotificationRow
+              title="App limit"
+              description="Notifications when you approach your daily limits."
+              value={settings.appLimit}
+              onValueChange={() => toggle("appLimit")}
+            />
 
-          <Pressable className="bg-zinc-800 rounded-xl py-4 mt-4 items-center">
-            <Text className="text-white font-bold">
-              Disable Opal Notifications
-            </Text>
-          </Pressable>
+            <Text className="text-slate-400 text-[10px] font-bold tracking-widest uppercase mt-6 mb-4 px-2">Community & growth</Text>
+            <NotificationRow
+              title="Milestones"
+              description="Celebrations when you unlock new achievements."
+              value={settings.milestones}
+              onValueChange={() => toggle("milestones")}
+            />
+            <NotificationRow
+              title="Friends"
+              description="Updates on friend activity and leaderboards."
+              value={settings.friends}
+              onValueChange={() => toggle("friends")}
+            />
+
+            <Text className="text-slate-400 text-[10px] font-bold tracking-widest uppercase mt-6 mb-4 px-2">Other</Text>
+            <NotificationRow
+              title="Marketing"
+              description="Stay updated with offers and focus tips."
+              value={settings.marketing}
+              onValueChange={() => toggle("marketing")}
+            />
+
+            <Pressable className="bg-white rounded-[32px] py-6 mt-6 items-center border border-slate-100 mb-4">
+              <Text className="text-red-500 font-bold">Disable All Notifications</Text>
+            </Pressable>
+          </View>
         </BottomSheetScrollView>
       </BottomSheetModal>
     );

@@ -4,11 +4,11 @@ import { Pressable, ScrollView, Text, View } from "react-native";
 import MilestonesSheet, { MilestonesSheetRef } from "./Milestones/MilestonesSheet";
 
 const MILESTONES = [
-  { id: 1, color: "#f59e0b" },
-  { id: 2, color: "#06b6d4" },
-  { id: 3, color: "#8b5cf6" },
-  { id: 4, color: "#3b82f6" },
-  { id: 5, color: "#10b981" },
+  { id: 1, color: "#059669", label: "Starter" },
+  { id: 2, color: "#10b981", label: "Active" },
+  { id: 3, color: "#34d399", label: "Pro" },
+  { id: 4, color: "#0d9488", label: "Elite" },
+  { id: 5, color: "#065f46", label: "Legend" },
 ];
 
 export const MilestonesCard = () => {
@@ -20,37 +20,40 @@ export const MilestonesCard = () => {
 
   return (
     <>
-      <View className="bg-zinc-900 rounded-3xl p-5 mb-6">
-        <Text className="text-white text-lg font-bold mb-4">My MileStones</Text>
+      <View className="bg-white border border-slate-200 rounded-[44px] p-7 mb-2">
+        <View className="flex-row justify-between items-center mb-8">
+          <Text className="text-slate-900 text-xl font-semibold">My Milestones</Text>
+          <View className="bg-emerald-50 px-3 py-1 rounded-full border border-emerald-100">
+            <Text className="text-emerald-700 font-bold text-[10px]">5 Active</Text>
+          </View>
+        </View>
+
         <ScrollView
           horizontal
           showsHorizontalScrollIndicator={false}
-          className="mb-6"
+          className="mb-10"
+          contentContainerStyle={{ paddingRight: 20 }}
         >
-          <View className="flex-row gap-3">
+          <View className="flex-row gap-5">
             {MILESTONES.map((stone) => (
               <View
                 key={stone.id}
-                className="w-16 h-16 bg-zinc-800 rounded-xl items-center justify-center border border-zinc-700"
+                className="w-24 items-center"
               >
-                <View
-                  style={{
-                    shadowColor: stone.color,
-                    shadowRadius: 10,
-                    shadowOpacity: 0.8,
-                  }}
-                >
-                  <Ionicons name="diamond" size={24} color={stone.color} />
+                <View className="w-20 h-20 bg-slate-50 rounded-[32px] items-center justify-center border border-slate-200 mb-3">
+                  <Ionicons name="diamond" size={32} color={stone.color} />
                 </View>
+                <Text className="text-slate-400 text-[10px] font-semibold">{stone.label}</Text>
               </View>
             ))}
           </View>
         </ScrollView>
+
         <Pressable
           onPress={handleOpenSheet}
-          className="bg-white rounded-full py-3.5 items-center"
+          className="bg-emerald-600 rounded-[28px] py-5 items-center justify-center"
         >
-          <Text className="text-black font-bold text-base">View All</Text>
+          <Text className="text-white font-bold text-base">View All Milestones</Text>
         </Pressable>
       </View>
 

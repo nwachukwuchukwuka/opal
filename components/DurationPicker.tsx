@@ -8,10 +8,11 @@ const DurationPicker = forwardRef<BottomSheetModal, DurationPickerProps>(
   ({ initialHours, initialMinutes, onConfirm, onAlwaysOn, onClose }, ref) => {
     const initialDate = new Date();
     initialDate.setHours(initialHours, initialMinutes, 0, 0);
-    
+
     const [duration, setDuration] = useState(initialDate);
 
-    const snapPoints = useMemo(() => ["60%"], []);
+    // Bumped to 65% to beautifully accommodate the new chunky padded layout
+    const snapPoints = useMemo(() => ["65%"], []);
 
     const renderBackdrop = useCallback(
       (props: any) => (
@@ -21,8 +22,7 @@ const DurationPicker = forwardRef<BottomSheetModal, DurationPickerProps>(
           appearsOnIndex={0}
           opacity={0.5}
         />
-      ),
-      []
+      ), []
     );
 
     const handleChange = (event: DateTimePickerEvent, selectedDate?: Date) => {
@@ -54,21 +54,22 @@ const DurationPicker = forwardRef<BottomSheetModal, DurationPickerProps>(
         snapPoints={snapPoints}
         enablePanDownToClose={true}
         backdropComponent={renderBackdrop}
-        backgroundStyle={{ backgroundColor: "#18181b" }}
-        handleIndicatorStyle={{ backgroundColor: "#52525b" }}
+        backgroundStyle={{ backgroundColor: "#f8fafc" }} // Slate 50
+        handleIndicatorStyle={{ backgroundColor: "#cbd5e1" }} // Slate 300
         enableDynamicSizing={false}
       >
-        <BottomSheetView className="flex-1 px-5">
-          {/* Title */}
-          <View className="items-center mb-4">
-            <Text className="text-white text-xl font-semibold">Duration</Text>
-            <Text className="text-zinc-500 text-sm mt-2">
-              Select how long this event should last.
+        <BottomSheetView className="flex-1 px-6 pt-2">
+
+          {/* Header */}
+          <View className="items-center mb-6">
+            <Text className="text-slate-900 text-2xl font-extrabold">Duration</Text>
+            <Text className="text-slate-500 text-sm font-medium mt-1.5">
+              Select how long this event should last
             </Text>
           </View>
 
-          {/* DateTimePicker */}
-          <View className="items-center py-4">
+          {/* DateTimePicker Card Container */}
+          <View className="bg-white border-2 border-slate-100 rounded-[36px] items-center py-6 mb-4">
             {Platform.OS === "ios" ? (
               <DateTimePicker
                 value={duration}
@@ -76,8 +77,8 @@ const DurationPicker = forwardRef<BottomSheetModal, DurationPickerProps>(
                 display="spinner"
                 onChange={handleChange}
                 minuteInterval={1}
-                textColor="#ffffff"
-                themeVariant="dark"
+                textColor="#0f172a" // Slate 900
+                themeVariant="light"
                 style={{ width: 300, height: 180 }}
               />
             ) : (
@@ -87,35 +88,35 @@ const DurationPicker = forwardRef<BottomSheetModal, DurationPickerProps>(
                 display="spinner"
                 onChange={handleChange}
                 is24Hour={true}
-                textColor="#ffffff"
+                textColor="#0f172a"
                 style={{ width: 300, height: 180 }}
               />
             )}
           </View>
 
-          {/* Display selected duration */}
-          <View className="items-center mb-4">
-            <Text className="text-zinc-400 text-base">
-              {duration.getHours()} hours {duration.getMinutes()} minutes
+          {/* Display Selected Duration Summary */}
+          <View className="bg-emerald-50 border border-emerald-100 py-3 rounded-2xl items-center mb-6 mx-4">
+            <Text className="text-emerald-700 text-sm font-bold">
+              Target length: {duration.getHours()} hours {duration.getMinutes()} minutes
             </Text>
           </View>
 
-          {/* Buttons */}
-          <View className="flex-row gap-3 mt-2">
+          {/* Action Buttons */}
+          <View className="flex-row gap-4 mt-auto pb-8">
             <Pressable
               onPress={handleAlwaysOn}
-              className="flex-1 py-4 rounded-full bg-zinc-800 active:bg-zinc-700"
+              className="flex-1 py-4 rounded-[24px] bg-slate-100 border border-slate-200 items-center justify-center"
             >
-              <Text className="text-white text-center text-base font-semibold">
+              <Text className="text-slate-700 text-base font-bold">
                 Always On
               </Text>
             </Pressable>
+
             <Pressable
               onPress={handleConfirm}
-              className="flex-1 py-4 rounded-full"
-              style={{ backgroundColor: "#06b6d4" }}
+              className="flex-1 py-4 rounded-[24px] bg-emerald-600 border border-emerald-500 items-center justify-center"
             >
-              <Text className="text-black text-center text-base font-semibold">
+              <Text className="text-white text-base font-bold">
                 Confirm
               </Text>
             </Pressable>

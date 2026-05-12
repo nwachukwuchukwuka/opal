@@ -134,11 +134,12 @@ const WorkTimeModal = ({
         sessionName={sessionName}
         duration={60}
         difficulty="normal"
-        onSnooze={() => {}}
+        onSnooze={() => { }}
         onLeaveEarly={handleSessionClose}
-        onEdit={() => {}}
+        onEdit={() => { }}
         onClose={handleSessionClose}
       />
+
     </>
   );
 };

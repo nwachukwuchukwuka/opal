@@ -33,13 +33,13 @@ const SessionFeedbackScreen = () => {
     currentRating: number;
     onRate: (r: number) => void;
   }) => (
-    <View className="flex-row space-x-2">
+    <View className="flex-row gap-2">
       {[1, 2, 3, 4, 5].map((index) => (
         <Pressable key={index} onPress={() => onRate(index)}>
           <MaterialCommunityIcons
             name={index <= currentRating ? "star" : "star-outline"}
-            size={40}
-            color={index <= currentRating ? "#38bdf8" : "#71717a"} 
+            size={44}
+            color={index <= currentRating ? "#10b981" : "#cbd5e1"}
           />
         </Pressable>
       ))}
@@ -47,36 +47,56 @@ const SessionFeedbackScreen = () => {
   );
 
   return (
-    <SafeAreaView className="flex-1 bg-zinc-900 justify-center items-center">
-      <View className="flex-1 justify-center items-center w-full px-8">
+    <SafeAreaView className="flex-1 bg-slate-50 justify-between items-center px-6 pt-12 pb-10">
+      <View className="flex-1 w-full justify-center">
 
         {step === "initial" && (
-          <Text className="text-white text-4xl font-bold">Well Done!</Text>
+          <View className="items-center bg-white rounded-[48px] p-10 border border-slate-100">
+            <View className="w-24 h-24 bg-emerald-50 rounded-[32px] items-center justify-center border border-emerald-100 mb-8">
+              <MaterialCommunityIcons name="party-popper" size={48} color="#059669" />
+            </View>
+            <Text className="text-slate-900 text-4xl font-extrabold mb-4">
+              Well Done!
+            </Text>
+            <Text className="text-slate-500 text-base font-medium text-center">
+              You successfully completed your focus session.
+            </Text>
+          </View>
         )}
 
         {step === "rating" && (
-          <View className="bg-zinc-800 rounded-2xl p-6 w-full items-center">
-            <Text className="text-white text-xl font-bold mb-2">
+          <View className="items-center bg-white rounded-[48px] p-8 border border-slate-100">
+            <View className="w-20 h-20 bg-slate-50 rounded-[24px] items-center justify-center border border-slate-100 mb-6">
+              <MaterialCommunityIcons name="star-face" size={40} color="#0f172a" />
+            </View>
+            <Text className="text-slate-900 text-2xl font-extrabold mb-3 text-center">
               How was your session?
             </Text>
-            <Text className="text-zinc-400 text-center text-sm mb-6">
-              Your feedback helps us improve Opal for the entire community ❤️
+            <Text className="text-slate-500 text-sm font-medium text-center mb-8">
+              Your feedback helps us improve the experience for the entire community.
             </Text>
-            <Stars currentRating={rating} onRate={handleSetRating} />
+            <View className="bg-slate-50 py-8 px-6 rounded-[36px] border border-slate-100 w-full items-center">
+              <Stars currentRating={rating} onRate={handleSetRating} />
+            </View>
           </View>
         )}
 
         {step === "thankyou" && (
-          <View className="bg-zinc-800 rounded-2xl p-6 w-full items-center">
-            <Text className="text-white text-xl font-bold mb-2">
+          <View className="items-center bg-white rounded-[48px] p-8 border border-slate-100">
+            <View className="w-20 h-20 bg-emerald-50 rounded-[24px] items-center justify-center border border-emerald-100 mb-6">
+              <MaterialCommunityIcons name="heart" size={40} color="#059669" />
+            </View>
+            <Text className="text-slate-900 text-2xl font-extrabold mb-3 text-center">
               Thank you!
             </Text>
-            <Text className="text-zinc-400 text-center text-sm mb-6">
-              If you have any feedback, honesty is appreciated :)
+            <Text className="text-slate-500 text-sm font-medium text-center mb-8">
+              If you have any detailed feedback, your honesty is greatly appreciated.
             </Text>
-            <Stars currentRating={rating} onRate={setRating} />
-            <Pressable className="bg-sky-500 rounded-full py-3 px-8 w-full mt-6 items-center">
-              <Text className="text-white font-bold text-base">
+            <View className="bg-slate-50 py-6 px-6 rounded-[32px] border border-slate-100 w-full items-center mb-4">
+              <Stars currentRating={rating} onRate={setRating} />
+            </View>
+            <Pressable className="bg-white border border-slate-200 rounded-[28px] py-4 px-8 w-full items-center">
+              <Text className="text-slate-700 font-bold text-base">
                 Write Feedback
               </Text>
             </Pressable>
@@ -84,12 +104,12 @@ const SessionFeedbackScreen = () => {
         )}
       </View>
 
-      <View className="absolute bottom-10">
+      <View className="w-full items-center mt-6">
         <Pressable
           onPress={handlePrimaryButton}
-          className="bg-sky-500 w-20 h-20 rounded-full items-center justify-center shadow-lg"
+          className="bg-emerald-600 w-24 h-24 rounded-[36px] items-center justify-center border border-emerald-500"
         >
-          <MaterialCommunityIcons name="check" size={40} color="white" />
+          <MaterialCommunityIcons name="arrow-right" size={40} color="white" />
         </Pressable>
       </View>
     </SafeAreaView>

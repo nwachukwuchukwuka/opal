@@ -1,5 +1,6 @@
 import React from "react";
 import { Modal, Pressable, Text, View } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
 
 interface LogoutModalProps {
   visible: boolean;
@@ -21,31 +22,34 @@ export const LogoutModal = ({
     >
       <Pressable
         onPress={onClose}
-        className="flex-1 bg-black/80 justify-center items-center px-6"
+        className="flex-1 bg-slate-900/60 justify-center items-center px-8"
       >
-        <Pressable className="bg-[#1c1c1e] w-full rounded-[32px] p-8 items-center">
-          <Text className="text-white text-2xl font-bold mb-4 text-center">
-            Are you sure you{"\n"}want to log out?
+        <Pressable className="bg-white w-full rounded-[44px] p-10 items-center border border-slate-100">
+          <View className="w-20 h-20 bg-slate-50 rounded-[32px] items-center justify-center mb-8">
+            <Ionicons name="log-out" size={40} color="#059669" />
+          </View>
+
+          <Text className="text-slate-900 text-3xl font-bold mb-3 text-center tracking-tight">
+            Logging Out?
           </Text>
 
-          <Text className="text-zinc-400 text-center text-sm leading-5 mb-8 px-2">
-            You may lose access to your subscription and some data that is
-            stored locally on your device
+          <Text className="text-slate-400 text-center text-base leading-6 font-medium mb-10 px-2">
+            You may lose access to your active focus sessions and local data stored on this device.
           </Text>
 
-          <View className="w-full gap-3">
+          <View className="w-full gap-4">
             <Pressable
               onPress={onConfirm}
-              className="w-full bg-[#007AFF] py-4 rounded-full items-center"
+              className="w-full bg-slate-950 py-6 rounded-full items-center"
             >
-              <Text className="text-white font-bold text-lg">Yes</Text>
+              <Text className="text-white font-bold text-lg">Sign Out</Text>
             </Pressable>
 
             <Pressable
               onPress={onClose}
               className="w-full py-2 rounded-full items-center"
             >
-              <Text className="text-white font-bold text-lg">Cancel</Text>
+              <Text className="text-slate-400 font-bold text-base">Stay Logged In</Text>
             </Pressable>
           </View>
         </Pressable>

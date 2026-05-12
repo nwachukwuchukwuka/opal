@@ -31,24 +31,24 @@ export const DisabledInfoModal = ({
     >
       <Pressable
         onPress={onDismiss}
-        className="flex-1 justify-center items-center bg-black/70"
+        className="flex-1 justify-center items-center bg-slate-900/40"
       >
         <Pressable
           onPress={(e) => e.stopPropagation()}
-          className="bg-zinc-800 rounded-2xl w-[85%] p-6 items-center"
+          className="bg-white rounded-[40px] w-[85%] p-8 items-center border border-slate-200 shadow-2xl"
         >
           {/* Pause Icon */}
-          <View className="bg-zinc-700 p-4 rounded-xl mb-4">
-            <Ionicons name="pause" size={28} color="#a1a1aa" />
+          <View className="bg-slate-50 p-5 rounded-2xl mb-6 border border-slate-100">
+            <Ionicons name="pause" size={32} color="#64748b" />
           </View>
 
           {/* Title */}
-          <Text className="text-white text-xl font-bold text-center mb-2">
+          <Text className="text-slate-900 text-2xl font-extrabold text-center mb-2">
             Disabled until {disabledUntil}
           </Text>
 
           {/* Description */}
-          <Text className="text-zinc-400 text-center text-base mb-6 leading-6">
+          <Text className="text-slate-500 text-center text-base font-medium mb-8 leading-6">
             {getDaysRemainingText()}
           </Text>
 
@@ -57,23 +57,23 @@ export const DisabledInfoModal = ({
             {/* Enable Button */}
             <Pressable
               onPress={onEnable}
-              className="bg-white rounded-full py-4 items-center justify-center"
+              className="bg-emerald-600 border border-emerald-500 rounded-[24px] py-5 items-center justify-center shadow-lg shadow-emerald-900/10"
               style={({ pressed }) => ({
-                opacity: pressed ? 0.8 : 1,
+                opacity: pressed ? 0.9 : 1,
               })}
             >
-              <Text className="text-black font-bold text-base">Enable</Text>
+              <Text className="text-white font-bold text-lg">Enable Now</Text>
             </Pressable>
 
             {/* Dismiss Button */}
             <Pressable
               onPress={onDismiss}
-              className="bg-zinc-700 rounded-full py-4 items-center justify-center"
+              className="bg-slate-50 border border-slate-100 rounded-[24px] py-4 items-center justify-center"
               style={({ pressed }) => ({
-                opacity: pressed ? 0.8 : 1,
+                opacity: pressed ? 0.9 : 1,
               })}
             >
-              <Text className="text-white font-semibold text-base">
+              <Text className="text-slate-600 font-bold text-base">
                 Dismiss
               </Text>
             </Pressable>

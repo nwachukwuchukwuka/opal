@@ -1,3 +1,4 @@
+import { Ionicons } from "@expo/vector-icons";
 import {
   BottomSheetModal,
   BottomSheetModalProvider,
@@ -79,161 +80,140 @@ export default function SubscriptionScreen() {
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <BottomSheetModalProvider>
-        <SafeAreaView edges={["top"]} className="flex-1 bg-black">
+        <SafeAreaView edges={["top"]} className="flex-1 bg-slate-50">
           <ScrollView
             className="flex-1"
             contentContainerStyle={{ paddingBottom: 20 }}
+            showsVerticalScrollIndicator={false}
           >
             {/* Header */}
-            <View className="flex-row justify-between items-center px-6 mb-6">
-              <Pressable onPress={handleRestore}>
-                <Text className="text-zinc-500 text-sm">Restore</Text>
+            <View className="flex-row justify-between items-center px-8 py-4 mb-4">
+              <Pressable onPress={handleRestore} className="bg-slate-100 px-4 py-2 rounded-full">
+                <Text className="text-slate-500 text-xs font-bold">Restore</Text>
               </Pressable>
-              <Pressable onPress={handleSkip}>
-                <Text className="text-zinc-500 text-xl">×</Text>
+              <Pressable onPress={handleSkip} className="w-10 h-10 bg-slate-100 rounded-full items-center justify-center">
+                <Ionicons name="close-circle" size={24} color="#64748b" />
               </Pressable>
             </View>
 
             {/* Title */}
-            <View className="px-6 mb-8">
-              <Text className="text-white text-2xl font-bold text-center">
-                Start your Free Week and gain 2+ hours back
+            <View className="px-10 mb-10">
+              <Text className="text-slate-900 text-3xl font-bold text-center leading-tight">
+                Start your free week and gain 2+ hours back
               </Text>
             </View>
 
-            {/* Timeline */}
-            <View className="px-6 mb-8">
-              {timelineSteps.map((step, index) => (
-                <View key={step.id} className="flex-row mb-6">
-                  {/* Timeline line */}
-                  <View className="items-center mr-4">
-                    <View
-                      className={`w-10 h-10 rounded-full items-center justify-center ${step.completed
-                          ? "bg-emerald-500/20"
-                          : step.active
-                            ? "bg-orange-500/20"
-                            : "bg-zinc-800"
-                        }`}
-                    >
-                      <Text className="text-lg">{step.icon}</Text>
+            {/* Timeline Bento */}
+            <View className="px-8 mb-12">
+              <View className="bg-white rounded-[32px] p-8 border border-slate-200">
+                {timelineSteps.map((step, index) => (
+                  <View key={step.id} className="flex-row">
+                    {/* Timeline line */}
+                    <View className="items-center mr-6">
+                      <View
+                        className={`w-12 h-12 rounded-2xl items-center justify-center ${step.completed || step.active
+                          ? "bg-emerald-600"
+                          : "bg-slate-50 border border-slate-200"
+                          }`}
+                      >
+                        <Text className="text-xl">{step.icon}</Text>
+                      </View>
+                      {index < timelineSteps.length - 1 && (
+                        <View className="w-0.5 h-14 bg-slate-100 my-2" />
+                      )}
                     </View>
-                    {index < timelineSteps.length - 1 && (
-                      <View className="w-0.5 h-12 bg-zinc-800 mt-2" />
-                    )}
-                  </View>
 
-                  {/* Content */}
-                  <View className="flex-1 pt-1">
-                    <Text
-                      className={`text-base font-semibold mb-1 ${step.completed || step.active
-                          ? "text-white"
-                          : "text-zinc-400"
-                        }`}
-                    >
-                      {step.title}
-                    </Text>
-                    <Text className="text-zinc-500 text-sm leading-5">
-                      {step.description}
-                    </Text>
+                    {/* Content */}
+                    <View className="flex-1 pt-1">
+                      <Text
+                        className={`text-lg font-bold mb-2 ${step.completed || step.active
+                          ? "text-slate-900"
+                          : "text-slate-400"
+                          }`}
+                      >
+                        {step.title}
+                      </Text>
+                      <Text className="text-slate-500 text-sm leading-6 font-medium">
+                        {step.description}
+                      </Text>
+                    </View>
                   </View>
-                </View>
-              ))}
+                ))}
+              </View>
             </View>
 
-            {/* Press Logos */}
-            <View className="flex-row justify-center items-center gap-4 mb-4 px-6">
-              {pressLogos.map((logo) => (
-                <Text key={logo} className="text-zinc-600 text-xs font-bold">
-                  {logo}
-                </Text>
-              ))}
-            </View>
-
-            {/* Reviews */}
-            <View className="px-6 mb-6">
-              <View className="flex-row items-center justify-center gap-4">
-                <View className="items-center">
-                  <Text className="text-yellow-500 text-sm">★★★★★</Text>
-                  <Text className="text-zinc-500 text-xs">15001 Reviews</Text>
-                </View>
-                <View className="items-center">
-                  <Text className="text-white text-sm font-semibold">
-                    Join 200K+
+            {/* Trust Badges */}
+            <View className="px-8 mb-12">
+              <View className="flex-row justify-center items-center gap-6 mb-6 opacity-40">
+                {pressLogos.map((logo) => (
+                  <Text key={logo} className="text-slate-900 text-xs font-bold">
+                    {logo}
                   </Text>
-                  <Text className="text-zinc-500 text-xs">
-                    people using Opal
+                ))}
+              </View>
+
+              <View className="flex-row items-center justify-center gap-8 bg-white py-6 rounded-[28px] border border-slate-200">
+                <View className="items-center">
+                  <Text className="text-emerald-600 text-sm font-bold mb-1">★★★★★</Text>
+                  <Text className="text-slate-400 text-[10px] font-bold">15,000+ Reviews</Text>
+                </View>
+                <View className="w-px h-8 bg-slate-100" />
+                <View className="items-center">
+                  <Text className="text-slate-900 text-sm font-bold mb-1">
+                    Join 200k+
+                  </Text>
+                  <Text className="text-slate-400 text-[10px] font-bold">
+                    Focusing with Zenith
                   </Text>
                 </View>
               </View>
             </View>
 
-            {/* Info text */}
-            <View className="px-6 mb-4">
-              <Text className="text-zinc-500 text-xs text-center leading-5">
-                5 days to spare. Cancel anytime in Settings {">"} {"\n"}
-                Apple Account at least a day before each renewal{"\n"}
-                date. Plan automatically renews until cancelled.
+            {/* Legal Text */}
+            <View className="px-10 mb-8">
+              <Text className="text-slate-400 text-[11px] text-center leading-5 font-medium">
+                7 days to spare. Cancel anytime in Apple Account settings. Plan automatically renews until cancelled.
               </Text>
-            </View>
-
-            {/* Restore & Terms */}
-            <View className="px-6 mb-4">
-              <Pressable onPress={handleRestore} className="mb-3">
-                <View className="py-3 px-6 rounded-full border border-zinc-700 self-center">
-                  <Text className="text-white text-sm font-medium">
-                    Restore Purchases
-                  </Text>
-                </View>
-              </Pressable>
-              <Pressable className="mb-2">
-                <Text className="text-zinc-500 text-xs text-center">
-                  Terms & Privacy
-                </Text>
-              </Pressable>
-              <Pressable onPress={handleSkip}>
-                <Text className="text-zinc-500 text-xs text-center">
-                  Skip for now
-                </Text>
-              </Pressable>
             </View>
           </ScrollView>
 
-          {/* Bottom CTA */}
-          <View className="px-6 pb-8 pt-8 bg-zinc-800 rounded-t-3xl">
+          {/* Bottom CTA Bento */}
+          <View className="px-8 pb-12 pt-6 bg-white border-t border-slate-200 rounded-t-[48px]">
             {/* Pricing */}
-            <View className="px-6 mb-6">
-              <Text className="text-white text-base font-semibold text-center mb-1">
-                Try Free For 1 week
+            <View className="mb-8 items-center">
+              <Text className="text-slate-900 text-xl font-bold mb-2">
+                Try free for 1 week
               </Text>
-              <Text className="text-zinc-400 text-sm text-center mb-1">
-                $99.99/year ($8.33/month)
-              </Text>
-              <Text className="text-zinc-500 text-xs text-center">
-                + share with up to 5 family members
+              <Text className="text-slate-500 text-base font-medium">
+                $99.99/year <Text className="text-slate-400">($8.33/month)</Text>
               </Text>
             </View>
+
             <Pressable
               onPress={handleStartTrial}
-              className="w-full py-4 rounded-full bg-blue-500 active:bg-blue-600 mb-3"
+              className="w-full py-6 rounded-[32px] bg-emerald-600 items-center justify-center mb-6"
             >
-              <Text className="text-white text-center text-lg font-semibold">
-                Start Your Free Week
+              <Text className="text-white text-xl font-bold">
+                Start your free week
               </Text>
             </Pressable>
-            <View className="flex-row items-center justify-center">
-              <Text className="text-blue-400 mr-2">✓</Text>
-              <Text className="text-zinc-400 text-sm">No payment due now!</Text>
+
+            <View className="flex-row items-center justify-center gap-4">
+              <View className="flex-row items-center bg-emerald-50 px-3 py-1.5 rounded-full">
+                <Ionicons name="checkmark-circle" size={16} color="#059669" />
+                <Text className="text-emerald-600 text-xs font-bold ml-1.5">No payment due now</Text>
+              </View>
             </View>
           </View>
 
           {/* Restore Success Toast */}
           {showRestoreSuccess && (
-            <View className="absolute top-24 left-6 right-6 bg-zinc-800 rounded-xl p-4 border border-zinc-700">
-              <Text className="text-white text-center font-semibold">
-                You're all set.
+            <View className="absolute top-24 left-8 right-8 bg-slate-900 rounded-[24px] p-5 border border-slate-800">
+              <Text className="text-white text-center font-bold text-base mb-1">
+                Purchase restored
               </Text>
-              <Text className="text-zinc-400 text-center text-sm">
-                Your purchase was restored.
+              <Text className="text-slate-400 text-center text-sm font-medium">
+                You're all set to focus.
               </Text>
             </View>
           )}

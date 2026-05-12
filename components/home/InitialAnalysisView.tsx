@@ -8,64 +8,59 @@ interface InitialAnalysisViewProps {
 export const InitialAnalysisView = ({
   onPressMilestones,
 }: InitialAnalysisViewProps) => (
-  <Pressable onPress={onPressMilestones} className="items-center py-8 px-5">
-    {/* Glowing gem effect */}
-    <View className="w-64 h-64 rounded-full items-center justify-center mb-6">
+  <View className="items-center py-12 px-6 bg-white rounded-[40px] border border-slate-200">
+    {/* Glowing gem effect - Refined for light mode */}
+    <View className="w-48 h-48 rounded-full items-center justify-center mb-8 relative">
       <View
-        className="absolute w-64 h-64 rounded-full"
+        className="absolute w-48 h-48 rounded-full opacity-20"
         style={{
-          backgroundColor: "rgba(251, 191, 36, 0.15)",
-          shadowColor: "#fbbf24",
-          shadowOpacity: 0.5,
-          shadowRadius: 60,
+          backgroundColor: "#fbbf24",
         }}
       />
       <View
-        className="absolute w-48 h-48 rounded-full"
+        className="absolute w-36 h-36 rounded-full opacity-30"
         style={{
-          backgroundColor: "rgba(52, 211, 153, 0.2)",
-          shadowColor: "#34d399",
-          shadowOpacity: 0.4,
-          shadowRadius: 40,
+          backgroundColor: "#34d399",
         }}
       />
       <View
-        className="absolute w-32 h-32 rounded-full"
+        className="absolute w-24 h-24 rounded-full opacity-40"
         style={{
-          backgroundColor: "rgba(147, 51, 234, 0.25)",
-          shadowColor: "#9333ea",
-          shadowOpacity: 0.5,
-          shadowRadius: 30,
+          backgroundColor: "#9333ea",
         }}
       />
       <View
-        className="absolute w-20 h-20 rounded-full"
+        className="absolute w-12 h-12 rounded-full opacity-50"
         style={{
-          backgroundColor: "rgba(59, 130, 246, 0.3)",
-          shadowColor: "#3b82f6",
-          shadowOpacity: 0.6,
-          shadowRadius: 20,
+          backgroundColor: "#3b82f6",
         }}
+      />
+      <View className="w-16 h-16 bg-white rounded-2xl items-center justify-center shadow-lg shadow-slate-200">
+        <Text className="text-3xl">💎</Text>
+      </View>
+    </View>
+
+    <Text className="text-slate-400 text-sm font-bold uppercase tracking-widest mb-2">29:04 remaining</Text>
+    <Text className="text-slate-900 text-3xl font-bold mb-6">Analyzing your focus</Text>
+    
+    <View className="w-full h-3 bg-slate-100 rounded-full overflow-hidden mb-8">
+      <View
+        className="h-full rounded-full bg-emerald-500"
+        style={{ width: "35%" }}
       />
     </View>
-    <Text className="text-zinc-400 text-base mb-1">29:04 Left</Text>
-    <Text className="text-white text-xl font-semibold mb-6">First Gem</Text>
-    <View className="w-full h-2 bg-zinc-800 rounded-full overflow-hidden mb-6">
-      <View
-        className="h-full rounded-full"
-        style={{ width: "35%", backgroundColor: "#22c55e" }}
-      />
-    </View>
-    <Text className="text-zinc-400 text-center text-base leading-6 mb-6">
-      Analyzing your Screen Time to compute{"\n"}your personal Focus Score
+
+    <Text className="text-slate-500 text-center text-lg leading-7 font-medium mb-10 px-4">
+      Zenith is currently analyzing your digital habits to compute your personal focus score.
     </Text>
+
     <Pressable
       onPress={onPressMilestones}
-      className="px-8 py-4 rounded-full border-2 border-white"
+      className="w-full py-6 rounded-[32px] bg-emerald-600 items-center justify-center shadow-lg shadow-emerald-900/10"
     >
-      <Text className="text-white text-base font-semibold">
-        See Next MileStones
+      <Text className="text-white text-xl font-bold">
+        See next milestones
       </Text>
     </Pressable>
-  </Pressable>
+  </View>
 );

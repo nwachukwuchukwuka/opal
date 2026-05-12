@@ -67,7 +67,6 @@ const BlocksScreen = () => {
   const [unlockTimeLeft, setUnlockTimeLeft] = useState(0);
 
   useEffect(() => {
-    // let timer: NodeJS.Timeout;
     let timer: any;
     if (appLockStatus === "unlocked" && unlockTimeLeft > 0) {
       timer = setInterval(() => {
@@ -188,49 +187,42 @@ const BlocksScreen = () => {
 
   return (
     <>
-      <SafeAreaView edges={["top"]} className="flex-1 bg-black ">
-        {/* Header */}
-        <View className="flex-row justify-between items-center px-5 pt-4 pb-6">
-          <Text className="text-white text-xl font-bold">Blocks</Text>
-          <View className="flex-row items-center gap-3">
-            <Pressable className="w-10 h-10 bg-zinc-800 rounded-full items-center justify-center">
-              <Ionicons name="sync" size={20} color="white" />
-            </Pressable>
-            <Pressable
-              onPress={() => newBlockSheetRef.current?.present()}
-              className="w-10 h-10 bg-teal-400 rounded-full items-center justify-center"
-            >
-              <Ionicons name="add" size={24} color="black" />
-            </Pressable>
-          </View>
-        </View>
+      <SafeAreaView edges={["top"]} className="flex-1 bg-slate-50">
+
+        {/* Floating Action Button */}
+        <Pressable
+          onPress={() => newBlockSheetRef.current?.present()}
+          className="absolute bottom-12 right-6 w-16 h-16 bg-emerald-600 rounded-full items-center justify-center  z-50"
+        >
+          <Ionicons name="add" size={32} color="white" />
+        </Pressable>
 
         <ScrollView
           showsVerticalScrollIndicator={false}
-          contentContainerStyle={{ paddingBottom: 20 }}
+          contentContainerStyle={{ paddingBottom: 120 }}
         >
-          <View className="px-3 gap-8">
-            {/* Now Section */}
-            <View className="gap-3">
-              <Text className="text-zinc-200 uppercase tracking-wider">
-                Now
+          {/* Hero Header Section */}
+          <View className="px-5 pt-8 mb-10">
+            <View className="mb-6 px-2">
+              <Text className="text-emerald-600 text-[10px] font-bold  mb-1.5 uppercase">
+                Control Center
               </Text>
-              {activeBlocks.map((item) => (
-                <BlockCard
-                  key={item.id}
-                  item={item}
-                  onPress={handleBlockPress}
-                />
-              ))}
+              <Text className="text-slate-900 text-4xl font-bold leading-tight">
+                My Blocks
+              </Text>
             </View>
+            <SessionInfoCard />
+          </View>
 
-            {/* Upcoming Section */}
-            <View className="gap-3">
-              <Text className="text-zinc-200 uppercase tracking-wider">
-                Upcoming
+          <View className="px-5 gap-8">
+
+            {/* Active Blocks Card Group */}
+            <View>
+              <Text className="text-slate-900 text-xl font-bold mb-3 ml-2">
+                Active right now
               </Text>
-              <View className="gap-3">
-                {upcomingBlocks.map((item) => (
+              <View className="bg-white rounded-[32px]  gap-4">
+                {activeBlocks.map((item) => (
                   <BlockCard
                     key={item.id}
                     item={item}
@@ -240,36 +232,60 @@ const BlocksScreen = () => {
               </View>
             </View>
 
-            {/* New Block Section */}
-            <View className="gap-3">
-              <Text className="text-zinc-200 uppercase tracking-wider">
-                New Block
+            <View>
+              <Text className="text-slate-900 text-xl font-bold mb-3 ml-2">
+                Upcoming schedule
+              </Text>
+              <View className="gap-4">
+                {upcomingBlocks.map((item) => (
+                  <View
+                    key={item.id}
+                    className=""
+                  >
+                    <BlockCard
+                      item={item}
+                      onPress={handleBlockPress}
+                    />
+                  </View>
+                ))}
+              </View>
+            </View>
+
+            {/* New Block Highlighted Zone */}
+            <View>
+              <Text className="text-slate-900 text-xl font-bold mb-3 ml-2">
+                Create new block
               </Text>
               <NewBlockOptions />
             </View>
 
-            {/* More Ideas Section */}
-            <View className="gap-3">
-              <Text className="text-zinc-200 uppercase tracking-wider">
-                More Ideas
+            {/* Ideas Separated Items */}
+            <View>
+              <Text className="text-slate-900 text-xl font-bold mb-3 ml-2">
+                Inspiration and ideas
               </Text>
-              <View className="gap-3">
+              <View className="gap-5">
                 {BLOCK_IDEAS.map((idea) => (
-                  <IdeaCard
+                  <View
                     key={idea.id}
-                    idea={idea}
-                    onPress={() => handleIdeaPress(idea)}
-                  />
+                    className="overflow-hidden rounded-3xl"
+                  >
+                    <IdeaCard
+                      idea={idea}
+                      onPress={() => handleIdeaPress(idea)}
+                    />
+                  </View>
                 ))}
               </View>
             </View>
           </View>
         </ScrollView>
 
-        <SessionInfoCard />
+
+
       </SafeAreaView>
 
-      {/* Modals & Sheets */}
+      {/* Modals & Sheets remain entirely untouched logically */}
       {selectedConfig && (
         <EditSessionSheet
           ref={editSessionRef}

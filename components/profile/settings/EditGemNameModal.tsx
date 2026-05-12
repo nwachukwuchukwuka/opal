@@ -1,13 +1,13 @@
 import { Ionicons } from "@expo/vector-icons";
 import React, { useState } from "react";
 import {
-    KeyboardAvoidingView,
-    Modal,
-    Platform,
-    Pressable,
-    Text,
-    TextInput,
-    View,
+  KeyboardAvoidingView,
+  Modal,
+  Platform,
+  Pressable,
+  Text,
+  TextInput,
+  View,
 } from "react-native";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 
@@ -39,46 +39,51 @@ export const EditGemNameModal = ({
       onRequestClose={onClose}
     >
       <SafeAreaProvider>
-        <SafeAreaView className="flex-1 bg-black">
-          {/* Header */}
-          <View className="px-4 pt-2">
-            <Pressable
-              onPress={onClose}
-              className="w-10 h-10 bg-zinc-900 rounded-full items-center justify-center"
-            >
-              <Ionicons name="close" size={24} color="white" />
-            </Pressable>
-          </View>
-
-          <KeyboardAvoidingView
-            behavior={Platform.OS === "ios" ? "padding" : "height"}
-            className="flex-1 justify-between px-6 pb-6"
-          >
-            <View className="mt-10">
-              <Text className="text-white text-3xl font-bold text-center mb-2">
-                Change Gem Name
-              </Text>
-              <Text className="text-zinc-500 text-center mb-10">
-                Enter your new gem name
-              </Text>
-
-              <TextInput
-                value={name}
-                onChangeText={setName}
-                autoFocus
-                className="w-full bg-zinc-900 text-white text-lg px-4 py-4 rounded-xl border border-zinc-800"
-                placeholder="Gem Name"
-                placeholderTextColor="#52525b"
-              />
+        <SafeAreaView className="flex-1 bg-white">
+          <View className="flex-1 px-8">
+            {/* Minimalist Top Nav */}
+            <View className="flex-row justify-start items-center pt-4 mb-10">
+              <Pressable
+                onPress={onClose}
+                className="w-11 h-11 bg-slate-50 rounded-full items-center justify-center border border-slate-100"
+              >
+                <Ionicons name="close" size={24} color="#059669" />
+              </Pressable>
             </View>
 
-            <Pressable
-              onPress={handleSave}
-              className="w-full bg-white py-4 rounded-full items-center"
+            <KeyboardAvoidingView
+              behavior={Platform.OS === "ios" ? "padding" : "height"}
+              className="flex-1  pb-20"
             >
-              <Text className="text-black font-bold text-lg">Continue</Text>
-            </Pressable>
-          </KeyboardAvoidingView>
+              <View className="mb-12">
+                <Text className="text-slate-900 text-4xl font-bold mb-3 tracking-tight">
+                  Change Gem Name
+                </Text>
+                <Text className="text-slate-400 text-lg leading-6 font-medium">
+                  Choose a name that reflects your identity within the Opal community.
+                </Text>
+              </View>
+
+              <View className="bg-slate-50 rounded-3xl border border-slate-100 px-6 py-6 mb-12">
+                <Text className="text-slate-400 text-[10px] font-bold uppercase tracking-widest mb-2">New Identity</Text>
+                <TextInput
+                  value={name}
+                  onChangeText={setName}
+                  autoFocus
+                  className="text-slate-900 text-2xl font-semibold"
+                  placeholder="Enter name"
+                  placeholderTextColor="#cbd5e1"
+                />
+              </View>
+
+              <Pressable
+                onPress={handleSave}
+                className="w-full bg-emerald-600 py-6 rounded-full items-center"
+              >
+                <Text className="text-white font-bold text-lg">Save Changes</Text>
+              </Pressable>
+            </KeyboardAvoidingView>
+          </View>
         </SafeAreaView>
       </SafeAreaProvider>
     </Modal>

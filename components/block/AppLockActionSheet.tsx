@@ -49,23 +49,23 @@ const AppLockActionSheet = forwardRef<
     <BottomSheetModal
       ref={ref}
       snapPoints={snapPoints}
-      backgroundStyle={{ backgroundColor: "#18181b" }}
-      handleIndicatorStyle={{ backgroundColor: "#52525b" }}
+      backgroundStyle={{ backgroundColor: "#f8fafc" }}
+      handleIndicatorStyle={{ backgroundColor: "#cbd5e1" }}
       backdropComponent={renderBackdrop}
       enableDynamicSizing={false}
     >
       <BottomSheetView className="flex-1 px-5 pt-2">
         {/* Dynamic Header */}
-        <View className="mb-6">
-          <Text className="text-white text-xl font-bold mb-2">App Lock</Text>
+        <View className="mb-6 bg-white border border-slate-200 rounded-[32px] p-5">
+          <Text className="text-slate-900 text-2xl font-extrabold mb-1">App Lock</Text>
 
           <View className="flex-row items-center">
             <Ionicons
               name={isUnlocked ? "lock-open" : "lock-closed"}
               size={14}
-              color={isUnlocked ? "#a1a1aa" : "#71717a"}
+              color={isUnlocked ? "#059669" : "#64748b"}
             />
-            <Text className="text-zinc-400 text-sm ml-1.5">
+            <Text className="text-slate-500 text-sm font-medium ml-1.5">
               {isUnlocked
                 ? `Unlocked • Remaining: ${formatTime(remainingSeconds)}`
                 : "Locked • 6/6 Unlocks left today"}
@@ -75,30 +75,30 @@ const AppLockActionSheet = forwardRef<
 
         {/* Dynamic Content */}
         {isUnlocked ? (
-          <View className="mb-6">
+          <View className="mb-6 bg-white border border-slate-200 rounded-[24px] p-4">
             {/* Progress Bar Container */}
-            <View className="h-4 bg-zinc-800 rounded-full w-full overflow-hidden flex-row relative mb-1">
+            <View className="h-4 bg-slate-50 rounded-full w-full overflow-hidden flex-row relative mb-2 border border-slate-100">
               {/* The Fill */}
               <View
-                className="h-full bg-teal-400/50"
+                className="h-full bg-emerald-500/20"
                 style={{ width: `${progressPercent}%` }}
               />
               {/* The Knob */}
               <View
-                className="absolute h-full w-1 bg-white"
+                className="absolute h-full w-1 bg-emerald-600"
                 style={{ left: `${progressPercent}%` }}
               />
               <View className="absolute inset-0 flex-row justify-between items-center px-1">
                 {[...Array(10)].map((_, i) => (
-                  <View key={i} className="w-[1px] h-2 bg-zinc-700" />
+                  <View key={i} className="w-[1px] h-2 bg-slate-200" />
                 ))}
               </View>
             </View>
 
             {/* Time Labels */}
             <View className="flex-row justify-between">
-              <Text className="text-zinc-500 text-[10px] font-bold">Now</Text>
-              <Text className="text-zinc-500 text-[10px] font-bold">+5m</Text>
+              <Text className="text-slate-400 text-[10px] font-bold">Now</Text>
+              <Text className="text-slate-400 text-[10px] font-bold">+5m</Text>
             </View>
           </View>
         ) : (
@@ -106,35 +106,21 @@ const AppLockActionSheet = forwardRef<
         )}
 
         {/* Actions */}
-        <View className="gap-3 mt-auto mb-4">
+        <View className="gap-3 mt-auto pb-10">
           <Pressable
             onPress={isUnlocked ? onRelock : onUnlock}
-            style={{ borderRadius: 9999, overflow: "hidden", width: "100%" }}
+            className="w-full py-5 bg-emerald-600 border border-emerald-500 rounded-[28px] items-center justify-center shadow-lg shadow-emerald-900/10"
           >
-            <LinearGradient
-              style={{
-                width: "100%",
-                paddingVertical: 12,
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-              colors={
-                isUnlocked ? ["#86efac", "#22d3ee"] : ["#bbf7d0", "#a5f3fc"]
-              }
-              start={{ x: 0, y: 0 }}
-              end={{ x: 1, y: 0 }}
-            >
-              <Text className="text-black text-base font-bold">
-                {isUnlocked ? "Relock these apps" : "Unlock for 5m"}
-              </Text>
-            </LinearGradient>
+            <Text className="text-white text-lg font-bold">
+              {isUnlocked ? "Relock these apps" : "Unlock for 5m"}
+            </Text>
           </Pressable>
 
           <Pressable
             onPress={onEdit}
-            className="w-full py-4 rounded-full bg-zinc-800 items-center justify-center"
+            className="w-full py-4 rounded-[24px] bg-white border border-slate-200 items-center justify-center"
           >
-            <Text className="text-white text-base font-semibold">
+            <Text className="text-slate-700 text-base font-bold">
               Edit Lock
             </Text>
           </Pressable>

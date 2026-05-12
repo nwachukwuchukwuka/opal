@@ -20,6 +20,7 @@ export const HomeHeader = ({ dateToDisplay, onDatePress }: HomeHeaderProps) => {
             size={16}
             color={COLORS.cyan}
             style={{ marginLeft: 4 }}
+
           />
         </Pressable>
       </View>

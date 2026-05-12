@@ -41,31 +41,32 @@ const EmojiPickerSheet = forwardRef<EmojiPickerSheetRef, EmojiPickerSheetProps>(
       <BottomSheetModal
         ref={ref}
         snapPoints={snapPoints}
-        backgroundStyle={{ backgroundColor: "#18181b" }}
-        handleIndicatorStyle={{ backgroundColor: "#52525b" }}
+        backgroundStyle={{ backgroundColor: "#f8fafc" }}
+        handleIndicatorStyle={{ backgroundColor: "#cbd5e1" }}
         backdropComponent={(props) => (
           <BottomSheetBackdrop
             {...props}
             disappearsOnIndex={-1}
             appearsOnIndex={0}
+            opacity={0.5}
           />
         )}
         enableDynamicSizing={false}
       >
         <BottomSheetView className="flex-1">
-          <Text className="text-white text-2xl font-bold text-center mt-2">
-            Select Emoji
+          <Text className="text-slate-900 text-3xl font-bold text-center mt-4">
+            Select emoji
           </Text>
           {/* Header */}
-          <View className="flex-row justify-between items-center px-8 py-4">
-            <Pressable className="p-2">
-              <Ionicons name="shuffle" size={28} color="white" />
+          <View className="flex-row justify-between items-center px-10 py-8">
+            <Pressable className="w-12 h-12 bg-slate-100 rounded-2xl items-center justify-center">
+              <Ionicons name="shuffle" size={24} color="#64748b" />
             </Pressable>
-            <View className="w-20 h-20 bg-zinc-800 rounded-full items-center justify-center">
+            <View className="w-24 h-24 bg-white border border-slate-100 rounded-full items-center justify-center shadow-sm shadow-slate-900/5">
               <Text className="text-5xl">{selectedEmoji}</Text>
             </View>
-            <Pressable onPress={handleConfirm} className="p-2">
-              <Ionicons name="checkmark-circle" size={32} color="#38bdf8" />
+            <Pressable onPress={handleConfirm} className="w-12 h-12 bg-emerald-600 rounded-2xl items-center justify-center">
+              <Ionicons name="checkmark" size={28} color="#ffffff" />
             </Pressable>
           </View>
 
@@ -81,17 +82,17 @@ const EmojiPickerSheet = forwardRef<EmojiPickerSheetRef, EmojiPickerSheetProps>(
               <View
                 key={category.name}
                 style={{ width: SCREEN_WIDTH }}
-                className="px-4"
+                className="px-6"
               >
-                <Text className="text-zinc-400 font-semibold mb-3">
+                <Text className="text-slate-400 font-bold text-xs uppercase tracking-widest mb-4 ml-2">
                   {category.name}
                 </Text>
-                <View className="flex-row flex-wrap justify-between">
+                <View className="flex-row flex-wrap justify-between gap-y-2">
                   {category.emojis.map((emoji) => (
                     <Pressable
                       key={emoji}
                       onPress={() => setSelectedEmoji(emoji)}
-                      className="p-1"
+                      className={`w-14 h-14 items-center justify-center rounded-2xl ${selectedEmoji === emoji ? 'bg-emerald-50 border border-emerald-100' : ''}`}
                     >
                       <Text className="text-4xl">{emoji}</Text>
                     </Pressable>
@@ -102,11 +103,11 @@ const EmojiPickerSheet = forwardRef<EmojiPickerSheetRef, EmojiPickerSheetProps>(
           </ScrollView>
 
           {/* Pagination Dots */}
-          <View className="flex-row justify-center items-center h-8">
+          <View className="flex-row justify-center items-center h-12 pb-6">
             {EMOJI_CATEGORIES.map((_, index) => (
               <View
                 key={index}
-                className={`w-2 h-2 rounded-full mx-1 ${currentPage === index ? "bg-white" : "bg-zinc-600"}`}
+                className={`w-2 h-2 rounded-full mx-1 ${currentPage === index ? "bg-emerald-600 w-4" : "bg-slate-200"}`}
               />
             ))}
           </View>

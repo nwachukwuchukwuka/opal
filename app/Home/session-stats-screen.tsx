@@ -16,85 +16,95 @@ const mockStats: SessionStats = {
 const SessionStatsScreen = () => {
   const shareSheetRef = useRef<BottomSheet>(null);
   const router = useRouter();
+
   const handleShare = () => {
     shareSheetRef.current?.expand();
   };
 
-  const StatRow = ({ label, value }: { label: string; value: string }) => (
-    <View className="flex-row justify-between items-center py-4">
-      <Text className="text-zinc-400 text-base">{label}</Text>
-      <Text className="text-white text-base font-semibold">{value}</Text>
-    </View>
-  );
-
   return (
     <SafeAreaProvider>
-      <SafeAreaView className="flex-1 bg-zinc-900">
-        <View className="flex-1 p-6 items-center">
-          {/* Close button */}
-          <Pressable className="absolute top-4 right-6 bg-zinc-800 rounded-full p-1.5" onPress={() => router.dismissAll()}>
-            <MaterialCommunityIcons name="close" size={24} color="#a1a1aa" />
-          </Pressable>
+      <SafeAreaView className="flex-1 bg-slate-50 px-6 pt-4 pb-8">
 
-          {/* Header */}
-          <View className="items-center mt-14">
+        <View className="flex-row justify-end mb-8">
+          <Pressable
+            className="bg-white border border-slate-200 rounded-full w-12 h-12 items-center justify-center"
+            onPress={() => router.dismissAll()}
+          >
+            <MaterialCommunityIcons name="close" size={24} color="#64748b" />
+          </Pressable>
+        </View>
+
+        <View className="items-center mb-10">
+          <View className="w-32 h-32 bg-emerald-50 rounded-full items-center justify-center border border-emerald-100 mb-6">
             <MaterialCommunityIcons
-              name="party-popper"
-              size={100}
-              color="white"
+              name="trophy-award"
+              size={64}
+              color="#059669"
             />
           </View>
-          <Text className="text-white text-3xl font-bold mb-8">
+          <Text className="text-slate-900 text-4xl font-extrabold">
             You did it!
           </Text>
+          <Text className="text-slate-500 text-base font-medium mt-2">
+            Session completed successfully
+          </Text>
+        </View>
 
-          {/* Fun Fact Card */}
-          <View className="bg-zinc-800 rounded-2xl p-4 w-full mb-4">
-            <Text className="text-zinc-500 text-xs font-bold text-center mb-1">
-              DID YOU KNOW?
+        <View className="flex-row gap-4 mb-4">
+          <View className="flex-1 bg-white  rounded-[32px] p-6 items-center justify-center border border-slate-200">
+            <Text className="text-slate-500 text-sm font-bold mb-2 text-center">
+              Distraction Free
             </Text>
-            <Text className="text-white text-base text-center">
-              {mockStats.funFact}
+            <Text className="text-slate-900 text-4xl font-extrabold">
+              {mockStats.distractionFreeTime}m
             </Text>
           </View>
 
-          {/* Stats Card */}
-          <View className="bg-zinc-800 rounded-2xl p-4 w-full">
-            <StatRow
-              label="Distraction Free"
-              value={`${mockStats.distractionFreeTime}m`}
-            />
-            <View className="h-px bg-zinc-700 w-full" />
-            <StatRow
-              label="Intentional Use Today"
-              value={`${mockStats.intentionalUseToday}s`}
-            />
+          <View className="flex-1 bg-white rounded-[32px] p-6 items-center justify-center border border-slate-200">
+            <Text className="text-slate-500 text-sm font-bold mb-2 text-center">
+              Intentional Use
+            </Text>
+            <Text className="text-slate-900 text-4xl font-extrabold">
+              {mockStats.intentionalUseToday}s
+            </Text>
           </View>
+        </View>
 
-          <View className="mt-auto w-full gap-3">
-            {/* Restart Button */}
-            <Pressable className="bg-zinc-200 rounded-full py-4 flex-row items-center justify-center">
-              <MaterialCommunityIcons name="restart" size={20} color="black" />
-              <Text className="text-black text-lg font-bold ml-2">
-                Restart Session
-              </Text>
-            </Pressable>
-
-            {/* Share Button */}
-            <Pressable
-              onPress={handleShare}
-              className="bg-[#06b6d4] rounded-full py-4 flex-row items-center justify-center"
-            >
-              <MaterialCommunityIcons
-                name="share-outline"
-                size={20}
-                color="black"
-              />
-              <Text className="text-black text-lg font-bold ml-2">
-                Share With Friends
-              </Text>
-            </Pressable>
+        <View className="bg-slate-100 rounded-[28px] p-6 border border-slate-200 mb-auto">
+          <View className="flex-row items-center mb-3">
+            <MaterialCommunityIcons name="lightbulb-on" size={20} color="#059669" />
+            <Text className="text-slate-500 text-sm font-bold ml-2">
+              Did you know?
+            </Text>
           </View>
+          <Text className="text-slate-700 text-base font-medium leading-6">
+            {mockStats.funFact}
+          </Text>
+        </View>
+
+        <View className="w-full gap-4 mt-6">
+          <Pressable
+            className="bg-white border border-slate-200 rounded-[24px] py-4 flex-row items-center justify-center"
+          >
+            <MaterialCommunityIcons name="restart" size={22} color="#0f172a" />
+            <Text className="text-slate-900 text-lg font-bold ml-2">
+              Restart Session
+            </Text>
+          </Pressable>
+
+          <Pressable
+            onPress={handleShare}
+            className="bg-emerald-600 border border-emerald-500 rounded-[24px] py-4 flex-row items-center justify-center"
+          >
+            <MaterialCommunityIcons
+              name="share"
+              size={22}
+              color="white"
+            />
+            <Text className="text-white text-lg font-bold ml-2">
+              Share With Friends
+            </Text>
+          </Pressable>
         </View>
 
         <ShareBottomSheet ref={shareSheetRef} />

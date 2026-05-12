@@ -1,10 +1,9 @@
 import {
   BottomSheetBackdrop,
   BottomSheetModal,
-  BottomSheetView,
+  BottomSheetScrollView
 } from "@gorhom/bottom-sheet";
 import DateTimePicker from "@react-native-community/datetimepicker";
-import { LinearGradient } from "expo-linear-gradient";
 import React, { forwardRef, useMemo, useState } from "react";
 import { Platform, Pressable, Text, View } from "react-native";
 
@@ -19,7 +18,7 @@ interface TimePickerSheetProps {
 const TimePickerSheet = forwardRef<TimePickerSheetRef, TimePickerSheetProps>(
   ({ title, initialTime, onTimeSelect }, ref) => {
     const [time, setTime] = useState(initialTime);
-    const snapPoints = useMemo(() => ["55%"], []);
+    const snapPoints = useMemo(() => ["65%"], []);
 
     const handleDone = () => {
       onTimeSelect(time);
@@ -32,54 +31,51 @@ const TimePickerSheet = forwardRef<TimePickerSheetRef, TimePickerSheetProps>(
       <BottomSheetModal
         ref={ref}
         snapPoints={snapPoints}
-        backgroundStyle={{ backgroundColor: "#18181b" }}
-        handleIndicatorStyle={{ backgroundColor: "#52525b" }}
+        backgroundStyle={{ backgroundColor: "#f8fafc" }}
+        handleIndicatorStyle={{ backgroundColor: "#cbd5e1" }}
         backdropComponent={(props) => (
           <BottomSheetBackdrop
             {...props}
             disappearsOnIndex={-1}
             appearsOnIndex={0}
+            opacity={0.5}
           />
         )}
         enableDynamicSizing={false}
       >
-        <BottomSheetView className="flex-1 items-center px-6">
-          <Text className="text-white text-2xl font-bold mt-2">{title}</Text>
-          <Text className="text-zinc-400 text-base mt-1 mb-6">
-            Select a time for this event.
-          </Text>
-          <DateTimePicker
-            value={time}
-            mode="time"
-            display={Platform.OS === "ios" ? "spinner" : "default"}
-            onChange={(event, selectedDate) => setTime(selectedDate || time)}
-            themeVariant="dark"
-          />
-          <View className="w-full mt-auto pb-6 pt-6">
-            <Pressable
-              onPress={handleDone}
-              style={{
-                borderRadius: 9999,
-                overflow: "hidden",
-                width: "100%",
-              }}
-            >
-              <LinearGradient
-                colors={["#86efac", "#22d3ee"]}
-                start={{ x: 0, y: 0 }}
-                end={{ x: 1, y: 0 }}
-                style={{
-                  width: "100%",
-                  paddingVertical: 10,
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
+        <BottomSheetScrollView
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={{ paddingBottom: 60, paddingHorizontal: 24, paddingTop: 16 }}
+        >
+          <View className="items-center">
+            <Text className="text-slate-900 text-3xl font-black mb-1">
+              {title}
+            </Text>
+            <Text className="text-slate-400 font-bold text-sm mb-8">
+              Select a time for this event
+            </Text>
+
+            <View className="w-full bg-white rounded-[32px] p-6 border border-slate-100 items-center justify-center shadow-sm shadow-slate-900/5">
+              <DateTimePicker
+                value={time}
+                mode="time"
+                display={Platform.OS === "ios" ? "spinner" : "default"}
+                onChange={(event, selectedDate) => setTime(selectedDate || time)}
+                themeVariant="light"
+                textColor="#0f172a"
+              />
+            </View>
+
+            <View className="w-full mt-10">
+              <Pressable
+                onPress={handleDone}
+                className="bg-emerald-600 border border-emerald-500 rounded-[28px] py-5 items-center justify-center shadow-lg shadow-emerald-900/10"
               >
-                <Text className="text-black text-lg font-bold">Done</Text>
-              </LinearGradient>
-            </Pressable>
+                <Text className="text-white text-xl font-bold">Done</Text>
+              </Pressable>
+            </View>
           </View>
-        </BottomSheetView>
+        </BottomSheetScrollView>
       </BottomSheetModal>
     );
   }

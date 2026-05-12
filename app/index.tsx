@@ -2,7 +2,6 @@ import { Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
 import { useEffect, useState } from "react";
 import { Text, View } from "react-native";
-import { COLORS } from "../constants";
 import { useAuth } from "../context";
 
 export default function Index() {
@@ -28,29 +27,29 @@ export default function Index() {
   }, [showSplash, isAuthenticated]);
 
   return (
-    <View className="flex-1 items-center justify-center bg-black">
-      <View 
-        className="w-24 h-24 rounded-full items-center justify-center mb-4"
-        style={{
-          borderWidth: 2,
-          borderColor: COLORS.white,
-        }}
-      >
-        <View 
-          className="w-20 h-20 rounded-full items-center justify-center"
-          style={{
-            borderWidth: 1,
-            borderColor: 'rgba(255,255,255,0.2)',
-          }}
-        >
-          <Ionicons name="diamond" size={32} color={COLORS.white} />
+    <View className="flex-1 bg-slate-50">
+
+      <View className="flex-[0.65] bg-emerald-50 rounded-b-[80px] items-center justify-center border-b-[6px] border-emerald-100 relative overflow-hidden">
+
+        <View className="absolute opacity-10 scale-150">
+          <Ionicons name="diamond" size={300} color="#059669" />
         </View>
+
+        <View className="w-28 h-28 bg-emerald-600 rounded-[36px] items-center justify-center border-[4px] border-emerald-100 z-10">
+          <Ionicons name="diamond" size={48} color="#ffffff" />
+        </View>
+
       </View>
-      
-      {/* App Name */}
-      <Text className="text-white text-2xl font-bold tracking-widest">
-        OPAL
-      </Text>
+
+      <View className="flex-[0.35] justify-end px-10 pb-20">
+        <Text className="text-slate-900 text-6xl font-extrabold mb-3">
+          Opal
+        </Text>
+        <Text className="text-slate-500 text-lg font-bold">
+          Find your focus and unlock your time.
+        </Text>
+      </View>
+
     </View>
   );
 }

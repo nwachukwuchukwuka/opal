@@ -29,7 +29,6 @@ export const ChangePhoneFlow = ({
   const [isLoading, setIsLoading] = useState(false);
   const [timer, setTimer] = useState(59);
 
-  // Reset state when opening
   useEffect(() => {
     if (visible) {
       setStep("phone");
@@ -40,7 +39,6 @@ export const ChangePhoneFlow = ({
     }
   }, [visible]);
 
-  // Timer logic
   useEffect(() => {
     let interval: any;
     if (step === "otp" && timer > 0) {
@@ -57,7 +55,6 @@ export const ChangePhoneFlow = ({
 
   const handleVerify = () => {
     setIsLoading(true);
-    // Simulate API call
     setTimeout(() => {
       setIsLoading(false);
       onSave(`+1${phoneNumber}`);
@@ -73,131 +70,133 @@ export const ChangePhoneFlow = ({
       onRequestClose={onClose}
     >
       <SafeAreaProvider>
-        <SafeAreaView className="flex-1 bg-black">
-          <View className="px-4 pt-2 flex-row justify-between items-center">
-            {step === "otp" ? (
-              <Pressable
-                onPress={() => setStep("phone")}
-                className="w-10 h-10 justify-center"
+        <SafeAreaView className="flex-1 bg-white">
+          <View className="flex-1 px-8">
+            {/* Minimalist Top Nav */}
+            <View className="flex-row justify-start items-center pt-4 mb-10">
+              <Pressable 
+                onPress={step === "otp" ? () => setStep("phone") : onClose}
+                className="w-11 h-11 bg-slate-50 rounded-full items-center justify-center border border-slate-100"
               >
-                <Ionicons name="chevron-back" size={28} color="white" />
+                <Ionicons name={step === "otp" ? "arrow-back" : "close"} size={24} color="#059669" />
               </Pressable>
-            ) : (
-              <Pressable onPress={onClose} className="w-10 h-10 justify-center">
-                <Ionicons name="close" size={28} color="white" />
-              </Pressable>
-            )}
-          </View>
+            </View>
 
-          <KeyboardAvoidingView
-            behavior={Platform.OS === "ios" ? "padding" : "height"}
-            className="flex-1 justify-between px-6 pb-6"
-          >
-            {step === "phone" ? (
-              <View className="mt-6 w-full">
-                <Text className="text-white text-2xl font-bold text-center mb-2">
-                  Add Phone Number
-                </Text>
-                <Text className="text-zinc-400 text-center mb-10 px-4">
-                  Link your phone number to connect with your friends who also
-                  use Opal
-                </Text>
-
-                <View className="flex-row items-center bg-zinc-900 rounded-xl border border-zinc-800 px-4 py-4">
-                  <Text className="text-2xl mr-3">🇺🇸</Text>
-                  <Text className="text-zinc-400 text-lg mr-1">+1</Text>
-                  <TextInput
-                    value={phoneNumber}
-                    onChangeText={setPhoneNumber}
-                    placeholder="6502137379"
-                    placeholderTextColor="#52525b"
-                    keyboardType="phone-pad"
-                    autoFocus
-                    className="flex-1 text-white text-lg h-full"
-                  />
-                </View>
-              </View>
-            ) : (
-              <View className="mt-6 items-center w-full">
-                <Text className="text-white text-2xl font-bold text-center mb-8 px-4">
-                  Enter the 6 digit Verification Code sent to{" "}
-                  <Text className="text-white">+1{phoneNumber}</Text>
-                </Text>
-
-                <View className="relative w-full h-16 mb-6">
-                  <View className="flex-row justify-between w-full absolute inset-0 pointer-events-none">
-                    {[0, 1, 2, 3, 4, 5].map((i) => (
-                      <View
-                        key={i}
-                        className={`w-12 h-14 rounded-xl border-2 justify-center items-center ${
-                          otp.length === i
-                            ? "border-white bg-zinc-800"
-                            : "border-zinc-800 bg-zinc-900"
-                        }`}
-                      >
-                        <Text className="text-white text-xl font-bold">
-                          {otp[i] || ""}
-                        </Text>
-                      </View>
-                    ))}
-                  </View>
-                  <TextInput
-                    value={otp}
-                    onChangeText={(t) => t.length <= 6 && setOtp(t)}
-                    keyboardType="number-pad"
-                    autoFocus
-                    className="w-full h-full opacity-0 text-white"
-                    caretHidden
-                  />
-                </View>
-
-                {timer > 0 ? (
-                  <View className="bg-zinc-800 px-4 py-2 rounded-full">
-                    <Text className="text-zinc-500 font-medium">
-                      Resend in 0:{timer.toString().padStart(2, "0")}
+            <KeyboardAvoidingView
+              behavior={Platform.OS === "ios" ? "padding" : "height"}
+              className="flex-1 pb-20"
+            >
+              {step === "phone" ? (
+                <>
+                  <View className="mb-12">
+                    <Text className="text-slate-900 text-4xl font-bold mb-3 tracking-tight">
+                      Mobile Number
+                    </Text>
+                    <Text className="text-slate-400 text-lg leading-6 font-medium">
+                      Add your phone number to connect with friends and secure your account.
                     </Text>
                   </View>
-                ) : (
-                  <Pressable
-                    onPress={() => setTimer(59)}
-                    className="bg-white px-6 py-2 rounded-full"
-                  >
-                    <Text className="text-black font-bold">Resend code</Text>
-                  </Pressable>
-                )}
-              </View>
-            )}
 
-            <Pressable
-              onPress={step === "phone" ? handlePhoneNext : handleVerify}
-              disabled={
-                step === "phone"
-                  ? phoneNumber.length < 10
-                  : otp.length < 6 || isLoading
-              }
-              className={`w-full py-4 rounded-full items-center ${
-                (step === "phone" && phoneNumber.length >= 10) ||
-                (step === "otp" && otp.length === 6)
-                  ? "bg-white"
-                  : "bg-zinc-800"
-              }`}
-            >
-              {isLoading ? (
-                <ActivityIndicator color="white" />
+                  <View className="flex-row items-center bg-slate-50 rounded-3xl border border-slate-100 px-6 py-6 mb-12">
+                    <Text className="text-2xl mr-3">🇺🇸</Text>
+                    <Text className="text-slate-400 text-xl mr-2 font-semibold">+1</Text>
+                    <TextInput
+                      value={phoneNumber}
+                      onChangeText={setPhoneNumber}
+                      placeholder="Enter number"
+                      placeholderTextColor="#cbd5e1"
+                      keyboardType="phone-pad"
+                      autoFocus
+                      className="flex-1 text-slate-900 text-2xl font-semibold"
+                    />
+                  </View>
+                </>
               ) : (
-                <Text
-                  className={`font-bold text-lg ${
-                    (step === "phone" && phoneNumber.length >= 10) ||
-                    (step === "otp" && otp.length === 6)
-                      ? "text-black"
-                      : "text-zinc-500"
-                  }`}
-                >
-                  Next
-                </Text>
+                <>
+                  <View className="mb-12">
+                    <Text className="text-slate-900 text-4xl font-bold mb-3 tracking-tight">
+                      Verify It's You
+                    </Text>
+                    <Text className="text-slate-400 text-lg leading-6 font-medium">
+                      We've sent a 6-digit code to <Text className="text-slate-600">+1{phoneNumber}</Text>
+                    </Text>
+                  </View>
+
+                  <View className="relative w-full h-20 mb-10">
+                    <View className="flex-row justify-between w-full absolute inset-0">
+                      {[0, 1, 2, 3, 4, 5].map((i) => (
+                        <View
+                          key={i}
+                          className={`w-[14%] h-full rounded-2xl border-2 justify-center items-center ${
+                            otp.length === i
+                              ? "border-emerald-600 bg-emerald-50/10"
+                              : "border-slate-100 bg-slate-50"
+                          }`}
+                        >
+                          <Text className="text-slate-900 text-2xl font-bold">
+                            {otp[i] || ""}
+                          </Text>
+                        </View>
+                      ))}
+                    </View>
+                    <TextInput
+                      value={otp}
+                      onChangeText={(t) => t.length <= 6 && setOtp(t)}
+                      keyboardType="number-pad"
+                      autoFocus
+                      className="w-full h-full opacity-0"
+                      caretHidden
+                    />
+                  </View>
+
+                  <View className="items-center mb-10">
+                    {timer > 0 ? (
+                      <Text className="text-slate-400 font-medium">
+                        Resend code in <Text className="text-slate-600">0:{timer.toString().padStart(2, "0")}</Text>
+                      </Text>
+                    ) : (
+                      <Pressable
+                        onPress={() => setTimer(59)}
+                        className="bg-slate-50 px-8 py-3 rounded-full border border-slate-100"
+                      >
+                        <Text className="text-slate-600 font-bold">Resend Code</Text>
+                      </Pressable>
+                    )}
+                  </View>
+                </>
               )}
-            </Pressable>
-          </KeyboardAvoidingView>
+
+              <Pressable
+                onPress={step === "phone" ? handlePhoneNext : handleVerify}
+                disabled={
+                  step === "phone"
+                    ? phoneNumber.length < 3
+                    : otp.length < 6 || isLoading
+                }
+                className={`w-full py-6 rounded-full items-center ${
+                  (step === "phone" && phoneNumber.length >= 3) ||
+                  (step === "otp" && otp.length === 6)
+                    ? "bg-emerald-600"
+                    : "bg-slate-100"
+                }`}
+              >
+                {isLoading ? (
+                  <ActivityIndicator color="white" />
+                ) : (
+                  <Text
+                    className={`font-bold text-lg ${
+                      (step === "phone" && phoneNumber.length >= 3) ||
+                      (step === "otp" && otp.length === 6)
+                        ? "text-white"
+                        : "text-slate-300"
+                    }`}
+                  >
+                    {step === "phone" ? "Continue" : "Verify Code"}
+                  </Text>
+                )}
+              </Pressable>
+            </KeyboardAvoidingView>
+          </View>
         </SafeAreaView>
       </SafeAreaProvider>
     </Modal>

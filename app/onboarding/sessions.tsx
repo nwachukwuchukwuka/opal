@@ -1,4 +1,4 @@
-import { FontAwesome5, Ionicons } from "@expo/vector-icons";
+import { Ionicons, FontAwesome5 } from "@expo/vector-icons";
 import { router } from "expo-router";
 import React, { useRef, useState } from "react";
 import {
@@ -7,94 +7,47 @@ import {
   NativeSyntheticEvent,
   Pressable,
   ScrollView,
-  StatusBar,
   Text,
-  View,
+  View
 } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
-import { COLORS, ONBOARDING_APPS } from "../../constants";
+import { ONBOARDING_APPS } from "../../constants";
 
 const { width } = Dimensions.get("window");
 
-const AppIcon = ({ 
-  icon, 
-  iconFamily, 
-  size = 24, 
-  color = "#fff" 
-}: { 
-  icon: string; 
-  iconFamily: string; 
-  size?: number; 
-  color?: string;
-}) => {
-  switch (iconFamily) {
-    case "FontAwesome5":
-      return <FontAwesome5 name={icon} size={size} color={color} />;
-    case "Ionicons":
-    default:
-      return <Ionicons name={icon as any} size={size} color={color} />;
+const AppIcon = ({ icon, iconFamily, size, color }: any) => {
+  if (iconFamily === "FontAwesome5") {
+    return <FontAwesome5 name={icon} size={size} color={color} />;
   }
+  return <Ionicons name={icon as any} size={size} color={color} />;
 };
 
-const SessionsPhoneMockup = () => {
+const SessionsBentoPreview = () => {
   return (
-    <View className="items-center">
-      <View className="w-80 h-[440px] bg-zinc-900 rounded-[3rem] p-1.5 border-[3px] border-zinc-800">
-        <View className="flex-1 bg-black rounded-[2.5rem] overflow-hidden">
-          {/* Dynamic Island */}
-          <View className="items-center pt-2">
-            <View className="w-24 h-7 bg-black rounded-full" />
+    <View className="items-center px-10">
+      <View className="w-full bg-white rounded-[40px] p-8 border border-slate-100 items-center">
+        <View className="w-20 h-20 bg-emerald-50 rounded-[32px] items-center justify-center mb-8 border border-emerald-100/50">
+          <Text className="text-4xl">🤠</Text>
+        </View>
+
+        <Text className="text-slate-900 text-2xl font-bold text-center mb-4 leading-tight">
+          Houston, we have a distraction problem.
+        </Text>
+
+        <Text className="text-slate-500 text-base font-medium text-center mb-8 leading-6 px-4">
+          Instagram is interrupting your focus every 5 minutes, let's fix that today.
+        </Text>
+
+        {/* Action Card */}
+        <View className="w-full bg-slate-50 rounded-[24px] p-4 border border-slate-100 flex-row items-center">
+          <View className="w-12 h-12 rounded-2xl items-center justify-center mr-4" style={{ backgroundColor: '#E4405F' }}>
+            <Ionicons name="logo-instagram" size={24} color="white" />
           </View>
-
-          {/* Status bar */}
-          <View className="flex-row justify-between items-center px-6 pt-1 pb-2">
-            <Text className="text-white text-xs font-semibold">13:39</Text>
-            <View className="flex-row items-center gap-1">
-              <Ionicons name="cellular" size={12} color={COLORS.white} />
-              <Ionicons name="battery-full" size={14} color={COLORS.white} />
-            </View>
+          <View className="flex-1">
+            <Text className="text-slate-900 font-bold">Instagram</Text>
+            <Text className="text-slate-400 text-xs font-bold uppercase">Shielded by zenith</Text>
           </View>
-
-          {/* Main content - Houston message */}
-          <View className="flex-1 px-4 pt-6">
-            {/* Emoji at top */}
-            <View className="items-center mb-4">
-              <Text className="text-5xl">🤠</Text>
-            </View>
-
-            {/* Title */}
-            <View className="items-center mb-4">
-              <Text className="text-white text-xl font-bold text-center">
-                Houston, We Have
-              </Text>
-              <Text className="text-white text-xl font-bold text-center">
-                a Distraction Problem
-              </Text>
-            </View>
-
-            {/* Subtitle */}
-            <Text className="text-zinc-400 text-xs text-center mb-4 px-2">
-              Instagram is interrupting your focus every 5 minutes, let's fix that today.
-            </Text>
-
-            {/* Instagram notification card */}
-            <View className="bg-zinc-800/60 rounded-2xl p-3 mx-2">
-              <View className="flex-row items-center">
-                {/* Instagram icon */}
-                <View className="w-10 h-10 rounded-xl items-center justify-center mr-3" style={{ backgroundColor: COLORS.instagram }}>
-                  <FontAwesome5 name="instagram" size={20} color={COLORS.white} />
-                </View>
-                <View className="flex-1">
-                  <Text className="text-white text-xs font-semibold">Instagram</Text>
-                  <Text className="text-zinc-400 text-[10px]">You scrolled Today 🏆</Text>
-                </View>
-              </View>
-            </View>
-          </View>
-
-          {/* Home indicator */}
-          <View className="items-center pb-2 pt-4">
-            <View className="w-28 h-1 bg-white/30 rounded-full" />
+          <View className="bg-emerald-100 px-3 py-1 rounded-full">
+            <Text className="text-emerald-600 text-[10px] font-bold">ACTIVE</Text>
           </View>
         </View>
       </View>
@@ -102,79 +55,46 @@ const SessionsPhoneMockup = () => {
   );
 };
 
-const StatsPhoneMockup = () => {
+const StatsBentoPreview = () => {
   return (
-    <View className="items-center">
-      <View className="w-80 h-[440px] bg-zinc-900 rounded-[3rem] p-1.5 border-[3px] border-zinc-800">
-        <View className="flex-1 bg-black rounded-[2.5rem] overflow-hidden">
-          {/* Dynamic Island */}
-          <View className="items-center pt-2">
-            <View className="w-24 h-7 bg-black rounded-full" />
-          </View>
+    <View className="items-center px-10">
+      <View className="w-full bg-white rounded-[40px] p-8 border border-slate-100 items-center">
+        <View className="w-20 h-20 bg-emerald-50 rounded-[32px] items-center justify-center mb-8 border border-emerald-100/50">
+          <Ionicons name="diamond" size={40} color="#059669" />
+        </View>
 
-          {/* Status bar */}
-          <View className="flex-row justify-between items-center px-6 pt-1 pb-2">
-            <Text className="text-white text-xs font-semibold">13:41</Text>
-            <View className="flex-row items-center gap-1">
-              <Ionicons name="cellular" size={12} color={COLORS.white} />
-              <Ionicons name="battery-full" size={14} color={COLORS.white} />
+        <Text className="text-slate-900 text-4xl font-bold text-center mb-2">
+          1h 31m
+        </Text>
+        <Text className="text-slate-400 text-xs font-bold uppercase mb-8">Saved this week</Text>
+
+        <View className="flex-row justify-between w-full mb-8">
+          <View className="items-center flex-1">
+            <View className="flex-row items-center">
+              <Text className="text-slate-900 text-xl font-bold">5d</Text>
+              <Ionicons name="trending-up" size={16} color="#059669" style={{ marginLeft: 4 }} />
             </View>
+            <Text className="text-slate-400 text-[10px] font-bold uppercase">Streak</Text>
           </View>
+          <View className="w-px h-10 bg-slate-100" />
+          <View className="items-center flex-1">
+            <Text className="text-slate-900 text-xl font-bold">86%</Text>
+            <Text className="text-slate-400 text-[10px] font-bold uppercase">Focus</Text>
+          </View>
+        </View>
 
-          {/* Header */}
-          <View className="flex-row justify-between items-center px-4 pt-2 pb-4">
-            <Text className="text-white text-lg font-bold">Opal</Text>
-            <Text className="text-zinc-500 text-xs">Today</Text>
-          </View>
-
-          {/* Gem icon */}
-          <View className="items-center mb-3">
-            <View className="w-16 h-16 items-center justify-center">
-              <Ionicons name="diamond" size={48} color={COLORS.emerald} />
-            </View>
-          </View>
-
-          {/* Main stat */}
-          <View className="items-center mb-4">
-            <Text className="text-white text-4xl font-bold">1h 31m</Text>
-            <Text className="text-zinc-500 text-xs">SAVED THIS WEEK</Text>
-          </View>
-
-          {/* Stats row */}
-          <View className="flex-row justify-center gap-6 mb-4">
-            <View className="items-center">
-              <View className="flex-row items-center">
-                <Text className="text-white text-lg font-bold">5d</Text>
-                <Ionicons name="trending-up" size={14} color={COLORS.success} style={{ marginLeft: 4 }} />
-              </View>
-              <Text className="text-zinc-500 text-[10px]">STREAK</Text>
-            </View>
-            <View className="items-center">
-              <Text className="text-white text-lg font-bold">86%</Text>
-              <Text className="text-zinc-500 text-[10px]">FOCUS</Text>
-            </View>
-          </View>
-
-          {/* Bar chart */}
-          <View className="px-4 mb-4">
-            <View className="flex-row justify-between items-end h-16">
-              {[40, 65, 45, 80, 55, 70, 85].map((height, i) => (
-                <View
-                  key={i}
-                  className="w-4 rounded-t-sm"
-                  style={{
-                    height: `${height}%`,
-                    backgroundColor: i === 6 ? COLORS.success : COLORS.zinc700,
-                  }}
-                />
-              ))}
-            </View>
-          </View>
-
-          {/* Home indicator */}
-          <View className="items-center pb-2 pt-4">
-            <View className="w-28 h-1 bg-white/30 rounded-full" />
-          </View>
+        {/* Mini Chart */}
+        <View className="flex-row justify-between items-end h-16 w-full px-4">
+          {[40, 65, 45, 80, 55, 70, 85].map((h, i) => (
+            <View
+              key={i}
+              className="w-3 rounded-full"
+              style={{
+                height: `${h}%`,
+                backgroundColor: i === 6 ? '#059669' : '#f1f5f9',
+              }}
+            />
+          ))}
         </View>
       </View>
     </View>
@@ -189,44 +109,45 @@ const SelectAppsSlide = ({
   onToggleApp: (appId: string) => void;
 }) => {
   return (
-    <SafeAreaView className="flex-1 px-6 pt-8">
-      {/* Header */}
-      <View className="mb-8">
-        <Text className="text-zinc-200 text-sm mb-2">Now, let's start to focus.</Text>
-        <Text className="text-white text-[20px] font-bold mb-3">
-          Select up to 3{"\n"}distracting apps
+    <View className="flex-1 px-10 pt-20">
+      <View className="mb-10">
+        <Text className="text-emerald-600 text-sm font-bold mb-3">Now, let's start to focus.</Text>
+        <Text className="text-slate-900 text-3xl font-bold mb-4 leading-tight">
+          Select your top distractions.
         </Text>
-        <Text className="text-zinc-200 text-sm">
-          You can always change this later or create a{"\n"}new group of apps to block.
+        <Text className="text-slate-500 text-lg leading-7 font-medium">
+          Choose up to 3 apps that take most of your time. You can change this later.
         </Text>
       </View>
 
-      {/* Apps grid */}
       <View className="flex-row flex-wrap justify-center gap-4">
         {ONBOARDING_APPS.map((app) => {
           const isSelected = selectedApps.includes(app.id);
           return (
             <Pressable
               key={app.id}
+              onPress={() => onToggleApp(app.id)}
               className="items-center"
             >
               <View className="relative">
                 <View
                   style={{
-                    backgroundColor: app.color,
-                    borderWidth: app.border ? 1 : 0,
-                    borderColor: COLORS.zinc700,
+                    backgroundColor: isSelected ? app.color : '#f8fafc',
+                    borderWidth: 2,
+                    borderColor: isSelected ? app.color : '#f1f5f9',
                   }}
-                  className={`w-16 h-16 rounded-2xl items-center justify-center ${
-                    isSelected ? "opacity-100" : "opacity-70"
-                  }`}
+                  className="w-20 h-20 rounded-[24px] items-center justify-center"
                 >
-                  <AppIcon icon={app.icon} iconFamily={app.iconFamily} size={28} color={COLORS.white} />
+                  <AppIcon
+                    icon={app.icon}
+                    iconFamily={app.iconFamily}
+                    size={32}
+                    color={isSelected ? 'white' : '#94a3b8'}
+                  />
                 </View>
-                {/* Selection indicator */}
                 {isSelected && (
-                  <View className="absolute -top-1 -right-1 w-6 h-6 bg-blue-500 rounded-full items-center justify-center border-2 border-black">
-                    <Ionicons name="checkmark" size={14} color={COLORS.white} />
+                  <View className="absolute -top-1 -right-1 w-7 h-7 bg-emerald-600 rounded-full items-center justify-center border-4 border-slate-50">
+                    <Ionicons name="checkmark" size={14} color="white" />
                   </View>
                 )}
               </View>
@@ -234,7 +155,7 @@ const SelectAppsSlide = ({
           );
         })}
       </View>
-    </SafeAreaView>
+    </View>
   );
 };
 
@@ -253,24 +174,24 @@ export default function SessionsScreen() {
 
   const slides = [
     {
-      type: "phone",
-      component: <SessionsPhoneMockup />,
-      subtitle: "How does Opal work?",
+      type: "preview",
+      component: <SessionsBentoPreview />,
+      subtitle: "How does Zenith work?",
       title: "Take action with sessions",
-      description: "Opal will shield apps on your phone while you're focusing, and you can always snooze to unshield them temporarily.",
+      description: "Zenith will shield apps on your phone while you're focusing, helping you stay in the flow.",
       button: "Next",
     },
     {
-      type: "phone",
-      component: <StatsPhoneMockup />,
-      subtitle: "How does Opal work?",
+      type: "preview",
+      component: <StatsBentoPreview />,
+      subtitle: "How does Zenith work?",
       title: "Real-time evolution",
-      description: "Open Opal to check your focus level at any point throughout the day. You will also get a report on your progress every week.",
+      description: "Track your focus level throughout the day and get weekly reports on your progress.",
       button: "Continue",
     },
     {
       type: "apps",
-      button: "Select Apps",
+      button: "Start My Flow",
     },
   ];
 
@@ -288,12 +209,10 @@ export default function SessionsScreen() {
   };
 
   const isLastSlide = currentSlide === slides.length - 1;
-  const hasSelectedApps = selectedApps.length > 0;
+  const canContinue = !isLastSlide || selectedApps.length > 0;
 
   return (
-    <View className="flex-1 bg-black">
-      <StatusBar barStyle="light-content" />
-
+    <View className="flex-1 bg-slate-50">
       {/* Slides */}
       <ScrollView
         ref={scrollRef}
@@ -306,18 +225,18 @@ export default function SessionsScreen() {
       >
         {slides.map((slide, index) => (
           <View key={index} style={{ width }} className="flex-1">
-            {slide.type === "phone" ? (
-              <View className="flex-1 items-center pt-16">
-                {/* Phone mockup */}
+            {slide.type === "preview" ? (
+              <View className="flex-1 pt-16">
+                {/* Preview Content */}
                 {slide.component}
 
-                {/* Content below phone */}
-                <View className="items-center mt-6 px-8">
-                  <Text className="text-zinc-500 text-sm mb-2">{slide.subtitle}</Text>
-                  <Text className="text-white text-2xl font-bold text-center mb-3">
+                {/* Content below preview */}
+                <View className="items-center mt-12 px-10">
+                  <Text className="text-emerald-600 text-sm font-bold mb-3 uppercase">{slide.subtitle}</Text>
+                  <Text className="text-slate-900 text-3xl font-bold text-center mb-4 leading-tight">
                     {slide.title}
                   </Text>
-                  <Text className="text-zinc-500 text-sm text-center leading-5 px-4">
+                  <Text className="text-slate-500 text-lg text-center leading-7 font-medium px-4">
                     {slide.description}
                   </Text>
                 </View>
@@ -332,31 +251,27 @@ export default function SessionsScreen() {
         ))}
       </ScrollView>
 
-      {/* Page indicators */}
-      <View className="flex-row justify-center gap-2 mb-6">
+      {/* Page Indicators */}
+      <View className="flex-row justify-center gap-3 mb-8 mt-3">
         {slides.map((_, index) => (
           <View
             key={index}
-            className={`w-2 h-2 rounded-full ${
-              currentSlide === index ? "bg-white" : "bg-white/20"
-            }`}
+            className={`h-2 rounded-full ${currentSlide === index ? "w-8 bg-emerald-600" : "w-2 bg-slate-200"
+              }`}
           />
         ))}
       </View>
 
-      {/* Button */}
-      <View className="px-6 pb-10">
+      {/* Button Action Zone */}
+      <View className="px-8 pb-8">
         <Pressable
           onPress={handleNext}
-          className={`w-full py-4 rounded-full ${
-            isLastSlide && hasSelectedApps
-              ? "bg-white active:bg-zinc-200"
-              : "border border-white/20 bg-white/[0.03] active:bg-white/10"
-          }`}
+          disabled={!canContinue}
+          className={`w-full py-6 rounded-[32px] items-center justify-center ${canContinue ? "bg-emerald-600" : "bg-slate-200"
+            }`}
         >
-          <Text className={`text-center text-lg font-semibold ${
-            isLastSlide && hasSelectedApps ? "text-black" : "text-white"
-          }`}>
+          <Text className={`text-xl font-bold ${canContinue ? "text-white" : "text-slate-400"
+            }`}>
             {slides[currentSlide].button}
           </Text>
         </Pressable>

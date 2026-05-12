@@ -25,9 +25,9 @@ interface DistractionSliderProps {
   levels: typeof DISTRACTION_LEVELS;
 }
 
-const THUMB_SIZE = 32;
-const TRACK_HEIGHT = 8;
-const DOT_SIZE = 12;
+const THUMB_SIZE = 36;
+const TRACK_HEIGHT = 12;
+const DOT_SIZE = 16;
 
 const DistractionSlider = ({
   value,
@@ -90,9 +90,9 @@ const DistractionSlider = ({
   };
 
   return (
-    <View className="my-8">
+    <View className="my-10 px-2">
       <View
-        className="h-12 justify-center"
+        className="h-14 justify-center"
         onLayout={handleLayout}
         onStartShouldSetResponder={() => true}
         onMoveShouldSetResponder={() => true}
@@ -107,6 +107,8 @@ const DistractionSlider = ({
             height: TRACK_HEIGHT,
             borderRadius: TRACK_HEIGHT / 2,
             overflow: "hidden",
+            borderWidth: 1,
+            borderColor: "#e2e8f0", // Slate 200
           }}
         >
           <LinearGradient
@@ -120,36 +122,29 @@ const DistractionSlider = ({
           />
         </View>
 
-        {/* Step Dots */}
         {levels.map((level, index) => {
           const isActive = index <= value;
           return (
             <View
               key={level.value}
-              className="absolute rounded-full"
+              className="absolute rounded-full border-2 border-white"
               style={{
                 width: DOT_SIZE,
                 height: DOT_SIZE,
                 left: getDotLeft(index),
-                backgroundColor: isActive ? level.color : "#52525b",
+                backgroundColor: isActive ? level.color : "#cbd5e1", // Slate 300
               }}
             />
           );
         })}
 
-        {/* Thumb */}
         <View
-          className="absolute rounded-full"
+          className="absolute rounded-full border-[4px] border-white"
           style={{
             width: THUMB_SIZE,
             height: THUMB_SIZE,
             left: getThumbLeft(),
             backgroundColor: currentColor,
-            shadowColor: currentColor,
-            shadowOffset: { width: 0, height: 0 },
-            shadowOpacity: 0.7,
-            shadowRadius: 10,
-            elevation: 8,
           }}
           pointerEvents="none"
         />
@@ -196,30 +191,34 @@ const DistractionModal = ({
       animationType="fade"
       onRequestClose={onClose}
     >
-      {/* Backdrop */}
       <Pressable
         onPress={onClose}
-        className="flex-1 justify-center items-center bg-black/70"
+        className="flex-1 justify-center items-center bg-slate-900/40 pb-10 px-5"
       >
-        {/* Modal Content Card */}
-        <Pressable
-          className="bg-zinc-800 rounded-3xl p-5 h-[60%] w-[90%]"
-          // style={{ height: 420 }}
-        >
-          {/* App Header */}
-          <View className="flex-row items-center mb-4">
-            <View className="w-10 h-10 bg-zinc-700 rounded-xl items-center justify-center mr-4">
-              <Ionicons name="apps" size={24} color="white" />
+        <Pressable className="bg-white border-2 border-slate-100 rounded-[40px] p-6 w-full">
+
+          <View className="flex-row items-center justify-between mb-8">
+            <View className="flex-row items-center gap-3">
+              <View className="w-14 h-14 bg-slate-50 border border-slate-200 rounded-[20px] items-center justify-center">
+                <Ionicons name="apps" size={28} color="#0f172a" />
+              </View>
+              <Text className="text-slate-900 text-2xl font-extrabold">
+                {app.name}
+              </Text>
             </View>
-            <Text className="text-white text-xl font-bold">{app.name}</Text>
+            <Pressable
+              onPress={onClose}
+              className="w-10 h-10 bg-slate-50 border border-slate-200 rounded-[16px] items-center justify-center"
+            >
+              <Ionicons name="close" size={20} color="#64748b" />
+            </Pressable>
           </View>
 
-          {/* Title and Dynamic Description */}
-          <View className="h-40">
-            <Text className="text-white text-xl mb-2">
+          <View className="bg-slate-50 border border-slate-100 rounded-[28px] p-6 mb-6 h-48 justify-center">
+            <Text className="text-slate-900 text-xl font-bold mb-3 text-center">
               How distracting is this app?
             </Text>
-            <Text className="text-zinc-400 text-base leading-6">
+            <Text className="text-slate-500 text-base leading-6 text-center font-medium">
               {activeLevel.description.split(activeLevel.label)[0]}
               <Text style={{ color: activeLevel.color, fontWeight: "bold" }}>
                 {activeLevel.label}
@@ -228,40 +227,39 @@ const DistractionModal = ({
             </Text>
 
             {activeLevel.id === "neutral" && (
-              <View className="bg-zinc-700/50 rounded-lg p-3 flex-row items-center mt-4">
-                <Feather name="info" size={16} color="#67e8f9" />
-                <Text className="text-cyan-300 ml-2">
+              <View className="bg-emerald-50 border border-emerald-100 rounded-2xl p-3 flex-row items-center justify-center mt-4">
+                <Feather name="info" size={16} color="#059669" />
+                <Text className="text-emerald-700 font-bold ml-2 text-xs">
                   Not counted towards your screen time
                 </Text>
               </View>
             )}
           </View>
 
-          <View className="absolute bottom-0 left-0 right-0 p-5">
-            {/* Custom Slider */}
-            <DistractionSlider
-              value={currentValue}
-              onValueChange={setCurrentValue}
-              levels={DISTRACTION_LEVELS}
-            />
+          <DistractionSlider
+            value={currentValue}
+            onValueChange={setCurrentValue}
+            levels={DISTRACTION_LEVELS}
+          />
 
-            {/* Action Buttons */}
-            <View className="gap-3 ">
-              <Pressable
-                onPress={handleSave}
-                className="bg-white rounded-full py-4 items-center justify-center"
-              >
-                <Text className="text-black text-lg font-bold">Save</Text>
-              </Pressable>
-              <Pressable
-                onPress={onClose}
-                className="bg-zinc-700/50 rounded-full py-4 items-center justify-center"
-              >
-                <Text className="text-white text-lg font-semibold">
-                  Learn More
-                </Text>
-              </Pressable>
-            </View>
+          <View className="flex-row gap-4 mt-4">
+            <Pressable
+              onPress={onClose}
+              className="flex-1 bg-slate-50 border-2 border-slate-200 rounded-[24px] py-4 items-center justify-center"
+            >
+              <Text className="text-slate-600 text-base font-bold">
+                Learn More
+              </Text>
+            </Pressable>
+
+            <Pressable
+              onPress={handleSave}
+              className="flex-1 bg-emerald-600 border border-emerald-500 rounded-[24px] py-4 items-center justify-center"
+            >
+              <Text className="text-white text-base font-bold">
+                Save
+              </Text>
+            </Pressable>
           </View>
         </Pressable>
       </Pressable>

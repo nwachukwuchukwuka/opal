@@ -1,67 +1,102 @@
 import { Ionicons } from "@expo/vector-icons";
 import React, { useState } from "react";
 import { Pressable, Text, View } from "react-native";
-import { TabSwitcher } from "./TabSwitcher";
 
 export const ScreenTimeCard = () => {
   const [activeTab, setActiveTab] = useState("Week");
-  const bars = [20, 30, 25, 40, 50, 80, 60]; 
+
+  const categories = [
+    { label: "Social", value: 65, color: "#059669", time: "2h 15m" },
+    { label: "Productivity", value: 45, color: "#10b981", time: "1h 30m" },
+    { label: "Entertainment", value: 30, color: "#34d399", time: "59m" },
+  ];
 
   return (
-    <View className="bg-zinc-900 rounded-3xl p-5 mb-6">
-      <TabSwitcher 
-        tabs={["Week", "Month", "Lifetime"]} 
-        activeTab={activeTab} 
-        onTabChange={setActiveTab} 
-      />
+    <View className="bg-white border border-slate-200 rounded-[44px] p-7 mb-2">
+      {/* Top Navigation & Menu Selector */}
+      <View className="flex-row justify-between items-center mb-10">
+        <View className="flex-row items-center bg-slate-100/50 p-1.5 rounded-full border border-slate-200/50">
+          <Pressable className="w-9 h-9 bg-white rounded-full items-center justify-center border border-slate-200/50">
+            <Ionicons name="chevron-back" size={16} color="#059669" />
+          </Pressable>
+          <Text className="text-slate-900 font-semibold text-sm px-4">Last 7 Days</Text>
+          <Pressable className="w-9 h-9 bg-white rounded-full items-center justify-center border border-slate-200/50">
+            <Ionicons name="chevron-forward" size={16} color="#059669" />
+          </Pressable>
+        </View>
 
-      <View className="flex-row justify-between items-end mb-1">
-        <View>
-            {activeTab === "Week" ? (
-                 <Text className="text-white text-3xl font-bold">4 hrs, 4 min</Text>
-            ) : (
-                <Text className="text-zinc-500 text-3xl font-bold">--</Text>
-            )}
-          <Text className="text-zinc-500 text-sm">Avg Screen Time</Text>
-        </View>
-        <View className="items-end">
-            <Text className="text-zinc-500 text-xs uppercase tracking-wider mb-1">Awake Time</Text>
-            {activeTab === "Week" ? (
-                 <Text className="text-white text-xl font-bold">26%</Text>
-            ) : (
-                <View className="flex-row items-center">
-                    <Text className="text-zinc-500 text-xs mr-2">APPROX</Text>
-                    <Text className="text-white text-base font-bold">18 Years</Text>
-                </View>
-            )}
-        </View>
+        <Pressable className="flex-row items-center bg-emerald-50 px-5 py-3 rounded-full border border-emerald-100">
+          <Text className="text-emerald-700 font-semibold text-sm mr-2">{activeTab}</Text>
+          <Ionicons name="chevron-down" size={14} color="#059669" />
+        </Pressable>
       </View>
 
-      <View className="h-24 flex-row items-end gap-1 mt-6 mb-2">
-        {bars.map((h, i) => (
-          <View key={i} className="flex-1 bg-zinc-800 rounded-sm overflow-hidden h-full justify-end">
-             <View style={{ height: `${h}%` }} className={`w-full ${i > 3 ? 'bg-teal-700/50' : ''}`} />
-             {i > 3 && <View style={{ height: 2 }} className="w-full bg-teal-400" />}
+      {/* Chart Headline Metric */}
+      <View className="mb-10 px-2">
+        <Text className="text-slate-900 text-5xl font-bold">4h 4m</Text>
+        <Text className="text-slate-400 text-sm mt-1 font-medium">Avg Daily Use</Text>
+      </View>
+
+      {/* Weekly Activity Bar Chart - Premium Bento Style */}
+      <View className="mb-12">
+        <View className="flex-row items-end justify-between h-48 px-2 mb-6">
+          {[40, 70, 55, 90, 65, 80, 45].map((height, i) => (
+            <View key={i} className="items-center">
+              <View 
+                className="w-8 bg-slate-50 rounded-2xl border border-slate-200 overflow-hidden justify-end"
+                style={{ height: 160 }}
+              >
+                <View 
+                  className={`w-full rounded-t-xl ${i === 3 ? 'bg-emerald-600' : 'bg-emerald-100'}`}
+                  style={{ height: `${height}%` }}
+                />
+              </View>
+              <Text className={`text-[10px] mt-3 font-bold ${i === 3 ? 'text-emerald-600' : 'text-slate-400'}`}>
+                {['M', 'T', 'W', 'T', 'F', 'S', 'S'][i]}
+              </Text>
+            </View>
+          ))}
+        </View>
+
+        <View className="flex-row justify-center items-center gap-6">
+          <View className="flex-row items-center">
+            <View className="w-2.5 h-2.5 rounded-full bg-emerald-600 mr-2" />
+            <Text className="text-slate-900 text-xs font-bold">Today</Text>
           </View>
-        ))}
-        <View className="absolute right-0 top-0 bottom-0 justify-between">
-            <Text className="text-zinc-700 text-[8px]">12h</Text>
-            <Text className="text-zinc-700 text-[8px]">6h</Text>
-            <Text className="text-zinc-700 text-[8px]">0h</Text>
+          <View className="flex-row items-center">
+            <View className="w-2.5 h-2.5 rounded-full bg-emerald-100 mr-2" />
+            <Text className="text-slate-400 text-xs font-bold">Previous</Text>
+          </View>
         </View>
       </View>
 
-      <View className="flex-row justify-between px-1 mb-4">
-        {['Thu', 'Fri', 'Sat', 'Sun', 'Mon', 'Tue', 'Wed'].map((d, i) => (
-            <Text key={i} className="text-zinc-600 text-[10px]">{d}</Text>
-        ))}
-      </View>
+      {/* Stats Breakdown Section */}
+      <View className="gap-8 mb-4">
+        <View className="flex-row justify-between items-end px-2">
+          <View>
+            <Text className="text-slate-900 text-xl font-semibold">Awake Time</Text>
+            <Text className="text-slate-400 text-sm">Percentage of your day active</Text>
+          </View>
+          <Text className="text-emerald-600 text-3xl font-semibold">26%</Text>
+        </View>
 
-      <Pressable className="flex-row justify-between items-center bg-zinc-800/50 py-3 px-4 rounded-xl">
-        <Ionicons name="chevron-back" size={16} color="#71717a" />
-        <Text className="text-zinc-400 text-sm font-medium">Last 7 Days</Text>
-        <Ionicons name="chevron-forward" size={16} color="#71717a" />
-      </Pressable>
+        <View className="bg-slate-50/50 p-6 rounded-[32px] border border-slate-200">
+          {categories.map((cat, i) => (
+            <View key={i} className={i !== 0 ? "mt-6" : ""}>
+              <View className="flex-row justify-between mb-3">
+                <Text className="text-slate-400 text-xs font-semibold">{cat.label}</Text>
+                <Text className="text-slate-900 text-xs font-bold">{cat.time}</Text>
+              </View>
+              <View className="h-2.5 w-full bg-slate-200 rounded-full overflow-hidden">
+                <View
+                  style={{ width: `${cat.value}%`, backgroundColor: cat.color }}
+                  className="h-full rounded-full"
+                />
+              </View>
+            </View>
+          ))}
+        </View>
+      </View>
     </View>
   );
 };

@@ -29,7 +29,7 @@ interface Message {
 const INITIAL_MESSAGES: Message[] = [
   {
     id: "1",
-    text: "👋 Hi! I am Opal AI. Ask me anything about Opal.",
+    text: "Hi there! I'm the Opal assistant. How can I help you focus today?",
     sender: "bot",
     timestamp: new Date(),
   },
@@ -37,7 +37,7 @@ const INITIAL_MESSAGES: Message[] = [
 
 const SUGGESTION_CHIPS = [
   "Blocking issue",
-  "My subscription info",
+  "Subscription info",
   "Bug report",
   "Feature request",
 ];
@@ -79,25 +79,27 @@ export const SupportChatModal = ({
 
   const getBotResponse = (query: string) => {
     if (query.includes("Blocking issue")) {
-      return 'Thanks for reaching out about the blocking issue! Here\'s how you can troubleshoot it:\n\n1. Reload Blocks: Open the Opal app, tap on the "Blocks" tab, hit the "Reload Blocks" icon.\n\n2. Close and Reopen Opal: Force close the Opal app and open it again.\n\n3. Restart Your Device.';
+      return 'I can help with that. Usually, a quick "Reload Blocks" in the focus tab fixes it. Would you like me to walk you through more steps?';
     }
-    if (query.includes("cancel a session")) {
-      return 'To cancel a Session in Opal, follow these steps:\n\n1. Open the Opal app.\n2. Tap on the "Home" tab.\n3. Tap on your ongoing Session.\n4. At the bottom right, tap "..." or "Leave Early".';
+    if (query.includes("subscription")) {
+      return 'You can manage your subscription directly in the subscription hero card at the top of settings.';
     }
-    return "I'm not sure about that specific question, but our human support team can help if you email support@opal.so!";
+    return "I've noted that. Our human support team will get back to you via email if you need further assistance!";
   };
 
   const renderMessage = ({ item }: { item: Message }) => {
     const isUser = item.sender === "user";
     return (
       <View
-        className={`max-w-[80%] rounded-2xl p-4 mb-3 ${
+        className={`max-w-[85%] rounded-[28px] p-5 mb-4 ${
           isUser
-            ? "bg-[#007AFF] self-end rounded-br-none"
-            : "bg-zinc-800 self-start rounded-bl-none"
+            ? "bg-emerald-600 self-end rounded-br-lg"
+            : "bg-white self-start rounded-bl-lg border border-slate-100"
         }`}
       >
-        <Text className="text-white text-base leading-5">{item.text}</Text>
+        <Text className={`text-base leading-6 font-medium ${isUser ? "text-white" : "text-slate-700"}`}>
+          {item.text}
+        </Text>
       </View>
     );
   };
@@ -110,78 +112,88 @@ export const SupportChatModal = ({
       onRequestClose={onClose}
     >
       <SafeAreaProvider>
-        <SafeAreaView className="flex-1 bg-black">
-          {/* Header */}
-          <View className="flex-row items-center justify-between px-4 py-3 border-b border-zinc-900">
-            <Pressable onPress={onClose} className="p-2">
-              <Ionicons name="close" size={28} color="white" />
+        <SafeAreaView className="flex-1 bg-slate-50">
+          {/* Symmetrical Premium Header */}
+          <View className="flex-row items-center justify-between px-6 py-4 bg-white border-b border-slate-50">
+            <Pressable 
+              onPress={onClose}
+              className="w-11 h-11 bg-slate-50 rounded-full items-center justify-center border border-slate-100"
+            >
+              <Ionicons name="close" size={24} color="#059669" />
             </Pressable>
-            <Text className="text-white font-bold text-lg">Support</Text>
-            <Pressable className="p-2">
-              <Ionicons name="mail-outline" size={24} color="white" />
+            <View className="items-center">
+              <Text className="text-slate-900 font-bold text-lg">Support AI</Text>
+              <View className="flex-row items-center">
+                 <View className="w-2 h-2 bg-emerald-500 rounded-full mr-2" />
+                 <Text className="text-slate-400 text-[10px] font-bold uppercase tracking-widest">Always Active</Text>
+              </View>
+            </View>
+            <Pressable className="w-11 h-11 bg-slate-50 rounded-full items-center justify-center border border-slate-100">
+              <Ionicons name="mail-outline" size={22} color="#059669" />
             </Pressable>
           </View>
 
-          {/* Chat Area */}
+          {/* Dynamic Chat Canvas */}
           <FlatList
             ref={flatListRef}
             data={messages}
             renderItem={renderMessage}
             keyExtractor={(item) => item.id}
-            contentContainerStyle={{ padding: 16, paddingBottom: 20 }}
+            contentContainerStyle={{ padding: 24, paddingBottom: 40 }}
             onContentSizeChange={() => flatListRef.current?.scrollToEnd()}
             ListFooterComponent={
               isTyping ? (
-                <View className="bg-zinc-800 self-start rounded-2xl rounded-bl-none p-4 mb-3">
-                  <ActivityIndicator color="white" size="small" />
+                <View className="bg-white self-start rounded-[24px] rounded-bl-lg p-5 mb-4 border border-slate-100">
+                  <ActivityIndicator color="#059669" size="small" />
                 </View>
               ) : null
             }
           />
 
-          {/* Input Area */}
+          {/* Interactive Input Hub */}
           <KeyboardAvoidingView
             behavior={Platform.OS === "ios" ? "padding" : "height"}
             keyboardVerticalOffset={Platform.OS === "ios" ? 10 : 0}
           >
-            <View className="px-4 pb-2">
-              {/* Suggestion Chips */}
+            <View className="px-6 pb-6 pt-4 bg-white rounded-t-[44px] border-t border-slate-100">
+              {/* Suggestion Bento Row */}
               <ScrollView
                 horizontal
                 showsHorizontalScrollIndicator={false}
-                className="mb-3"
+                className="mb-6"
+                contentContainerStyle={{ gap: 8 }}
               >
                 {SUGGESTION_CHIPS.map((chip, index) => (
                   <Pressable
                     key={index}
                     onPress={() => sendMessage(chip)}
-                    className="bg-zinc-800 px-4 py-2 rounded-full mr-2 border border-zinc-700"
+                    className="bg-emerald-50 px-5 py-3 rounded-2xl border border-emerald-100"
                   >
-                    <Text className="text-white font-medium">{chip}</Text>
+                    <Text className="text-emerald-700 font-bold text-sm">{chip}</Text>
                   </Pressable>
                 ))}
               </ScrollView>
 
-              {/* Text Input Row */}
-              <View className="flex-row items-center gap-3 bg-black pb-2">
-                <View className="flex-1 bg-zinc-900 rounded-full px-4 py-3 border border-zinc-800 flex-row items-center">
+              {/* Composition Field */}
+              <View className="flex-row items-center gap-4">
+                <View className="flex-1 bg-slate-50 rounded-[32px] px-6 py-4 border border-slate-100 flex-row items-center">
                   <TextInput
                     value={inputText}
                     onChangeText={setInputText}
-                    placeholder="Type your message here"
-                    placeholderTextColor="#71717a"
-                    className="flex-1 text-white text-base max-h-24"
+                    placeholder="Describe your issue..."
+                    placeholderTextColor="#94a3b8"
+                    className="flex-1 text-slate-900 text-base max-h-32"
                     multiline
                   />
                 </View>
                 <Pressable
                   onPress={() => sendMessage(inputText)}
                   disabled={!inputText.trim()}
-                  className={`w-12 h-12 rounded-full items-center justify-center ${
-                    inputText.trim() ? "bg-[#007AFF]" : "bg-zinc-800"
+                  className={`w-14 h-14 rounded-full items-center justify-center ${
+                    inputText.trim() ? "bg-emerald-600" : "bg-slate-200"
                   }`}
                 >
-                  <Ionicons name="send" size={20} color="white" />
+                  <Ionicons name="arrow-up" size={24} color="white" />
                 </Pressable>
               </View>
             </View>

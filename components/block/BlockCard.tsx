@@ -12,39 +12,42 @@ const renderStatus = (item: BlockItem) => {
   switch (item.status) {
     case "active":
       return (
-        <View>
-          <View className="flex-row items-center gap-2 mt-2">
-            <View className="w-2 h-2 rounded-full bg-teal-400" />
-            <Text className="text-teal-400 font-semibold text-sm">
-              Blocking
+        <View className="flex-row items-center justify-between w-full mb-2">
+          <View className="flex-row items-center gap-2 bg-emerald-600 px-3 py-1.5 rounded-full">
+            <View className="w-1.5 h-1.5 rounded-full bg-white" />
+            <Text className="text-white font-bold text-xs">
+              Active Session
             </Text>
-            <Text className="text-zinc-400">•</Text>
-            <View className="flex-row items-center">
-              <View className="w-5 h-5 rounded bg-orange-400 -ml-1" />
-              <View className="w-5 h-5 rounded bg-blue-500 -ml-2" />
-              <Text className="text-zinc-400 text-xs ml-1.5">
-                +{item.blockedApps?.length}
-              </Text>
-            </View>
+          </View>
+
+          <View className="flex-row items-center bg-emerald-50 px-2.5 py-1.5 rounded-lg border border-emerald-100">
+            <Ionicons name="shield-checkmark" size={14} color="#059669" />
+            <Text className="text-emerald-700 text-xs font-semibold ml-1.5">
+              {item.blockedApps?.length} apps protected
+            </Text>
           </View>
         </View>
       );
     case "upcoming":
       return (
-        <View className="flex-row items-center gap-2 mt-2 bg-zinc-700 self-start px-2 py-1 rounded-md">
-          <Ionicons name="time-outline" size={14} color="#a1a1aa" />
-          <Text className="text-zinc-400 text-xs font-semibold">
-            {item.countdown || "Scheduled"}
-          </Text>
+        <View className="flex-row items-center justify-between w-full mb-2">
+          <View className="flex-row items-center gap-1.5 bg-slate-100 px-3 py-1.5 rounded-full">
+            <Ionicons name="alarm-outline" size={14} color="#64748b" />
+            <Text className="text-slate-600 text-xs font-semibold">
+              {item.countdown || "Scheduled"}
+            </Text>
+          </View>
         </View>
       );
     case "disabled":
       return (
-        <View className="flex-row items-center gap-2 mt-2 bg-zinc-700 self-start px-2 py-1 rounded-md">
-          <Ionicons name="pause" size={12} color="#a1a1aa" />
-          <Text className="text-zinc-400 text-xs font-semibold">
-            Disabled until {item.disabledUntil}
-          </Text>
+        <View className="flex-row items-center justify-between w-full mb-2">
+          <View className="flex-row items-center gap-1.5 bg-slate-100 px-3 py-1.5 rounded-full border border-slate-200">
+            <Ionicons name="pause-circle-outline" size={14} color="#475569" />
+            <Text className="text-slate-700 text-xs font-semibold">
+              Paused until {item.disabledUntil}
+            </Text>
+          </View>
         </View>
       );
     default:
@@ -55,26 +58,48 @@ const renderStatus = (item: BlockItem) => {
 export const BlockCard = ({ item, onPress }: BlockCardProps) => (
   <Pressable
     onPress={() => onPress(item)}
-    className="bg-zinc-900 rounded-2xl overflow-hidden"
+    className="bg-white rounded-[32px] p-6 border border-slate-200 relative overflow-hidden"
   >
-    <View className="p-4 flex-row justify-between items-center">
-      <View className="flex-row gap-4 items-center flex-1">
-        <Text className="text-3xl">{item.icon}</Text>
-        <View className="flex-1">
-          <Text className="text-white font-semibold text-lg">{item.name}</Text>
-          <Text className="text-zinc-400 text-xs">{item.schedule}</Text>
-          {renderStatus(item)}
+    <View className="absolute -bottom-16 -right-12 w-48 h-48 bg-slate-50/50 rounded-full z-0 pointer-events-none" />
+
+    <View className="z-10 w-full border-b border-slate-50 pb-3 mb-4">
+      {renderStatus(item)}
+    </View>
+
+    <View className="flex-row justify-between items-end z-10">
+      <View className="flex-1 pr-4">
+        <Text className="text-slate-900 font-extrabold text-2xl mb-1.5">
+          {item.name}
+        </Text>
+        <View className="flex-row items-center gap-1.5">
+          <Ionicons name="calendar-outline" size={14} color="#10b981" />
+          <Text className="text-emerald-600 text-sm font-medium">
+            {item.schedule}
+          </Text>
         </View>
       </View>
-      <Ionicons name="chevron-forward" size={20} color="#71717a" />
+
+      <View className="w-16 h-16 bg-white rounded-[20px] items-center justify-center border border-slate-200 rotate-3">
+        <Text className="text-3xl">{item.icon}</Text>
+      </View>
     </View>
 
     {item.status === "active" && (
-      <View className="h-1 bg-zinc-800 w-full">
-        <View
-          className="h-full bg-teal-400"
-          style={{ width: `${item.progress || 0}%` }}
-        />
+      <View className="mt-6 z-10">
+        <View className="flex-row justify-between items-center mb-2 px-1">
+          <Text className="text-emerald-800 text-xs font-bold">
+            Session Progress
+          </Text>
+          <Text className="text-emerald-800 text-xs font-bold">
+            {item.progress || 0}%
+          </Text>
+        </View>
+        <View className="h-2.5 bg-emerald-50 rounded-full overflow-hidden w-full">
+          <View
+            className="h-full bg-emerald-600 rounded-full"
+            style={{ width: `${item.progress || 0}%` }}
+          />
+        </View>
       </View>
     )}
   </Pressable>

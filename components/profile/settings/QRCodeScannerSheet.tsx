@@ -15,7 +15,7 @@ const QRCodeScannerSheet = forwardRef<QRCodeScannerSheetRef>((props, ref) => {
   const [permission, requestPermission] = useCameraPermissions();
 
   const handleScan = ({ data }: { data: string }) => {
-    Alert.alert("Scanned Code", data);
+    Alert.alert("Scanned code", data);
     if (ref && "current" in ref) ref.current?.dismiss();
   };
 
@@ -25,7 +25,7 @@ const QRCodeScannerSheet = forwardRef<QRCodeScannerSheetRef>((props, ref) => {
         {...props}
         disappearsOnIndex={-1}
         appearsOnIndex={0}
-        opacity={0.8}
+        opacity={0.5}
       />
     ),
     []
@@ -38,41 +38,44 @@ const QRCodeScannerSheet = forwardRef<QRCodeScannerSheetRef>((props, ref) => {
       index={0}
       enableDynamicSizing={false}
       enablePanDownToClose={true}
-      backgroundStyle={{ backgroundColor: "#000" }}
+      // backgroundStyle={{ backgroundColor: "#000" }}
       handleIndicatorStyle={{ backgroundColor: "#3f3f46" }}
       backdropComponent={renderBackdrop}
     >
       <BottomSheetView style={{ flex: 1 }}>
         {!permission?.granted ? (
-          <View className="flex-1 items-center justify-center bg-black px-6">
-            <View className="bg-zinc-200 rounded-xl p-6 items-center w-full max-w-sm">
-              <Text className="text-black text-lg font-bold text-center mb-2">
-                "Opal" Would Like to Access the Camera
+          <View className="flex-1 items-center justify-center bg-slate-50 px-8 py-10">
+            <View className="bg-white rounded-[44px] p-10 items-center w-full border border-slate-100">
+              <View className="w-20 h-20 bg-emerald-50 rounded-[32px] items-center justify-center mb-8">
+                <Ionicons name="camera" size={40} color="#059669" />
+              </View>
+              <Text className="text-slate-900 text-2xl font-bold text-center mb-3">
+                Camera Access
               </Text>
-              <Text className="text-black text-center mb-6">
-                We use your camera to scan QR codes
+              <Text className="text-slate-400 text-center text-base leading-6 font-medium mb-10">
+                Opal uses your camera to scan QR codes for quick actions and friend invites.
               </Text>
-              <View className="flex-row justify-between w-full border-t border-zinc-300 pt-4">
+
+              <View className="w-full gap-4">
+                <Pressable
+                  onPress={requestPermission}
+                  className="w-full bg-emerald-600 py-5 rounded-full items-center"
+                >
+                  <Text className="text-white font-bold text-base">Enable Camera</Text>
+                </Pressable>
                 <Pressable
                   onPress={() => {
                     if (ref && "current" in ref) ref.current?.dismiss();
                   }}
-                  className="flex-1 items-center"
+                  className="w-full bg-slate-50 py-5 rounded-full items-center border border-slate-100"
                 >
-                  <Text className="text-blue-500 text-lg">Don't Allow</Text>
-                </Pressable>
-                <View className="w-[1px] h-full bg-zinc-300 mx-2" />
-                <Pressable
-                  onPress={requestPermission}
-                  className="flex-1 items-center"
-                >
-                  <Text className="text-blue-500 text-lg font-bold">Allow</Text>
+                  <Text className="text-slate-600 font-bold text-base">Not Now</Text>
                 </Pressable>
               </View>
             </View>
           </View>
         ) : (
-          <View className="flex-1 bg-black relative">
+          <View className="flex-1 relative my-10">
             <CameraView
               style={StyleSheet.absoluteFill}
               facing="back"
@@ -81,22 +84,35 @@ const QRCodeScannerSheet = forwardRef<QRCodeScannerSheetRef>((props, ref) => {
                 barcodeTypes: ["qr"],
               }}
             />
-            {/* Overlay UI */}
-            <View className="absolute top-10 right-5">
+            {/* Minimalist Overlay UI */}
+            <View className="absolute top-10 left-2 right-8 flex-row justify-between items-center">
               <Pressable
                 onPress={() => {
                   if (ref && "current" in ref) ref.current?.dismiss();
                 }}
-                className="w-10 h-10 bg-black/50 rounded-full items-center justify-center"
+                className="w-12 h-12 bg-black/40 rounded-full items-center justify-center backdrop-blur-md"
               >
                 <Ionicons name="close" size={24} color="white" />
               </Pressable>
+              <Text className="text-white font-bold text-lg">Scan QR Code</Text>
+              <View className="w-12" />
             </View>
+
             <View className="flex-1 items-center justify-center">
-              <View className="w-64 h-64 border-2 border-white/50 rounded-3xl" />
-              <Text className="text-white mt-4 bg-black/50 px-4 py-2 rounded-full overflow-hidden">
-                Point camera at a code
-              </Text>
+              <View className="w-72 h-72 border-2 border-emerald-500/50 rounded-[48px] items-center justify-center">
+                <View className="w-64 h-64 border border-white/20 rounded-[40px]" />
+              </View>
+              <View className="mt-12 bg-black/60 px-8 py-4 rounded-3xl backdrop-blur-md">
+                <Text className="text-white font-semibold text-center">
+                  Point your camera at a code
+                </Text>
+              </View>
+            </View>
+
+            {/* Bottom Decoration */}
+            <View className="absolute bottom-20 left-0 right-0 items-center">
+              <View className="w-12 h-1 bg-white/20 rounded-full mb-2" />
+              <Text className="text-white/40 text-[10px] font-bold uppercase tracking-widest">Opal Scanner</Text>
             </View>
           </View>
         )}

@@ -18,13 +18,29 @@ type ViewState = "home" | "advanced_features" | "delete_account";
 const FAQItem = ({ icon, text, onPress, showArrow = true }: any) => (
   <Pressable
     onPress={onPress}
-    className="flex-row items-center justify-between py-4"
+    className="flex-row items-center justify-between py-5 border-b border-slate-50"
   >
     <View className="flex-row items-center flex-1 mr-4">
-      {icon && <Text className="mr-3 text-lg">{icon}</Text>}
-      <Text className="text-zinc-300 text-base leading-5">{text}</Text>
+      {icon && (
+        <View className="w-10 h-10 bg-slate-50 rounded-xl items-center justify-center mr-4">
+          <Text className="text-xl">{icon}</Text>
+        </View>
+      )}
+      <Text className="text-slate-900 text-base font-medium leading-5">{text}</Text>
     </View>
-    {showArrow && <Ionicons name="chevron-forward" size={20} color="#52525b" />}
+    {showArrow && <Ionicons name="chevron-forward" size={18} color="#cbd5e1" />}
+  </Pressable>
+);
+
+const CategoryCard = ({ title, icon, color, onPress }: any) => (
+  <Pressable 
+    onPress={onPress}
+    className="w-[48%] bg-white rounded-[28px] p-5 mb-4 border border-slate-50"
+  >
+    <View className={`w-10 h-10 rounded-2xl items-center justify-center mb-3`} style={{ backgroundColor: `${color}10` }}>
+      <Ionicons name={icon} size={20} color={color} />
+    </View>
+    <Text className="text-slate-900 font-bold text-sm">{title}</Text>
   </Pressable>
 );
 
@@ -34,7 +50,7 @@ const FAQSheet = forwardRef<FAQSheetRef, FAQSheetProps>(({ onDeleteAccountReques
 
   const renderBackdrop = useCallback(
     (props: any) => (
-      <BottomSheetBackdrop {...props} disappearsOnIndex={-1} appearsOnIndex={0} opacity={0.8} />
+      <BottomSheetBackdrop {...props} disappearsOnIndex={-1} appearsOnIndex={0} opacity={0.5} />
     ),
     []
   );
@@ -45,71 +61,82 @@ const FAQSheet = forwardRef<FAQSheetRef, FAQSheetProps>(({ onDeleteAccountReques
   };
 
   const renderHome = () => (
-    <>
-      <View className="mb-6">
-        <Text className="text-white text-3xl font-bold mb-2">Hey there.</Text>
-        <Text className="text-white text-3xl font-bold mb-6">How can we help?</Text>
-        
-        <View className="bg-zinc-800/50 rounded-xl p-4 flex-row justify-between items-center mb-8">
-            <Text className="text-white font-medium">Support Tickets</Text>
-            <Ionicons name="chevron-forward" size={20} color="#52525b" />
-        </View>
-
-        <Text className="text-zinc-500 text-xs font-bold tracking-widest uppercase mb-2">FAQs</Text>
-        <FAQItem icon="🐞" text="Blocking doesn't seem to be working" />
-        <FAQItem icon="💻" text="How do I use Opal's Mac app?" />
-        <FAQItem icon="⛔" text="How do I block apps with iPhone Focus Mode?" />
-        <FAQItem icon="🚫" text="How do I cancel my subscription and/or get a refund?" />
-        <FAQItem icon="🙏" text="How do I contact Opal?" />
-
-        <Text className="text-zinc-500 text-xs font-bold tracking-widest uppercase mt-6 mb-2">Browse Topics</Text>
-        <FAQItem text="Getting Started" />
-        <FAQItem text="Troubleshooting" />
-        <FAQItem text="How Opal Works" />
-        <FAQItem text="Feedback & Subscriptions" />
-        <FAQItem text="Advanced Features" onPress={() => setCurrentView("advanced_features")} />
+    <View className="px-6 pt-4">
+      <View className="mb-10">
+        <Text className="text-slate-900 text-4xl font-bold mb-3 tracking-tight">Support</Text>
+        <Text className="text-slate-400 text-lg leading-6 font-medium">How can we help you today? Explore our guides or message us directly.</Text>
       </View>
 
-      <View className="mt-4 mb-10">
-        <Text className="text-white font-bold text-lg mb-1">Still need help?</Text>
-        <Text className="text-zinc-400 mb-4">Send us a message and we'll reply as soon as we can</Text>
-        <Pressable className="w-full bg-[#bbf7d0] py-4 rounded-full items-center">
-            <Text className="text-black font-bold text-lg">Contact us</Text>
+      <Pressable className="bg-emerald-50 rounded-3xl p-5 border border-emerald-100 flex-row justify-between items-center mb-10">
+        <View className="flex-row items-center">
+          <View className="w-10 h-10 bg-white rounded-2xl items-center justify-center mr-4">
+            <Ionicons name="ticket" size={20} color="#059669" />
+          </View>
+          <Text className="text-emerald-950 font-bold text-base">Support tickets</Text>
+        </View>
+        <Ionicons name="chevron-forward" size={18} color="#059669" />
+      </Pressable>
+
+      <Text className="text-slate-400 text-[10px] font-bold tracking-widest uppercase mb-4 px-1">Browse Topics</Text>
+      <View className="flex-row flex-wrap justify-between mb-8">
+        <CategoryCard title="Getting Started" icon="rocket-outline" color="#059669" />
+        <CategoryCard title="Troubleshooting" icon="bug-outline" color="#ef4444" />
+        <CategoryCard title="How Opal Works" icon="bulb-outline" color="#f59e0b" />
+        <CategoryCard title="Advanced" icon="flash-outline" color="#8b5cf6" onPress={() => setCurrentView("advanced_features")} />
+      </View>
+
+      <View className="bg-white rounded-[40px] p-8 border border-slate-50 items-center mb-10">
+        <View className="w-16 h-16 bg-slate-50 rounded-[24px] items-center justify-center mb-4">
+          <Ionicons name="chatbubbles" size={32} color="#059669" />
+        </View>
+        <Text className="text-slate-900 font-bold text-xl mb-2">Still need help?</Text>
+        <Text className="text-slate-400 text-center text-sm leading-5 mb-8">Send us a message and we'll reply as soon as we can.</Text>
+        <Pressable className="bg-slate-950 w-full py-5 rounded-full items-center">
+            <Text className="text-white font-bold text-base">Contact Us</Text>
         </Pressable>
       </View>
-    </>
+    </View>
   );
 
   const renderAdvancedFeatures = () => (
-    <>
-      <FAQItem icon="🔄" text="Reset my Screen Time Connection" />
-      <FAQItem icon="🛑" text="Change running Deep Focus Session" />
-      <FAQItem icon="🔴" text="Change running Hard Limit locks" />
-      <FAQItem icon="🗑️" text="Delete my account" onPress={() => setCurrentView("delete_account")} />
-      <FAQItem icon="🎧" text="5+ ways to use Opal with Shortcuts" />
-      <FAQItem icon="🍅" text="How to start a Pomodoro Session with Opal" />
-      <FAQItem icon="🙏" text="How to use Social Sessions" />
-    </>
+    <View className="px-6 pt-4">
+      <View className="mb-8">
+        <Text className="text-slate-900 text-3xl font-bold mb-2">Advanced Features</Text>
+        <Text className="text-slate-400 text-base font-medium">Power user guides and account management.</Text>
+      </View>
+      
+      <View className="bg-white rounded-[40px] p-6 border border-slate-50">
+        <FAQItem icon="🔄" text="Reset screen time connection" />
+        <FAQItem icon="🛑" text="Change deep focus session" />
+        <FAQItem icon="🎧" text="Use Opal with shortcuts" />
+        <FAQItem icon="🍅" text="Start a Pomodoro session" />
+        <FAQItem icon="🗑️" text="Delete my account" onPress={() => setCurrentView("delete_account")} />
+      </View>
+    </View>
   );
 
   const renderDeleteAccount = () => (
-    <View>
-        <View className="flex-row items-center justify-center mb-8 mt-4">
-            <Text className="text-3xl mr-2">🗑️</Text>
-            <Text className="text-white text-2xl font-bold">Delete my account</Text>
+    <View className="px-8 pt-6 items-center">
+        <View className="w-24 h-24 bg-red-50 rounded-[32px] items-center justify-center mb-8">
+          <Text className="text-6xl">🗑️</Text>
+        </View>
+        <Text className="text-slate-900 text-3xl font-bold text-center mb-4">Delete Account</Text>
+        
+        <View className="bg-white rounded-[32px] p-6 border border-slate-100 mb-8">
+          <Text className="text-slate-600 text-center text-base leading-6 mb-4">
+            We're sorry to see you go. Note that deleting your account is permanent and irreversible.
+          </Text>
+          <Text className="text-slate-400 text-center text-sm leading-5">
+            If there's anything we can do to change your mind, let us know <Text className="text-emerald-600 font-bold">here</Text>.
+          </Text>
         </View>
 
-        <Text className="text-zinc-300 text-base leading-6 mb-4">
-            We are sorry to see you go, if there is anything we can do to change your mind, let us know <Text className="underline">here</Text>.
-        </Text>
-
-        <Text className="text-zinc-300 text-base leading-6 mb-4">
-            Note: Deleting your account is permanent and irreversible.
-        </Text>
-
-        <Text className="text-zinc-300 text-base leading-6 mb-8">
-            If you would like to request to delete your account, click <Text className="underline text-blue-400" onPress={onDeleteAccountRequest}>here</Text>.
-        </Text>
+        <Pressable 
+          onPress={onDeleteAccountRequest}
+          className="bg-red-500 w-full py-5 rounded-full items-center"
+        >
+          <Text className="text-white font-bold text-base">Confirm Account Deletion</Text>
+        </Pressable>
     </View>
   );
 
@@ -119,33 +146,30 @@ const FAQSheet = forwardRef<FAQSheetRef, FAQSheetProps>(({ onDeleteAccountReques
       snapPoints={snapPoints}
       index={0}
       enablePanDownToClose={true}
-      backgroundStyle={{ backgroundColor: "#121214" }}
-      handleIndicatorStyle={{ backgroundColor: "#3f3f46" }}
+      backgroundStyle={{ backgroundColor: "#f8fafc" }}
+      handleIndicatorStyle={{ backgroundColor: "#cbd5e1" }}
       backdropComponent={renderBackdrop}
       enableDynamicSizing={false}
     >
-      <View className="flex-1 bg-[#121214]">
-        <View className="flex-row items-center px-4 py-2 border-b border-zinc-900 h-14">
-            {currentView !== "home" ? (
-                <Pressable onPress={handleBack} className="absolute left-4 z-10 p-2">
-                    <Ionicons name="chevron-back" size={24} color="white" />
-                </Pressable>
-            ) : (
-                <Pressable onPress={() => { if (ref && 'current' in ref) ref.current?.dismiss() }} className="absolute left-4 z-10 p-2">
-                    <Ionicons name="close" size={24} color="white" />
-                </Pressable>
-            )}
+      <View className="flex-1">
+        <View className="flex-row items-center px-6 py-4 h-16">
+            <Pressable 
+              onPress={currentView === "home" ? () => (ref as any)?.current?.dismiss() : handleBack} 
+              className="w-10 h-10 bg-white rounded-full items-center justify-center border border-slate-100"
+            >
+              <Ionicons name={currentView === "home" ? "close" : "chevron-back"} size={24} color="#059669" />
+            </Pressable>
             
-            <View className="flex-1 items-center">
-                <Text className="text-white font-bold text-base">
+            <View className="flex-1 items-center mr-10">
+                <Text className="text-slate-400 text-[10px] font-bold uppercase tracking-widest">
                     {currentView === "home" ? "Support" : 
                      currentView === "advanced_features" ? "Advanced Features" : 
-                     "Delete my account"}
+                     "Account Management"}
                 </Text>
             </View>
         </View>
 
-        <BottomSheetScrollView contentContainerStyle={{ padding: 20, paddingBottom: 40 }}>
+        <BottomSheetScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{ paddingBottom: 60 }}>
             {currentView === "home" && renderHome()}
             {currentView === "advanced_features" && renderAdvancedFeatures()}
             {currentView === "delete_account" && renderDeleteAccount()}

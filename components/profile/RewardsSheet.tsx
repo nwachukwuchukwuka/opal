@@ -80,10 +80,10 @@ const RewardsSheet = forwardRef<RewardsSheetRef>((props, ref) => {
         >
           <View className="px-5 pt-2">
             <LinearGradient
-              colors={["#4c7675", "#7dd3fc", "#4c7675"]}
+              colors={["#059669", "#10b981"]}
               start={{ x: 0, y: 0 }}
               end={{ x: 1, y: 1 }}
-              className="rounded-3xl h-48 items-center justify-center mb-6 relative overflow-hidden"
+              style={{ borderRadius: 24, height: 192, alignItems: 'center', justifyContent: 'center', marginBottom: 24, position: 'relative', overflow: 'hidden' }}
             >
               <View className="absolute border-[30px] border-white/10 w-80 h-80 rounded-full" />
               <View className="absolute border-[2px] border-white/20 w-64 h-64 rounded-full border-dashed" />
